@@ -198,7 +198,7 @@ router.post("/DeleteContact", async function(req, res, next) {
 
 router.post("/GetAllPatient", async function(req, res, next) {
   
-    request.get('https://xlcp1y-8080.preview.csb.app/patient',
+    request.get('https://team404.onrender.com/patient',
     async function (error, response, body) {
         if (!error ) {
             console.log(body);
