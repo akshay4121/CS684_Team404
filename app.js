@@ -10,6 +10,7 @@ var home = require("./routes/404");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var patientRouter = require("./routes/patient");
+var contactsRouter = require("./routes/contacts");
 
 
 var app = express();
@@ -28,7 +29,7 @@ app.use("/404", home);
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/patient", patientRouter);
-
+app.use("/contacts", contactsRouter);
 
 
 var listener = app.listen(8080, function () {

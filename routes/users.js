@@ -23,7 +23,7 @@ router.get("/", function(req, res, next) {
     var result=1
      
     request.put(
-    'https://xlcp1y-8080.preview.csb.app/contacts',
+    'https://team404.onrender.com/contacts',
     { json: { 
       "contactId":contactId,  
       "patientId": patientId ,
@@ -76,7 +76,7 @@ router.post("/UpdatePatient", async function(req, res, next) {
    var result= 0
    
     request.put(
-    'https://xlcp1y-8080.preview.csb.app/patient',
+    'https://team404.onrender.com/patient',
     { json: { 
       "id":patientId,  
      "title": title,
@@ -140,7 +140,7 @@ router.post("/DeletePatient", async function(req, res, next) {
   // var contact= "No Contacts found for Patient with ID "+patientId
    
    
-    request.delete('https://xlcp1y-8080.preview.csb.app/patient/'+patientId+'',
+    request.delete('https://team404.onrender.com/patient/'+patientId+'',
     async function (error, response, body) {
         if (!error ) {
             console.log(body);
@@ -170,7 +170,7 @@ router.post("/DeleteContact", async function(req, res, next) {
  
    
    
-    request.delete('https://xlcp1y-8080.preview.csb.app/contacts/'+contactId+'',
+    request.delete('https://team404.onrender.com/contacts/'+contactId+'',
     async function (error, response, body) {
         if (!error ) {
             console.log(body);
@@ -231,7 +231,7 @@ router.post("/GetRecord", async function(req, res, next) {
    var result= 0
    
     request.get(
-    'https://xlcp1y-8080.preview.csb.app/patient/record/',
+    'https://team404.onrender.com/patient/record/',
     { json: { 
       "id":Id,  
      "value": val
