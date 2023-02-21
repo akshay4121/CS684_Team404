@@ -12,6 +12,7 @@ var usersRouter = require("./routes/users");
 var patientRouter = require("./routes/patient");
 var contactsRouter = require("./routes/contacts");
 var userLogin = require("./routes/userLogin");
+var viewLogin = require("./routes/viewLogin");
 
 
 var app = express();
@@ -32,6 +33,7 @@ app.use("/users", usersRouter);
 app.use("/patient", patientRouter);
 app.use("/contacts", contactsRouter);
 app.use("/userlogin", userLogin);
+app.use("/viewlogin", viewLogin);
 
 
 var listener = app.listen(8080, function () {
