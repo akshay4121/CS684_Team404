@@ -11,6 +11,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var patientRouter = require("./routes/patient");
 var contactsRouter = require("./routes/contacts");
+var userLogin = require("./routes/userLogin");
 
 
 var app = express();
@@ -30,6 +31,7 @@ app.use("/index", indexRouter);
 app.use("/users", usersRouter);
 app.use("/patient", patientRouter);
 app.use("/contacts", contactsRouter);
+app.use("/userlogin", userLogin);
 
 
 var listener = app.listen(8080, function () {
