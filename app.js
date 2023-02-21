@@ -7,6 +7,7 @@ var logger = require("morgan");
 
 
 var home = require("./routes/404");
+var usersRouter = require("./routes/users");
 
 var app = express();
 
@@ -21,6 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", home);
+app.use("/users", usersRouter);
 
 var listener = app.listen(8080, function () {
   console.log("Listening on port " + listener.address().port);
