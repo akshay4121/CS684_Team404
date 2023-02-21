@@ -32,8 +32,8 @@ app.use("/index", indexRouter);
 app.use("/users", usersRouter);
 app.use("/patient", patientRouter);
 app.use("/contacts", contactsRouter);
-app.use("/userlogin", userLogin);
-app.use("/viewlogin", viewLogin);
+//app.use("/userlogin", userLogin);
+//app.use("/viewlogin", viewLogin);
 
 
 var listener = app.listen(8080, function () {
