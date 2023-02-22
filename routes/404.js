@@ -14,7 +14,7 @@ const corsOptions ={
 router.use(cors(corsOptions));
 
 
-router.get("/404", function(req, res, next) {
+router.get("/", function(req, res, next) {
    res.render("404", { title: "404" });
  });
  
