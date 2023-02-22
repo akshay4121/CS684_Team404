@@ -14,8 +14,8 @@ const corsOptions ={
 router.use(cors(corsOptions));
 
 
-router.get("/", function(req, res, next) {
-   res.render("dashboard", { title: "dashboard" });
+router.get("/404", function(req, res, next) {
+   res.render("404", { title: "404" });
  });
  
  
