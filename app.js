@@ -13,7 +13,10 @@ var patientRouter = require("./routes/patient");
 var contactsRouter = require("./routes/contacts");
 var userLogin = require("./routes/userLogin");
 var viewLogin = require("./routes/viewLogin");
-
+var dashboardRouter = require("./routes/dashboard");
+var registerRouter = require("./routes/register");
+var logoutRouter = require("./routes/logout");
+var loginRouter = require("./routes/login");
 
 var app = express();
 
@@ -32,6 +35,10 @@ app.use("/index", indexRouter);
 app.use("/users", usersRouter);
 app.use("/patient", patientRouter);
 app.use("/contacts", contactsRouter);
+app.use("/dashboard", dashboardRouter);
+app.use("/register", registerRouter);
+app.use("/logout", logoutRouter);
+app.use("/login", loginRouter);
 //app.use("/userlogin", userLogin);
 //app.use("/viewlogin", viewLogin);
 

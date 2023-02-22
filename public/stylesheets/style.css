@@ -68,6 +68,12 @@ body {
   background-color: #333;
   overflow: hidden;
 }
+.top.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 /* Style the links inside the navigation bar */
 .topnav a {
