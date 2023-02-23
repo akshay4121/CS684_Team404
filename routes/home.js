@@ -45,9 +45,9 @@ router.get("/", function(req, res, next) {
 
 router.get("/data", (req, res) => {
     pool.query("select * from Users;" ,(err, rows, fiels) => {  
-       data=JSON.stringify(rows)
+       result=JSON.stringify(rows)
        
-       result= JSON.parse(data)
+       //result= JSON.parse(data)
     
     
     if (!err) {
