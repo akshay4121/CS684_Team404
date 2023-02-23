@@ -28,7 +28,7 @@ router.get("/", function(req, res, next) {
       data=JSON.stringify(rows)
       result= JSON.parse(data)
      // result=""+body.insertId
-      res.render("login", {
+      res.render("subscribed", {
      title: "Users",
       result 
 
@@ -40,6 +40,24 @@ router.get("/", function(req, res, next) {
  
          
      
+});
+
+
+router.get("/data", (req, res) => {
+    pool.query("select * from Users;" ,(err, rows, fiels) => {  
+       data=JSON.stringify(rows)
+       
+       result= JSON.parse(data)
+    
+    
+    if (!err) {
+        res.send(result)
+        console.log(fiels);
+    } else {
+        res.status(400).send(err)
+      console.log(err);
+    }
+  });
 });
  
 module.exports = router;
