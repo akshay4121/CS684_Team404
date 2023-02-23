@@ -3,6 +3,7 @@
  var router = express.Router();
  let request = require('request');
  
+ const pool = require("../db/db");
  
 const cors = require('cors');
 
@@ -19,5 +20,26 @@ router.get("/", function(req, res, next) {
    res.render("home", { title: "home" });
  });
  
+
+ 
+ router.get("/view", async function(req, res, next) {
+
+  pool.query("select * from Users;" ,(err, rows, fiels) => {  
+      data=JSON.stringify(rows)
+      result= JSON.parse(data)
+     // result=""+body.insertId
+      res.render("login", {
+     title: "Users",
+      result 
+
+       });
+   
+  
+ });
+  
+ 
+         
+     
+});
  
 module.exports = router;
