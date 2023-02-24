@@ -63,7 +63,7 @@ router.post("/", async (req, res) => {
   var users= req.body
  
    
-    pool.query("INSERT INTO Users (Username,Password) VALUES ('"+users.UserName+"','"+users.Password+"');" ,(err, rows, fiels) => {  
+    pool.query("INSERT INTO Users (Username,Password) VALUES ('"+users.Username+"','"+users.Password+"');" ,(err, rows, fiels) => {  
  if (!err) {
    
    res.json(rows);
