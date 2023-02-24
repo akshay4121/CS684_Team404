@@ -42,7 +42,6 @@ router.get("/", function(req, res, next) {
      
 });
 
-
 router.get("/data", (req, res) => {
     pool.query("select * from Users;" ,(err, rows, fiels) => {  
        result=JSON.stringify(rows)
@@ -58,6 +57,23 @@ router.get("/data", (req, res) => {
       console.log(err);
     }
   });
+});
+
+router.post("/", async (req, res) => {
+  var users= req.body
+ 
+   
+    pool.query("INSERT INTO Users (Username,Password) VALUES ('"+users.UserName+"','"+users.Password+"');" ,(err, rows, fiels) => {  
+ if (!err) {
+   
+   res.json(rows);
+   console.log(fiels);
+ } else {
+     res.status(400).send(err)
+      console.log(err);
+ } });
+ 
+  
 });
  
 module.exports = router;
