@@ -25,10 +25,10 @@ const corsOptions ={
 router.use(cors(corsOptions));
 
 
-router.get("/", function(req, res, next) {
+/*router.get("/", function(req, res, next) {
   res.render("home", { title: "home" });
 });
-
+*/
 
 
 router.get("/view", async function(req, res, next) {
@@ -51,7 +51,7 @@ router.get("/view", async function(req, res, next) {
     
 });
 
-router.get("/data", (req, res) => {
+router.get("/", (req, res) => {
    pool.query("select * from Users;" ,(err, rows, fiels) => {  
       result=JSON.stringify(rows)
       
