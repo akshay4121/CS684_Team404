@@ -16,7 +16,7 @@ var userLogin = require("./routes/userLogin");
 var viewLogin = require("./routes/viewLogin");
 var dashboardRouter = require("./routes/dashboard");
 var registerRouter = require("./routes/signup");
-var logoutRouter = require("./routes/logout");
+var logoutRouter = require("./routes/signout");
 var loginRouter = require("./routes/signin");
 
 var app = express();
@@ -49,7 +49,7 @@ app.use("/patient", patientRouter);
 app.use("/contacts", contactsRouter);
 app.use("/dashboard", dashboardRouter);
 app.use("/signup", registerRouter);
-app.use("/logout", logoutRouter);
+app.use("/signout", logoutRouter);
 app.use("/signin", loginRouter);
 
 var listener = app.listen(8080, function () {
