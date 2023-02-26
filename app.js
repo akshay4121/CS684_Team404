@@ -8,12 +8,6 @@ var logger = require("morgan");
 
 var home = require("./routes/home");
 var data = require("./routes/404");
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-var patientRouter = require("./routes/patient");
-var contactsRouter = require("./routes/contacts");
-var userLogin = require("./routes/userLogin");
-var viewLogin = require("./routes/viewLogin");
 var dashboardRouter = require("./routes/dashboard");
 var registerRouter = require("./routes/signup");
 var logoutRouter = require("./routes/logout");
@@ -43,10 +37,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", home);
 app.use("/data", data);
-app.use("/index", indexRouter);
-app.use("/users", usersRouter);
-app.use("/patient", patientRouter);
-app.use("/contacts", contactsRouter);
 app.use("/dashboard", dashboardRouter);
 app.use("/signup", registerRouter);
 app.use("/logout", logoutRouter);
