@@ -2,11 +2,20 @@
  var express = require("express");
  var router = express.Router();
  let request = require('request');
- 
+ const session = require('express-session');
  const pool = require("../db/db");
+ const flash = require('connect-flash');
  
 const cors = require('cors');
 
+
+router.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false
+}));
+
+router.use(flash());
 
 const corsOptions ={
     origin:'http://localhost:3000', 
