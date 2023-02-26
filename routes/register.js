@@ -37,18 +37,15 @@ router.post("/", async (req, res) => {
   if (password !== confirmPassword) {
     req.flash('error', 'Passwords do not match');
     res.redirect("/register?registrationSuccess=false");
-  } else if (username.indexOf(' ') !== -1) {
+  } else if (username.slice(0, -1).indexOf(' ') !== -1) {
     req.flash('error', 'Username cannot contain spaces');
     res.redirect("/register?registrationSuccess=false");
-  } else if (username.length < 8) {
+  } else if (username.trim().length < 8) {
     req.flash('error', 'Username must be at least 8 characters long');
-    res.redirect("/register?registrationSuccess=false");
-  } else if (username.trim() !== username) {
-    req.flash('error', 'Username cannot end with a space');
     res.redirect("/register?registrationSuccess=false");
   } else {
     // Check if user already exists
-    const exists = await userExists(username, email);
+    const exists = await userExists(username.trim(), email.trim());
     if (exists) {
       req.flash('error', 'User already exists');
       res.redirect("/register?registrationSuccess=false");
@@ -56,7 +53,7 @@ router.post("/", async (req, res) => {
       try {
         await pool.execute(
           "INSERT INTO Users (Username, Password, Email) VALUES (?, ?, ?)",
-          [username, password, email]
+          [username.trim(), password, email.trim()]
         );
         req.flash('success', 'Registration successful. Please log in.');
         res.redirect('/login?registrationSuccess=true');
