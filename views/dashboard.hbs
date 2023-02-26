@@ -1,37 +1,37 @@
-
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
   <title>Dashboard</title>
   <div class="full-width text-center">
-
-      <img src="../Images/404meme2.png" alt="404 Meme" />
+    <img src="../Images/404meme2.png" alt="404 Meme" />
     <p class="lead"><strong>Team 404</strong> </p>
   <div>   
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
-
   <div class="container">
-    <h1>Welcome to the Dashboard</h1>
+    <h1>Welcome to your dashboard, {{username}}!</h1>
     <p>Here's where you can manage your account:</p>
-
     <ul>
       <li><a href="#">Edit Profile</a></li>
       <li><a href="#">Change Password</a></li>
       <li><a href="#">Manage Subscriptions</a></li>
       <li><a href="#">View Order History</a></li>
     </ul>
-  <div class="footer">
+    <div class="footer">
       <p class="lead">
         <a class="btn btn-primary btn-sm" href="/logout" role="button">Log out </a>
       </p>
+    </div>
   </div>
-
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
+  <script>
+    const username = "{{username}}";
+    const usernameElement = document.getElementById('username');
+    usernameElement.textContent = username;
+  </script>
 </body>
 </html>

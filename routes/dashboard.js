@@ -13,7 +13,6 @@ const corsOptions ={
 router.use(cors(corsOptions));
 router.use(session({
   secret: "secret",
-
   resave: true,
   saveUninitialized: true
 }));
@@ -24,8 +23,21 @@ router.get("/", function(req, res, next) {
   if (!req.session.login) {
     res.redirect("/login");
   } else {
-    res.render("dashboard", { title: "dashboard" });
+    res.render("dashboard", { title: "dashboard", username: req.session.username });
   }
+});
+
+// Route to fetch the username
+router.get("/username", function(req, res, next) {
+  if (!req.session.login) {
+    res.status(401).send('Not logged in');
+  } else {
+    res.send(req.session.username);
+  }
+});
+
+router.use(function(req, res, next) {
+  res.status(404).render("404", { title: "404" });
 });
 
 module.exports = router;

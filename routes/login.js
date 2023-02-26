@@ -31,7 +31,7 @@ async function userExists(email, password) {
   const rows = result && result[0];
   //console.log("con log for rows");
   //console.log(rows);
-  return rows && rows.length > 0;
+  return rows && rows.length > 0 ? rows[0] : null;
 }
 
 router.post("/", async function (req, res) {
@@ -39,16 +39,18 @@ router.post("/", async function (req, res) {
   const password = req.body.password;
   //console.log("email and pass con log ");
   //console.log(email, password);
+  const user = await userExists(email, password);
 
-  if (await userExists(email, password)) {
+  if (user) {
     req.session.email = email;
     req.session.login = true;
     req.session.save()
-    res.redirect("/dashboard?loginSuccess=true"); // added loginSuccess=true
+    req.session.username = user.Username; // set the username to the user's username
+    res.redirect("/dashboard?loginSuccess=true");
   } else {
     req.flash("error", "Invalid email or password");
     console.log("invalid signin creds")
-    res.redirect("/login?loginSuccess=false"); // added loginSuccess=false
+    res.redirect("/login?loginSuccess=false");
   }
 });
 
