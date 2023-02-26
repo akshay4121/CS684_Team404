@@ -13,7 +13,7 @@ router.use(cors(corsOptions));
 
 // Define your dashboard route
 router.get("/", function(req, res, next) {
-  res.render("logout", { title: "logout" });
+  res.render("signout", { title: "signout" });
 });
 
 module.exports = router;

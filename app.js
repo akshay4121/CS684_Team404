@@ -10,7 +10,7 @@ var home = require("./routes/home");
 var data = require("./routes/404");
 var dashboardRouter = require("./routes/dashboard");
 var registerRouter = require("./routes/signup");
-var logoutRouter = require("./routes/logout");
+var logoutRouter = require("./routes/signout");
 var loginRouter = require("./routes/signin");
 
 var app = express();
@@ -39,7 +39,7 @@ app.use("/", home);
 app.use("/data", data);
 app.use("/dashboard", dashboardRouter);
 app.use("/signup", registerRouter);
-app.use("/logout", logoutRouter);
+app.use("/signout", logoutRouter);
 app.use("/signin", loginRouter);
 
 var listener = app.listen(8080, function () {
