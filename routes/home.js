@@ -46,7 +46,7 @@ router.get("/data", (req, res) => {
   pool.query("SELECT * FROM Users", (err, rows) => {
     if (err) {
       console.log(err);
-      res.status(500).send("Internal Server Error");
+      res.status(500).send("API call: Internal Server Error ");
     } else {
       const result = JSON.stringify(rows);
       res.send(result);
