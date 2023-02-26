@@ -7,6 +7,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 var home = require("./routes/home");
+var data = require("./routes/404");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var patientRouter = require("./routes/patient");
@@ -41,6 +42,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", home);
+app.use("/data", data);
 app.use("/index", indexRouter);
 app.use("/users", usersRouter);
 app.use("/patient", patientRouter);
