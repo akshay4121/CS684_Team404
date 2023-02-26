@@ -27,7 +27,7 @@ const userExists = async (username, email) => {
 };
 
 router.get("/", (req, res) => {
-  res.render("register", { title: "Register" });
+  res.render("register", { title: "Register", messages: req.flash() });
 });
 
 router.post("/", async (req, res) => {
@@ -36,13 +36,15 @@ router.post("/", async (req, res) => {
   // Check if passwords match
   if (password !== confirmPassword) {
     req.flash('error', 'Passwords do not match');
-    res.redirect("/register");
+    //console.log("error: pass mismatch ")
+    res.redirect("/register?registrationSuccess=false");
   } else {
     // Check if user already exists
     const exists = await userExists(username, email);
     if (exists) {
       req.flash('error', 'User already exists');
-      res.redirect("/register");
+      //console.log("error: User already exists ")
+      res.redirect("/register?registrationSuccess=false");
     } else {
       try {
         await pool.execute(
@@ -52,7 +54,8 @@ router.post("/", async (req, res) => {
         req.flash('success', 'Registration successful. Please log in.');
         res.redirect('/login?registrationSuccess=true');
       } catch (err) {
-        res.status(400).send(err);
+        req.flash('error', err.message);
+        res.redirect("/register?registrationSuccess=false");
         console.log(err);
       }
     }

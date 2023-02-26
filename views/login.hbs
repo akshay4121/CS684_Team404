@@ -31,6 +31,11 @@
   </head>
   <body>
     <div class="login-form">
+      {{#if messages.error}}
+        <div class="alert alert-danger" role="alert">
+          {{messages.error}}
+        </div>
+      {{/if}}
       <form onsubmit="event.preventDefault(); this.action='./login'; this.submit();" method="post">
         <h2 class="text-center">Log in</h2>
         <div id="registration-success-message"></div>
@@ -60,6 +65,15 @@
       if (registrationSuccess === 'true') {
         const messageDiv = document.getElementById('registration-success-message');
         messageDiv.innerHTML = '<p class="text-success">Registration successful! Please log in to continue.</p>';
+      }
+      
+      // Check if loginSuccess parameter exists
+      const loginSuccess = urlParams.get('loginSuccess');
+      
+      // If loginSuccess is false, show the message
+      if (loginSuccess === 'false') {
+        const messageDiv = document.getElementById('registration-success-message');
+        messageDiv.innerHTML = '<p class="text-danger">Invalid email or password.</p>';
       }
     </script>
   </body>
