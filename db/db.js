@@ -1,12 +1,12 @@
-var mysql = require("mysql");
+//var mysql = require("mysql");
+var mysql2 = require('mysql2/promise');
 
-
-var pool  = mysql.createPool({
+var pool  = mysql2.createPool({
   connectionLimit : 10,
   host            : 'us-east.connect.psdb.cloud',
-  user            : 'w5wf94r18cxf2qucnz7a',
-  password        : 'pscale_pw_UQYzLPCNoNTe4YDn0qjUNWr83tWuwnG8Ckih357oOKT',
-  database        : 'patient-intake',
+  user            : 'evf9sx5vuplnvljp2i65',
+  password        : 'pscale_pw_pyiXZG4J2b6sJF5ad17ExOnjlPkVU8J9LIuaoMjPisr',
+  database        : 'cs_631_project',
   ssl : {
       rejectUnauthorized: true
   }

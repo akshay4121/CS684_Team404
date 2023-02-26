@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  </head>
+  <body>
+
+    <div class="container">
+      <h1>Register for our site!</h1>
+      <form action="./register" method="post">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password:</label>
+          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+        </div>
+        <button type="submit" class="btn btn-primary" >Register</button>
+      </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+    <div class="footer">
+      <p class="lead">
+        <a class="btn btn-primary btn-sm" href="/login" role="button">Already a member? Login</a>
+      </p>
+      <p class="lead">
+        <a class="btn btn-primary btn-sm" href="/" role="button">Back to home</a>
+      </p>
+    </div>
+    <script>
+      // Check if registrationSuccess query parameter exists
+      const urlParams = new URLSearchParams(window.location.search);
+      const registrationSuccess = urlParams.get('registrationSuccess');
+      
+      // If registrationSuccess is true, show the message
+      if (registrationSuccess === 'true') {
+        const messageDiv = document.getElementById('registration-success-message');
+        messageDiv.innerHTML = '<p class="text-success">Registration successful! Please log in to continue.</p>';
+      }
+    </script>
+  </body>
+</html>
