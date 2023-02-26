@@ -44,10 +44,11 @@ router.post("/", async function (req, res) {
     req.session.email = email;
     req.session.login = true;
     req.session.save()
-    res.redirect("/dashboard");
+    res.redirect("/dashboard?loginSuccess=true"); // added loginSuccess=true
   } else {
     req.flash("error", "Invalid email or password");
-    res.redirect("/login");
+    console.log("invalid signin creds")
+    res.redirect("/login?loginSuccess=false"); // added loginSuccess=false
   }
 });
 
