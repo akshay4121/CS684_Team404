@@ -1,7 +1,7 @@
-var mysql = require("mysql");
+//var mysql = require("mysql");
+var mysql2 = require('mysql2/promise');
 
-
-var pool  = mysql.createPool({
+var pool  = mysql2.createPool({
   connectionLimit : 10,
   host            : 'us-east.connect.psdb.cloud',
   user            : 'evf9sx5vuplnvljp2i65',
