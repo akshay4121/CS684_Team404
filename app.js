@@ -1,10 +1,10 @@
-// Node hub 2020
+const flash = require('connect-flash');
+const session = require('express-session');
 
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-
 
 var home = require("./routes/home");
 var indexRouter = require("./routes/index");
@@ -19,6 +19,16 @@ var logoutRouter = require("./routes/logout");
 var loginRouter = require("./routes/login");
 
 var app = express();
+
+// set up session middleware and flash middleware
+app.use(session({
+  secret: 'mySecretKey',
+  resave: false,
+  saveUninitialized: true,
+  login: false,
+  cookie: { secure: false }
+}));
+app.use(flash());
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -39,9 +49,6 @@ app.use("/dashboard", dashboardRouter);
 app.use("/register", registerRouter);
 app.use("/logout", logoutRouter);
 app.use("/login", loginRouter);
-//app.use("/userlogin", userLogin);
-//app.use("/viewlogin", viewLogin);
-
 
 var listener = app.listen(8080, function () {
   console.log("Listening on port " + listener.address().port);

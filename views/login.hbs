@@ -31,8 +31,9 @@
   </head>
   <body>
     <div class="login-form">
-      <form action="/login" method="post">
+      <form onsubmit="event.preventDefault(); this.action='./login'; this.submit();" method="post">
         <h2 class="text-center">Log in</h2>
+        <div id="registration-success-message"></div>
         <div class="form-group">
           <input type="email" class="form-control" name="email" placeholder="Email" required="required">
         </div>
@@ -44,11 +45,22 @@
         </div>
         <p class="text-center"><a href="/register">Create an Account</a></p>
         <div class="form-group">
-        <p>
-          <a class="btn btn-primary btn-sm" href="/" role="button">Return to Homepage</a>
-        </p>
-      </div>
+          <p>
+            <a class="btn btn-primary btn-sm" href="/" role="button">Return to Homepage</a>
+          </p>
+        </div>
       </form>
     </div>
+    <script>
+      // Check if registrationSuccess query parameter exists
+      const urlParams = new URLSearchParams(window.location.search);
+      const registrationSuccess = urlParams.get('registrationSuccess');
+      
+      // If registrationSuccess is true, show the message
+      if (registrationSuccess === 'true') {
+        const messageDiv = document.getElementById('registration-success-message');
+        messageDiv.innerHTML = '<p class="text-success">Registration successful! Please log in to continue.</p>';
+      }
+    </script>
   </body>
 </html>
