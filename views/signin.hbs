@@ -36,7 +36,7 @@
           {{messages.error}}
         </div>
       {{/if}}
-      <form onsubmit="event.preventDefault(); this.action='./login'; this.submit();" method="post">
+      <form onsubmit="event.preventDefault(); this.action='./signin'; this.submit();" method="post">
         <h2 class="text-center">Log in</h2>
         <div id="registration-success-message"></div>
         <div class="form-group">
@@ -48,7 +48,7 @@
         <div class="form-group">
           <button type="submit" class="btn btn-primary btn-block">Log in</button>
         </div>
-        <p class="text-center"><a href="/register">Create an Account</a></p>
+        <p class="text-center"><a href="/signup">Create an Account</a></p>
         <div class="form-group">
           <p>
             <a class="btn btn-primary btn-sm" href="/" role="button">Return to Homepage</a>

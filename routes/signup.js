@@ -27,7 +27,7 @@ const userExists = async (username, email) => {
 };
 
 router.get("/", (req, res) => {
-  res.render("register", { title: "Register", messages: req.flash() });
+  res.render("signup", { title: "Signup", messages: req.flash() });
 });
 
 router.post("/", async (req, res) => {
@@ -36,19 +36,19 @@ router.post("/", async (req, res) => {
   // Check if passwords match
   if (password !== confirmPassword) {
     req.flash('error', 'Passwords do not match');
-    res.redirect("/register?registrationSuccess=false");
+    res.redirect("/signup?registrationSuccess=false");
   } else if (username.slice(0, -1).indexOf(' ') !== -1) {
     req.flash('error', 'Username cannot contain spaces');
-    res.redirect("/register?registrationSuccess=false");
+    res.redirect("/signup?registrationSuccess=false");
   } else if (username.trim().length < 8) {
     req.flash('error', 'Username must be at least 8 characters long');
-    res.redirect("/register?registrationSuccess=false");
+    res.redirect("/signup?registrationSuccess=false");
   } else {
     // Check if user already exists
     const exists = await userExists(username.trim(), email.trim());
     if (exists) {
       req.flash('error', 'User already exists');
-      res.redirect("/register?registrationSuccess=false");
+      res.redirect("/signup?registrationSuccess=false");
     } else {
       try {
         await pool.execute(
@@ -56,10 +56,10 @@ router.post("/", async (req, res) => {
           [username.trim(), password, email.trim()]
         );
         req.flash('success', 'Registration successful. Please log in.');
-        res.redirect('/login?registrationSuccess=true');
+        res.redirect('/signin?registrationSuccess=true');
       } catch (err) {
         req.flash('error', err.message);
-        res.redirect("/register?registrationSuccess=false");
+        res.redirect("/signup?registrationSuccess=false");
         console.log(err);
       }
     }

@@ -23,7 +23,7 @@ router.use(session({
 router.use(flash());
 
 router.get("/", function (req, res) {
-  res.render("login", { message: req.flash('error') });
+  res.render("signin", { message: req.flash('error') });
 });
 
 async function userExists(email, password) {
@@ -50,7 +50,7 @@ router.post("/", async function (req, res) {
   } else {
     req.flash("error", "Invalid email or password");
     console.log("invalid signin creds")
-    res.redirect("/login?loginSuccess=false");
+    res.redirect("/signin?loginSuccess=false");
   }
 });
 

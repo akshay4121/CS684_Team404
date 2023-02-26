@@ -14,9 +14,9 @@ var contactsRouter = require("./routes/contacts");
 var userLogin = require("./routes/userLogin");
 var viewLogin = require("./routes/viewLogin");
 var dashboardRouter = require("./routes/dashboard");
-var registerRouter = require("./routes/register");
+var registerRouter = require("./routes/signup");
 var logoutRouter = require("./routes/logout");
-var loginRouter = require("./routes/login");
+var loginRouter = require("./routes/signin");
 
 var app = express();
 
@@ -46,9 +46,9 @@ app.use("/users", usersRouter);
 app.use("/patient", patientRouter);
 app.use("/contacts", contactsRouter);
 app.use("/dashboard", dashboardRouter);
-app.use("/register", registerRouter);
+app.use("/signup", registerRouter);
 app.use("/logout", logoutRouter);
-app.use("/login", loginRouter);
+app.use("/signin", loginRouter);
 
 var listener = app.listen(8080, function () {
   console.log("Listening on port " + listener.address().port);

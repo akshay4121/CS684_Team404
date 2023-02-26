@@ -21,7 +21,7 @@ router.use(session({
 router.get("/", function(req, res, next) {
   // Check if user is logged in
   if (!req.session.login) {
-    res.redirect("/login");
+    res.redirect("/signin");
   } else {
     res.render("dashboard", { title: "dashboard", username: req.session.username });
   }
