@@ -36,14 +36,21 @@ router.post("/", async (req, res) => {
   // Check if passwords match
   if (password !== confirmPassword) {
     req.flash('error', 'Passwords do not match');
-    //console.log("error: pass mismatch ")
+    res.redirect("/register?registrationSuccess=false");
+  } else if (username.indexOf(' ') !== -1) {
+    req.flash('error', 'Username cannot contain spaces');
+    res.redirect("/register?registrationSuccess=false");
+  } else if (username.length < 8) {
+    req.flash('error', 'Username must be at least 8 characters long');
+    res.redirect("/register?registrationSuccess=false");
+  } else if (username.trim() !== username) {
+    req.flash('error', 'Username cannot end with a space');
     res.redirect("/register?registrationSuccess=false");
   } else {
     // Check if user already exists
     const exists = await userExists(username, email);
     if (exists) {
       req.flash('error', 'User already exists');
-      //console.log("error: User already exists ")
       res.redirect("/register?registrationSuccess=false");
     } else {
       try {
