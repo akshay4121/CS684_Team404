@@ -54,6 +54,7 @@ router.get("/data", (req, res) => {
   });
 });
 
+
 router.post("/", async (req, res) => {
   const users = req.body;
   pool.query("INSERT INTO Users (Username, Password) VALUES ('"+users.Username+"','"+users.Password+"');", (err, rows) => {
