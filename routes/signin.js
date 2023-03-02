@@ -52,8 +52,8 @@ router.post("/", async function (req, res) {
     res.status(200).redirect("/dashboard?loginSuccess=true");
   } else {
     req.flash("error", "Invalid email or password");
-    console.log("invalid signin creds")
-    res.status(401).redirect("/signin?loginSuccess=false");
+    console.log("invalid signin creds");
+    res.status(401).render("signin", { message: "Invalid email or password" });
   }
 });
 
