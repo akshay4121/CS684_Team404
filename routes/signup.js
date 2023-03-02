@@ -51,6 +51,14 @@ router.post("/", async (req, res) => {
     req.flash('error', 'Username must be at least 8 characters long');
     res.status(400).render("signup", { messages: req.flash(), message: "Username must be at least 8 characters long" });
     //res.status(400).redirect("/signup?registrationSuccess=false"); //query string false an displays error username not 8 characters min
+  } else if (!password.match(/[a-z]/)) {
+    //checks username has ATLEAST on Lowercase letter 
+    req.flash('error', 'Password must contain at least one lowercase letter');
+    res.status(400).render("signup", { messages: req.flash(), message: "Password must contain at least one lowercase letter" });
+  } else if (!password.match(/[A-Z]/)) {
+    //checks username has ATLEAST on uppercase letter 
+    req.flash('error', 'Password must contain at least one uppercase letter');
+    res.status(400).render("signup", { messages: req.flash(), message: "Password must contain at least one uppercase letter" });
   } else {
     // Check if user already exists
     const exists = await userExists(username.trim(), email.trim());
