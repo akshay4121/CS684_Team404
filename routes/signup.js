@@ -38,22 +38,26 @@ router.post("/", async (req, res) => {
   // Check if passwords match
   if (password !== confirmPassword) {
     req.flash('error', 'Passwords do not match');
-    res.status(400).redirect("/signup?registrationSuccess=false"); //query string false annd displays error pass mismatch 
+    res.status(400).render("signup", { messages: req.flash(), message: "Passwords do not match" });
+    //res.status(400).redirect("/signup?registrationSuccess=false"); //query string false annd displays error pass mismatch 
     //creates newstring of username upto last character excluding the space, 
     //and checkes if space in string this will tell us if spaces exist in input username
   } else if (username.slice(0, -1).indexOf(' ') !== -1) { 
     req.flash('error', 'Username cannot contain spaces');
-    res.status(400).redirect("/signup?registrationSuccess=false"); //query string false and displays error username can not have spaces 
+    res.status(400).render("signup", { messages: req.flash(), message: "Username cannot contain spaces" });
+    //res.status(400).redirect("/signup?registrationSuccess=false"); //query string false and displays error username can not have spaces 
     //checks length of username 
   } else if (username.trim().length < 8) {
     req.flash('error', 'Username must be at least 8 characters long');
-    res.status(400).redirect("/signup?registrationSuccess=false"); //query string false an displays error username not 8 characters min
+    res.status(400).render("signup", { messages: req.flash(), message: "Username must be at least 8 characters long" });
+    //res.status(400).redirect("/signup?registrationSuccess=false"); //query string false an displays error username not 8 characters min
   } else {
     // Check if user already exists
     const exists = await userExists(username.trim(), email.trim());
     if (exists) {
       req.flash('error', 'User already exists');
-      res.status(400).redirect("/signup?registrationSuccess=false"); //query string false, and displays error user already exits 
+      res.status(400).render("signup", { messages: req.flash(), message: "User already exists" });
+      //res.status(400).redirect("/signup?registrationSuccess=false"); //query string false, and displays error user already exits 
     } else {
       try {
         await pool.execute(
@@ -64,7 +68,8 @@ router.post("/", async (req, res) => {
         res.status(200).redirect('/signin?registrationSuccess=true'); //query string true, redirects to login with success 
       } catch (err) {
         req.flash('error', err.message);
-        res.status(400).redirect("/signup?registrationSuccess=false"); //query string false
+        res.status(400).render("signup", { messages: req.flash(), message: err.message});
+        //res.status(400).redirect("/signup?registrationSuccess=false"); //query string false
         console.log(err);
       }
     }
