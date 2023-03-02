@@ -53,7 +53,7 @@ router.post("/", async (req, res) => {
     const exists = await userExists(username.trim(), email.trim());
     if (exists) {
       req.flash('error', 'User already exists');
-      res.status(409).redirect("/signup?registrationSuccess=false"); //query string false, and displays error user already exits 
+      res.status(400).redirect("/signup?registrationSuccess=false"); //query string false, and displays error user already exits 
     } else {
       try {
         await pool.execute(
@@ -61,10 +61,10 @@ router.post("/", async (req, res) => {
           [username.trim(), password, email.trim()] //trims spaces at end of username and email 
         );
         req.flash('success', 'Registration successful. Please log in.');
-        res.status(201).redirect('/signin?registrationSuccess=true'); //query string true, redirects to login with success 
+        res.status(200).redirect('/signin?registrationSuccess=true'); //query string true, redirects to login with success 
       } catch (err) {
         req.flash('error', err.message);
-        res.status(500).redirect("/signup?registrationSuccess=false"); //query string false
+        res.status(400).redirect("/signup?registrationSuccess=false"); //query string false
         console.log(err);
       }
     }
