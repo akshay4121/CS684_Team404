@@ -49,12 +49,11 @@ router.post("/", async function (req, res) {
     req.session.login = true;
     req.session.save()
     req.session.username = user.Username; // set the username to the user's username, needed for dash page 
-    res.redirect("/dashboard?loginSuccess=true");
+    res.status(200).redirect("/dashboard?loginSuccess=true");
   } else {
     req.flash("error", "Invalid email or password");
     console.log("invalid signin creds")
-    res.status(401).send("Invalid email or password");
-    res.redirect("/signin?loginSuccess=false");
+    res.status(401).redirect("/signin?loginSuccess=false");
   }
 });
 
