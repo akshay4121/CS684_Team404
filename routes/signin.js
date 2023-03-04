@@ -27,8 +27,9 @@ router.get("/", function (req, res) {
 });
 
 //checking if user exists in database
-async function userExists(email, password) {
-  const result = await pool.query("SELECT * FROM Users WHERE Email = ? AND Password = ?", [email, password]);
+async function userExists(emailOrUsername, password) {
+  //const result = await pool.query("SELECT * FROM Users WHERE Email = ? AND Password = ?", [email, password]);
+  const result = await pool.query("SELECT * FROM Users WHERE (Email = ? OR Username = ?) AND Password = ?", [emailOrUsername, emailOrUsername, password]);
   const rows = result && result[0];
   //console.log("con log for rows");
   //console.log(rows);
@@ -37,15 +38,16 @@ async function userExists(email, password) {
 
 //if creds exist user is set
 router.post("/", async function (req, res) {
-  const email = req.body.email;
+  //const email = req.body.email;
+  const emailOrUsername = req.body.emailOrUsername;
   const password = req.body.password;
   //console.log("email and pass con log ");
   //console.log(email, password);
-  const user = await userExists(email, password);
+  const user = await userExists(emailOrUsername, password);
 
   //setting of session variables 
   if (user) {
-    req.session.email = email;
+    req.session.emailOrUsername  = emailOrUsername ;
     req.session.login = true;
     req.session.save()
     req.session.username = user.Username; // set the username to the user's username, needed for dash page 
