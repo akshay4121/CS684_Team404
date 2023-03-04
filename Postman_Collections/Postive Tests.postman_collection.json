@@ -1,0 +1,194 @@
+{
+	"info": {
+		"_postman_id": "946c1fe9-75a8-4db0-b26e-6bb30dd748df",
+		"name": "Postive Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26156764"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"  pm.expect(pm.response.code).to.eql(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n\n{   \"username\":\"test12345678\",\n    \"email\":\"test12345678@Gmail.com\",\n    \"password\":\"Test12345678\",\n    \"confirmPassword\":\"Test12345678\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://team404.onrender.com/signup",
+					"protocol": "https",
+					"host": [
+						"team404",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"  pm.expect(pm.response.code).to.eql(200);",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", () => {",
+							"  pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"pm.test(\"Body contains Welcome to your dashboard\",() => {",
+							"  pm.expect(pm.response.text()).to.include(\"Welcome to your dashboard\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n\n{\n    \"email\":\"J33nl@Gmail.com\",\n    \"password\":\"J1111111\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://team404.onrender.com/signin",
+					"protocol": "https",
+					"host": [
+						"team404",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"  pm.expect(pm.response.code).to.eql(200);",
+							"});",
+							"pm.test(\"Body contains Welcome to your dashboard\",() => {",
+							"  pm.expect(pm.response.text()).to.include(\"Welcome to your dashboard\");",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", () => {",
+							"  pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n\n{\n    \"email\":\"testactor1@gmail.com\",\n    \"password\":\"Testactor1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://team404.onrender.com/signin",
+					"protocol": "https",
+					"host": [
+						"team404",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SignOut",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"  pm.expect(pm.response.code).to.eql(200);",
+							"});",
+							"pm.test(\"Response time is less than 200ms\", () => {",
+							"  pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://team404.onrender.com/signin",
+					"protocol": "https",
+					"host": [
+						"team404",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"signin"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
