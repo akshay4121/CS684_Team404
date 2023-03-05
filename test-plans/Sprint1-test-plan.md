@@ -14,7 +14,7 @@ Overall, this test plan aims to ensure that Project 404 is a reliable and effici
 <details><summary>Sprint 1</summary>
  <p>
    
-| Test Items | Feature to be tested | Approach | Testing task  | Responsbility | Schedule |  Pass/Fail |
+| Test Items | Feature to be tested | Approach | Testing task  | Responsbility | Schedule |  Pass/Fail Criteria |
 | --- | --- | ---  | --- | --- | --- | --- |
 | Login page | Functionality for the login email and password. | Manual testing | Email and password must be entered in the login form. | Zal, Akshay, Ahsan | 26-27 feb'23 | Pass |
 | Registration Page | Functionality of the registration page and the specifications for the various fields. | Manual testing | Click on 'Register for our site!' button and try signing up with username, email and password  | Zal, Akshay, Ahsan | 26-27 feb'23 | Pass |
