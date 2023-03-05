@@ -18,7 +18,7 @@ testers to cover all newly implemented features through API and
 Functional testing. Failed test cases were rerun after defect fixes to
 verify changes through additional iterations of testing. All
 requirements and test cases were thoroughly tested and passed in the
-final iteration. Note: within test case 9 requirements, the team decided
+final iteration. Note: within test case 7 requirements, the team decided
 it is best security practice to have users land on the sign-in page
 instead of the landing page after a successful registration. 
 
