@@ -1,6 +1,16 @@
 
 
 # Test Plan
+<h2> Introduction </h2>
+<p> 
+ Introduction:
+The test plan for Project 404 has been designed to ensure that the personal news feed application is fully functional, meets user requirements, and operates as expected. The application gathers and displays news catered towards the user's interest from various sources such as "https://newsapi.org/." The sign-up and login page have been created, along with the home page, and users can search for certain subjects using a search engine. This test plan will cover the testing of sign-up and login functionality, database functionality, API development, and the manual testing of test cases.
+
+Scope:
+The scope of this test plan is to verify the functionality of Project 404's sign-up and login pages, home page, database, and API development. The testing will ensure that the application meets the user's requirements and operates as expected. This test plan covers the manual testing of test cases and API testing using postman for sprint 1. The test cases will be designed to verify the functional and non-functional requirements of the application. The manual testing of test cases will be conducted to ensure the application's quality and reliability. The API testing will ensure that the application's APIs work as expected and fulfill their intended purpose.
+
+Overall, this test plan aims to ensure that Project 404 is a reliable and efficient personal news feed application that provides users with up-to-date news catered towards their interests. The testing will cover all aspects of the application to ensure its quality and functionality.
+</p>
 <details><summary>Sprint 1</summary>
  <p>
    
