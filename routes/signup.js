@@ -38,10 +38,10 @@ router.post("/", async (req, res) => {
   const trimmedUsername = username.trim(); // Trim spaces before and after the username
   const trimmedEmail = email.trim(); // Trim spaces before and after the email
   const trimmedPassword = password.trim(); // Trim spaces before and after the password
-
+  const confirmTrimmedPassword = confirmPassword.trim(); // Trim spaces before and after the password
 
   // Check if passwords match
-  if (trimmedPassword !== confirmPassword) {
+  if (trimmedPassword !== confirmTrimmedPassword) {
     req.flash('error', 'Passwords do not match');
     res.status(400).render("signup", { messages: req.flash(), message: "Passwords do not match" });
     //res.status(400).redirect("/signup?registrationSuccess=false"); //query string false annd displays error pass mismatch 
