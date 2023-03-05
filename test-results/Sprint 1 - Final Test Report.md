@@ -191,35 +191,40 @@ Iteration 2
 
 Iteration 3: 
 
-+-------+-------+--------+---+----------------------------------------+
-| Test  | 3/5   | Ahsan  | F | Navigates to sign-in page instead of   |
-| Case  | /2023 | H      | a | the landing page as already signed in  |
-| ID: 7 |       | asnath | i |                                        |
-|       |       |        | l |                                        |
-+=======+=======+========+===+========================================+
-| Test  | 3/5   | Ahsan  | P | Defect fixed.                          |
-| Case  | /2023 | H      | a |                                        |
-| ID: 8 |       | asnath | s |                                        |
-|       |       |        | s |                                        |
-+-------+-------+--------+---+----------------------------------------+
-| Test  | 3/5   | Ahsan  | P | User cannot register with passwords    |
-| Case  | /2023 | H      | a | consisting of spacing before and       |
-| ID: 9 |       | asnath | s | after. A message indicates "Passwords  |
-|       |       |        | s | do not match"                          |
-|       |       |        |   |                                        |
-|       |       |        |   | Fixed, retested, and passed on.        |
-|       |       |        |   | 3/5/23.                                |
-+-------+-------+--------+---+----------------------------------------+
-| Test  | 3/5   | Ahsan  | P |                                        |
-| Case  | /2023 | H      | a |                                        |
-| ID:   |       | asnath | s |                                        |
-| 11    |       |        | s |                                        |
-+-------+-------+--------+---+----------------------------------------+
-| Test  | 3/5   | Ahsan  | P |                                        |
-| Case  | /2023 | H      | a |                                        |
-| ID:   |       | asnath | s |                                        |
-| 12    |       |        | s |                                        |
-+-------+-------+--------+---+----------------------------------------+
++------+--------+--------+-------+------------------------------------+
+| Test | Date   | Tester | Pass/ | Comments:                          |
+| Case | T      | Name:  | Fail: |                                    |
+| ID:  | ested: |        |       |                                    |
++======+========+========+=======+====================================+
+| Test | 3/     | Ahsan  | Fail  | Navigates to sign-in page instead  |
+| Case | 5/2023 | H      |       | of the landing page as already     |
+| ID:  |        | asnath |       | signed in                          |
+| 7    |        |        |       |                                    |
++------+--------+--------+-------+------------------------------------+
+| Test | 3/     | Ahsan  | Pass  | Defect fixed.                      |
+| Case | 5/2023 | H      |       |                                    |
+| ID:  |        | asnath |       |                                    |
+| 8    |        |        |       |                                    |
++------+--------+--------+-------+------------------------------------+
+| Test | 3/     | Ahsan  | Pass  | User cannot register with          |
+| Case | 5/2023 | H      |       | passwords consisting of spacing    |
+| ID:  |        | asnath |       | before and after. A message        |
+| 9    |        |        |       | indicates "Passwords do not        |
+|      |        |        |       | match"                             |
+|      |        |        |       |                                    |
+|      |        |        |       | Fixed, retested, and passed on.    |
+|      |        |        |       | 3/5/23.                            |
++------+--------+--------+-------+------------------------------------+
+| Test | 3/     | Ahsan  | Pass  |                                    |
+| Case | 5/2023 | H      |       |                                    |
+| ID:  |        | asnath |       |                                    |
+| 11   |        |        |       |                                    |
++------+--------+--------+-------+------------------------------------+
+| Test | 3/     | Ahsan  | Pass  |                                    |
+| Case | 5/2023 | H      |       |                                    |
+| ID:  |        | asnath |       |                                    |
+| 12   |        |        |       |                                    |
++------+--------+--------+-------+------------------------------------+
 
 Iteration 4
 
