@@ -138,53 +138,53 @@ Iteration 2
   Case   Tested:    Name:                 
   ID:                                     
   ------ ---------- -------- ------------ ---------------------------------------
-  Test   3/4/2023   Akshay   Pass         
+  Test   3/5/2023   Akshay   Pass         
   Case              Patel                 
   ID: 1                                   
 
-  Test   3/4/2023   Akshay   Pass         
+  Test   3/5/2023   Akshay   Pass         
   Case              Patel                 
   ID: 2                                   
 
-  Test   3/4/2023   Akshay   Pass         
+  Test   3/5/2023   Akshay   Pass         
   Case              Patel                 
   ID: 3                                   
 
-  Test   3/4/2023   Akshay   Pass         
+  Test   3/5/2023   Akshay   Pass         
   Case              Patel                 
   ID: 4                                   
 
-  Test   3/4/2023   Akshay   Pass         
+  Test   3/5/2023   Akshay   Pass         
   Case              Patel                 
   ID: 5                                   
 
-  Test   3/4/2023   Akshay   Pass         
+  Test   3/5/2023   Akshay   Pass         
   Case              Patel                 
   ID: 6                                   
 
-  Test   3/4/2023   Akshay   Pass         
+  Test   3/5/2023   Akshay   Fail       Goes to the sign-in page     
+  Case              Patel               rather than the landing  
+  ID: 7                                  page as you're already logged in. 
+
+  Test   3/5/2023   Akshay   Pass         
   Case              Patel                 
-  ID: 7                                   
+  ID: 8                                   
+                                          
+                                          
 
-  Test   3/4/2023   Akshay   Pass         Users are not able to register with
-  Case              Patel                 less than 8 character password. Users
-  ID: 8                                   are not able to login with password and
-                                          confirmation password that includes
-                                          only upper and lowercase letters.
+  Test   3/5/2023   Akshay   Pass         
+  Case              Patel                 
+  ID: 9                                   
 
-  Test   3/4/2023   Akshay   Pass         Users cannot register with a password
-  Case              Patel                 that includes spacing between
-  ID: 9                                   characters. 
-
-  Test   3/4/2023   Akshay   Pass         
+  Test   3/5/2023   Akshay   Pass         
   Case              Patel                 
   ID: 10                                  
 
-  Test   3/4/2023   Akshay   Pass         The Username textbox is available.
+  Test   3/5/2023   Akshay   Pass         
   Case              Patel                 
   ID: 11                                  
 
-  Test   3/4/2023   Akshay   Pass         The Username textbox is available.
+  Test   3/5/2023   Akshay   Pass         
   Case              Patel                 
   ID: 12                                  
   -------------------------------------------------------------------------------
