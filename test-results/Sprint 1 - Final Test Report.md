@@ -164,7 +164,7 @@ Iteration 2
 
   Test   3/5/2023   Akshay   Fail       Goes to the sign-in page     
   Case              Patel               rather than the landing  
-  ID: 7                                  page as you're already logged in. 
+  ID: 7                                 page as you're already logged in. 
 
   Test   3/5/2023   Akshay   Pass         
   Case              Patel                 
@@ -191,108 +191,96 @@ Iteration 2
 
 Iteration 3: 
 
-+------+--------+--------+-------+------------------------------------+
-| Test | Date   | Tester | Pass/ | Comments:                          |
-| Case | T      | Name:  | Fail: |                                    |
-| ID:  | ested: |        |       |                                    |
-+======+========+========+=======+====================================+
-| Test | 3/     | Ahsan  | Fail  | Navigates to sign-in page instead  |
-| Case | 5/2023 | H      |       | of the landing page as already     |
-| ID:  |        | asnath |       | signed in                          |
-| 7    |        |        |       |                                    |
-+------+--------+--------+-------+------------------------------------+
-| Test | 3/     | Ahsan  | Pass  | Defect fixed.                      |
-| Case | 5/2023 | H      |       |                                    |
-| ID:  |        | asnath |       |                                    |
-| 8    |        |        |       |                                    |
-+------+--------+--------+-------+------------------------------------+
-| Test | 3/     | Ahsan  | Pass  | User cannot register with          |
-| Case | 5/2023 | H      |       | passwords consisting of spacing    |
-| ID:  |        | asnath |       | before and after. A message        |
-| 9    |        |        |       | indicates "Passwords do not        |
-|      |        |        |       | match"                             |
-|      |        |        |       |                                    |
-|      |        |        |       | Fixed, retested, and passed on.    |
-|      |        |        |       | 3/5/23.                            |
-+------+--------+--------+-------+------------------------------------+
-| Test | 3/     | Ahsan  | Pass  |                                    |
-| Case | 5/2023 | H      |       |                                    |
-| ID:  |        | asnath |       |                                    |
-| 11   |        |        |       |                                    |
-+------+--------+--------+-------+------------------------------------+
-| Test | 3/     | Ahsan  | Pass  |                                    |
-| Case | 5/2023 | H      |       |                                    |
-| ID:  |        | asnath |       |                                    |
-| 12   |        |        |       |                                    |
-+------+--------+--------+-------+------------------------------------+
+Iteration 3: 
+
+ --------------------------------------------------------------------------------
+  Test     Date       Tester   Pass/Fail:   Comments:
+  Case ID: Tested:    Name:                 
+  -------- ---------- -------- ------------ --------------------------------------
+  Test     3/4/2023   Ahsan    Fail         Navigates to sign-in page instead of 
+  Case ID:            Hasnath               the landing page as already signed in.  
+  7           
+
+  Test     3/4/2023   Ahsan    Pass         Defect fixed. 
+  Case ID:            Hasnath                 
+  8                                                                       
+
+  Test     3/4/2023   Ahsan    Pass         User cannot register with 
+  Case ID:            Hasnath               passwords consisting of spacing  
+  9                                         before and after. A message 
+                                            indicates "Passwords do not match"
+                                            
+                                            Fixed, retested, and passed on.
+                                            3/5/23.
+
+  Test     3/4/2023   Ahsan    Pass          
+  Case ID:            Hasnath                 
+  11 
+
+  Test     3/4/2023   Ahsan    Pass          
+  Case ID:            Hasnath                 
+  12
+ --------------------------------------------------------------------------------     
+
 
 Iteration 4
 
-+------+--------+-------+-------+-------------------------------------+
-| Test | Date   | T     | Pass/ | Comments:                           |
-| Case | T      | ester | Fail: |                                     |
-| ID:  | ested: | Name: |       |                                     |
-+======+========+=======+=======+=====================================+
-| Test | 3/     | Zal   | Pass  |                                     |
-| Case | 5/2023 | Patel |       |                                     |
-| ID:  |        |       |       |                                     |
-| 1    |        |       |       |                                     |
-+------+--------+-------+-------+-------------------------------------+
-| Test | 3/     | Zal   | Pass  |                                     |
-| Case | 5/2023 | Patel |       |                                     |
-| ID:  |        |       |       |                                     |
-| 2    |        |       |       |                                     |
-+------+--------+-------+-------+-------------------------------------+
-| Test | 3/     | Zal   | Pass  |                                     |
-| Case | 5/2023 | Patel |       |                                     |
-| ID:  |        |       |       |                                     |
-| 3    |        |       |       |                                     |
-+------+--------+-------+-------+-------------------------------------+
-| Test | 3/     | Zal   | Pass  |                                     |
-| Case | 5/2023 | Patel |       |                                     |
-| ID:  |        |       |       |                                     |
-| 4    |        |       |       |                                     |
-+------+--------+-------+-------+-------------------------------------+
-| Test | 3/     | Zal   | Pass  |                                     |
-| Case | 5/2023 | Patel |       |                                     |
-| ID:  |        |       |       |                                     |
-| 5    |        |       |       |                                     |
-+------+--------+-------+-------+-------------------------------------+
-| Test | 3/     | Zal   | Pass  |                                     |
-| Case | 5/2023 | Patel |       |                                     |
-| ID:  |        |       |       |                                     |
-| 6    |        |       |       |                                     |
-+------+--------+-------+-------+-------------------------------------+
-| Test | 3/     | Zal   | Pass  | Project team decided it is best     |
-| Case | 5/2023 | Patel |       | practice to route users to sign in  |
-| ID:  |        |       |       | page after a successful             |
-| 7    |        |       |       | registration.                       |
-+------+--------+-------+-------+-------------------------------------+
-| Test | 3/     | Zal   | Pass  |                                     |
-| Case | 5/2023 | Patel |       |                                     |
-| ID:  |        |       |       |                                     |
-| 8    |        |       |       |                                     |
-+------+--------+-------+-------+-------------------------------------+
-| Test | 3/     | Zal   | Pass  | User cannot register with passwords |
-| Case | 5/2023 | Patel |       | consisting of spacing before and    |
-| ID:  |        |       |       | after. A message indicates          |
-| 9    |        |       |       | "Passwords do not match"            |
-|      |        |       |       |                                     |
-|      |        |       |       | Fixed, retested, and passed on.     |
-|      |        |       |       | 3/5/23.                             |
-+------+--------+-------+-------+-------------------------------------+
-| Test | 3/     | Zal   | Pass  |                                     |
-| Case | 5/2023 | Patel |       |                                     |
-| ID:  |        |       |       |                                     |
-| 10   |        |       |       |                                     |
-+------+--------+-------+-------+-------------------------------------+
-| Test | 3/     | Zal   | Pass  |                                     |
-| Case | 5/2023 | Patel |       |                                     |
-| ID:  |        |       |       |                                     |
-| 11   |        |       |       |                                     |
-+------+--------+-------+-------+-------------------------------------+
-| Test | 3/     | Zal   | Pass  |                                     |
-| Case | 5/2023 | Patel |       |                                     |
-| ID:  |        |       |       |                                     |
-| 12   |        |       |       |                                     |
-+------+--------+-------+-------+-------------------------------------+
+Iteration 2
+
+  --------------------------------------------------------------------------------
+  Test     Date       Tester   Pass/Fail:   Comments:
+  Case ID: Tested:    Name:                 
+  -------- ---------- -------- ------------ --------------------------------------
+  Test     3/5/2023   Zal   Pass         
+  Case ID:            Patel                 
+  1                                         
+
+  Test     3/5/2023   Zal   Pass         
+  Case ID:            Patel                 
+  2                                         
+
+  Test     3/5/2023   Zal   Pass         
+  Case ID:            Patel                 
+  3                                         
+
+  Test     3/5/2023   Zal   Pass         
+  Case ID:            Patel                 
+  4                                         
+
+  Test     3/5/2023   Zal   Pass         
+  Case ID:            Patel                 
+  5                                         
+
+  Test     3/5/2023   Zal   Pass         
+  Case ID:            Patel                 
+  6                                         
+
+  Test     3/5/2023   Zal   Pass           Project team decided it is best
+  Case ID:            Patel                practice to route users to sign in   
+  7                                        page after a successful
+                                           registration.   
+
+  Test     3/5/2023   Zal   Pass            
+  Case ID:            Patel                 
+  8                                         
+ .
+
+  Test     3/5/2023   Zal   Pass         User cannot register with passwords
+  Case ID:            Patel              consisting of spacing before and
+  9                                      after. A message indicates 
+                                         indicates "Passwords do not match"
+                                            
+                                         Fixed, retested, and passed on.
+                                         3/5/23.
+  Test     3/5/2023   Zal   Pass         
+  Case ID:            Patel                 
+  10                                        
+
+  Test     3/5/2023   Zal   Pass         
+  Case ID:            Patel                 
+  11                                        
+
+  Test     3/5/2023   Zal   Pass         
+  Case ID:            Patel                 
+  12                                        
+  --------------------------------------------------------------------------------
