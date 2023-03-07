@@ -191,8 +191,6 @@ Iteration 2
 
 Iteration 3: 
 
-Iteration 3: 
-
  --------------------------------------------------------------------------------
   Test     Date       Tester   Pass/Fail:   Comments:
   Case ID: Tested:    Name:                 
@@ -222,10 +220,7 @@ Iteration 3: 
   12
  --------------------------------------------------------------------------------     
 
-
 Iteration 4
-
-Iteration 2
 
   --------------------------------------------------------------------------------
   Test     Date       Tester   Pass/Fail:   Comments:
