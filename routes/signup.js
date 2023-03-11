@@ -111,7 +111,7 @@ router.post("/", async (req, res) => {
             [trimmedUsername, trimmedPassword, trimmedEmail] //trims spaces at end of username and email 
           );
           req.flash('success', 'Registration successful. Please log in.');
-          return res.redirect(200,'/signin?registrationSuccess=true'); //query string true, redirects to login with success 
+          res.redirect(200,'/signin?registrationSuccess=true'); //query string true, redirects to login with success 
         } catch (err) {
           req.flash('error', err.message);
           res.status(400).render("signup", { messages: req.flash(), message: err.message});

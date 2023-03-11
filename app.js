@@ -1,5 +1,6 @@
 const flash = require('connect-flash');
 const session = require('express-session');
+const axios = require("axios");
 
 var express = require("express");
 var path = require("path");
@@ -12,6 +13,7 @@ var dashboardRouter = require("./routes/dashboard");
 var registerRouter = require("./routes/signup");
 var logoutRouter = require("./routes/signout");
 var loginRouter = require("./routes/signin");
+var newsRouter = require("./routes/news");
 
 var app = express();
 
@@ -41,6 +43,7 @@ app.use("/dashboard", dashboardRouter);
 app.use("/signup", registerRouter);
 app.use("/signout", logoutRouter);
 app.use("/signin", loginRouter);
+app.use("/news", newsRouter);
 
 //var listener = app.listen(8080, function () {
 //  console.log("Listening on port " + listener.address().port);
