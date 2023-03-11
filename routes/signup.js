@@ -26,11 +26,25 @@ const userExists = async (username, email) => {
   return rows.length > 0;
 };
 
+// Function to check if an email already exists in the database
+const emailExists = async (email) => {
+  const [rows] = await pool.execute(
+    "SELECT * FROM Users WHERE Email = ?",
+    [email]
+  );
+  return rows.length > 0;
+};
 
 //show signup page with flashes if they exist
 router.get("/", (req, res) => {
   res.render("signup", { title: "Signup", messages: req.flash() });
 });
+
+// Function to check if an email has a valid format
+const isValidEmail = (email) => {
+  const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+  return emailRegex.test(email);
+}
 
 router.post("/", async (req, res) => {
   const { username, password, confirmPassword, email } = req.body;
@@ -39,6 +53,7 @@ router.post("/", async (req, res) => {
   const trimmedEmail = email.trim(); // Trim spaces before and after the email
   const trimmedPassword = password.trim(); // Trim spaces before and after the password
   const confirmTrimmedPassword = confirmPassword.trim(); // Trim spaces before and after the password
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   // Check if passwords match
   if (trimmedPassword !== confirmTrimmedPassword) {
@@ -73,26 +88,36 @@ router.post("/", async (req, res) => {
   } else if (trimmedPassword.indexOf(' ') !== -1) {
     req.flash('error', 'Password cannot contain spaces');
     res.status(400).render("signup", { messages: req.flash(), message: "Password cannot contain spaces" });
+  } else if (!emailRegex.test(trimmedEmail)) {
+    req.flash('error', 'Invalid email format');
+    res.status(400).render("signup", { messages: req.flash(), message: "Invalid email format" });
   } else {
-    // Check if user already exists
-    const exists = await userExists(trimmedUsername, trimmedEmail);
-    if (exists) {
-      req.flash('error', 'User already exists');
-      res.status(400).render("signup", { messages: req.flash(), message: "User already exists" });
-      //res.status(400).redirect("/signup?registrationSuccess=false"); //query string false, and displays error user already exits 
+    // Check if email already exists
+    const emailExistsResult = await emailExists(trimmedEmail);
+    if (emailExistsResult) {
+      req.flash('error', 'Email already exists');
+      res.status(400).render("signup", { messages: req.flash(), message: "Email already exists" });
     } else {
-      try {
-        await pool.execute(
-          "INSERT INTO Users (Username, Password, Email) VALUES (?, ?, ?)",
-          [trimmedUsername, trimmedPassword, trimmedEmail] //trims spaces at end of username and email 
-        );
-        req.flash('success', 'Registration successful. Please log in.');
-        res.status(200).redirect('/signin?registrationSuccess=true'); //query string true, redirects to login with success 
-      } catch (err) {
-        req.flash('error', err.message);
-        res.status(400).render("signup", { messages: req.flash(), message: err.message});
-        //res.status(400).redirect("/signup?registrationSuccess=false"); //query string false
-        console.log(err);
+      // Check if user already exists
+      const exists = await userExists(trimmedUsername, trimmedEmail);
+      if (exists) {
+        req.flash('error', 'User already exists');
+        res.status(400).render("signup", { messages: req.flash(), message: "User already exists" });
+        //res.status(400).redirect("/signup?registrationSuccess=false"); //query string false, and displays error user already exits 
+      } else {
+        try {
+          await pool.execute(
+            "INSERT INTO Users (Username, Password, Email) VALUES (?, ?, ?)",
+            [trimmedUsername, trimmedPassword, trimmedEmail] //trims spaces at end of username and email 
+          );
+          req.flash('success', 'Registration successful. Please log in.');
+          return res.redirect(200,'/signin?registrationSuccess=true'); //query string true, redirects to login with success 
+        } catch (err) {
+          req.flash('error', err.message);
+          res.status(400).render("signup", { messages: req.flash(), message: err.message});
+          //res.status(400).redirect("/signup?registrationSuccess=false"); //query string false
+          console.log(err);
+        }
       }
     }
   }
