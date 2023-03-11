@@ -10,10 +10,10 @@ afterAll(async () => {
 describe('Signup API', () => {
   test('POST /signup with valid user data should create a new user', async () => {
     const userData = {
-      username: 'JestUser3',//change for new user 
+      username: 'JestUser4',//change for new user 
       password: 'Testpass123',
       confirmPassword: 'Testpass123',
-      email: 'JestUser3@example.com'// change for new user
+      email: 'JestUser4@example.com'// change for new user
     };
     const response = await request(app)
       .post('/signup')
