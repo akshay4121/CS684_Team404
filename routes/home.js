@@ -4,25 +4,12 @@ const pool = require("../db/db");
 const axios = require("axios");
 require('dotenv').config()
 
+const API_KEY = process.env.API_KEY;
 
-
-const app = express();
-
-
-var API_KEY = process.env.API_KEY;
-console.log(API_KEY)
-
-router.get("/", getArticles);
-
-router.get("/view", getUsers);
-
-router.get("/data", getData);
-
-router.post("/", postUser);
-
-async function getArticles(req, res) {
-  var category = "general";
-  var uri = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`;
+router.get("/", async (req, res) => {
+  const category = "general";
+  const uri = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`;
+  
   try {
     const response = await axios.get(uri);
     const data = response.data;
@@ -46,43 +33,41 @@ async function getArticles(req, res) {
   } catch (error) {
     res.send(error);
   }
-}
+});
 
-async function getUsers(req, res) {
+router.get("/view", async (req, res) => {
   try {
     const rows = await pool.query("SELECT * FROM Users");
-    const result = rows.map(row => row.toJSON());
     res.render("subscribed", {
       title: "Users",
-      result
+      result: rows
     });
   } catch (error) {
     console.log(error);
     res.status(500).send("Internal Server Error");
   }
-}
+});
 
-async function getData(req, res) {
+router.get("/data", async (req, res) => {
   try {
     const rows = await pool.query("SELECT * FROM Users");
-    const result = rows.map(row => row.toJSON());
-    res.send(result);
+    res.send(rows);
   } catch (error) {
     console.log(error);
-    res.status(500).send("API call: Internal Server Error ");
+    res.status(500).send("API call: Internal Server Error");
   }
-}
+});
 
-async function postUser(req, res) {
+router.post("/", async (req, res) => {
   try {
-    const users = req.body;
+    const { username, password } = req.body;
     const sql = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
-    const result = await pool.query(sql, [users.Username, users.Password]);
+    const result = await pool.query(sql, [username, password]);
     res.json(result);
   } catch (error) {
     console.log(error);
     res.status(500).send("Internal Server Error");
   }
-}
+});
 
 module.exports = router;
