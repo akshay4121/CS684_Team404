@@ -2,23 +2,51 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Logout</title>
+  <title>Homepage</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>
 
   <div class="container">
-    <h1>General category news</h1>
-    {{!-- <p>Thank you for using our site.</p> --}}
-
-    <p>
-      <a class="btn btn-primary btn-sm" href="/" role="button">Return to Homepage</a>
-    </p>
-
+    <h1>Welcome to the homepage!!</h1>
+    <div class="footer">
+      <p class="lead">
+        <a class="btn btn-primary btn-sm" href="/signin" role="button">Already a member? Login</a>
+      </p>
+      <p class="lead">
+        <a class="btn btn-primary btn-sm" href="/signup" role="button">Register for our site!</a>
+      </p>
+    </div>
+    <br>
+    <h2>Top Headlines</h2>
+    <div id="news"></div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $.ajax({
+        url: '/news',
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+          var newsData = response.data;
+          var newsHtml = '';
+          $.each(newsData.articles, function(i, item) {
+            newsHtml += '<h2>' + item.title + '</h2>';
+            newsHtml += '<p>' + item.description + '</p>';
+            newsHtml += '<a href="' + item.url + '">Read more</a>';
+          });
+          $('#news').html(newsHtml);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log('Error: ' + textStatus + ' - ' + errorThrown);
+        }
+      });
+    });
+  </script>
+
 </body>
 </html>

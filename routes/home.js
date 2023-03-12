@@ -1,18 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../db/db");
+const axios = require("axios");
 
 const session = require('express-session');
 const flash = require('connect-flash');
-const cors = require('cors');
 
-router.use(session({
+const app = express();
+app.use(session({
   secret: 'secret',
   resave: false,
   saveUninitialized: false
 }));
 
-router.use(flash());
+app.use(flash());
 
 const corsOptions = {
   origin: 'http://localhost:3000', 
@@ -20,51 +21,70 @@ const corsOptions = {
   optionSuccessStatus: 200
 };
 
-router.use(cors(corsOptions));
-
-router.get("/", (req, res) => {
-  res.render("home", { title: "home" });
+router.get("/", async (req, res) => {
+  try {
+    const category = "general";
+    const API_KEY = "913b6adfc01548c3bf2f5c39612eb959";
+    const uri = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`;
+    
+    const response = await axios.get(uri);
+    const articles = response.data.articles;
+    
+    const articleList = articles.map(article => {
+      return `
+        <li>
+          <img src="${article.urlToImage}" alt="${article.title}" />
+          <h4>${article.title}</h4>
+          <p>${article.description}</p>
+          <a href="${article.url}" target="_blank">Read more</a>
+        </li>
+      `;
+    }).join('');
+    
+    res.render("home", {
+      title: "home",
+      articleList: `<ul>${articleList}</ul>`
+    });
+  } catch (error) {
+    res.status(500).send("API call: Internal Server Error");
+  }
 });
 
 router.get("/view", async (req, res) => {
-  pool.query("SELECT * FROM Users", (err, rows) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send("Internal Server Error");
-    } else {
-      const data = JSON.stringify(rows);
-      const result = JSON.parse(data);
-      res.render("subscribed", {
-        title: "Users",
-        result
-      });
-    }
-  });
+  try {
+    const rows = await pool.query("SELECT * FROM Users");
+    const result = rows.map(row => row.toJSON());
+    res.render("subscribed", {
+      title: "Users",
+      result
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
-router.get("/data", (req, res) => {
-  pool.query("SELECT * FROM Users", (err, rows) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send("API call: Internal Server Error ");
-    } else {
-      const result = JSON.stringify(rows);
-      res.send(result);
-    }
-  });
+router.get("/data", async (req, res) => {
+  try {
+    const rows = await pool.query("SELECT * FROM Users");
+    const result = rows.map(row => row.toJSON());
+    res.send(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("API call: Internal Server Error ");
+  }
 });
-
 
 router.post("/", async (req, res) => {
-  const users = req.body;
-  pool.query("INSERT INTO Users (Username, Password) VALUES ('"+users.Username+"','"+users.Password+"');", (err, rows) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send("Internal Server Error");
-    } else {
-      res.json(rows);
-    }
-  });
+  try {
+    const users = req.body;
+    const sql = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
+    const result = await pool.query(sql, [users.Username, users.Password]);
+    res.json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 module.exports = router;
