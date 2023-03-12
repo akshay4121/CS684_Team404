@@ -16,7 +16,7 @@ app.use(session({
 app.use(flash());
 
 const corsOptions = {
-  origin: 'http://localhost:3000', 
+  origin: 'https://team404.onrender.com/', 
   credentials: true,            
   optionSuccessStatus: 200
 };
