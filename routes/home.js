@@ -2,29 +2,13 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../db/db");
 const axios = require("axios");
-const cors = require('cors');
 require('dotenv').config()
 
-const session = require('express-session');
-const flash = require('connect-flash');
+
 
 const app = express();
 
-app.use(session({
-  secret: 'secret',
-  resave: false,
-  saveUninitialized: false
-}));
 
-app.use(flash());
-
-const corsOptions = {
-  origin: 'http://localhost:3000', 
-  credentials: true,            
-  optionSuccessStatus: 200
-};
-
-router.use(cors(corsOptions));
 
 var API_KEY = process.env.API_KEY;
 
