@@ -9,6 +9,7 @@ const flash = require('connect-flash');
 
 
 const app = express();
+
 app.use(session({
   secret: 'secret',
   resave: false,
