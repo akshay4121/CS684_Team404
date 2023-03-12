@@ -32,6 +32,7 @@ router.get('/', async (req, res) => {
     .catch(function (error) {
       res.send(error);
     });
+    
 });
 
 module.exports = router;
