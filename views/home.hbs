@@ -33,7 +33,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script>
       $(document).ready(function() {
-        fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=913b6adfc01548c3bf2f5c39612eb959')
+         fetch(`https://newsapi.org/v2/top-headlines?country=us&category={{category}}&apiKey={{API_KEY}}`)
           .then(response => response.json())
           .then(data => {
             var newsData = data;

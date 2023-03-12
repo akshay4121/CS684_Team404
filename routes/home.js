@@ -29,7 +29,7 @@ router.use(cors(corsOptions));
 
 const API_KEY = process.env.API_KEY;
 //render debug to see key in log
-//console.log(API_KEY);
+console.log(API_KEY);
 
 router.get("/", async (req, res) => {
   try {
@@ -53,7 +53,8 @@ router.get("/", async (req, res) => {
     res.render("home", {
       title: "Home",
       category: category,
-      articleList: `<ul>${articleList}</ul>`
+      articleList: `<ul>${articleList}</ul>`,
+      API_KEY: API_KEY
     });
   } catch (error) {
     console.log(error);
