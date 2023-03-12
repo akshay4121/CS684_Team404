@@ -27,14 +27,16 @@ const corsOptions = {
 };
 router.use(cors(corsOptions));
 
-//var API_KEY = process.env.API_KEY;
-var API_KEY = "913b6adfc01548c3bf2f5c39612eb959";
+var API_KEY = process.env.API_KEY;
+//var API_KEY = "913b6adfc01548c3bf2f5c39612eb959";
 //render debug to see key in log
 console.log(API_KEY);
 
 router.get("/", async (req, res) => {
   try {
     var category = "general";
+    console.log("second print");
+    console.log(API_KEY);
     var uri = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`;
     var response = await axios.get(uri);
     var articles = response.data.articles;
