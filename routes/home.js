@@ -11,7 +11,7 @@ require('dotenv').config()
 
 var API_KEY = process.env.API_KEY;
 //render debug to see key in log
-//console.log(API_KEY);
+console.log(API_KEY);
 
 router.get('/', (req, res) => {
   var category = 'general';
