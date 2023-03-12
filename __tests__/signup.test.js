@@ -20,7 +20,7 @@ describe('Signup API', () => {
       .send(userData)
       .expect(200)  // expect redirection
       .redirects(1);  // follow redirection
-    expect(response.headers.location).toBe('/signin?registrationSuccess=true');
+    expect(response.text).toContain('Registration successful. Please log in.');
   });
 
   //password does not match

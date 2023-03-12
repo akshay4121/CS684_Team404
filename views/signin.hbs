@@ -38,6 +38,11 @@
             {{message}}
           </div>
         {{/if}}
+        {{#if successMessage}}
+          <div class="alert alert-success" role="alert">
+            {{successMessage}}
+          </div>
+        {{/if}}
         <div id="registration-success-message"></div>
         <div class="form-group">
           <input type="text" class="form-control" name="emailOrUsername" placeholder="Email or Username" required="required">
