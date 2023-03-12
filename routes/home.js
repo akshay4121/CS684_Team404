@@ -18,13 +18,14 @@ app.use(session({
 app.use(flash());
 
 const corsOptions = {
-  origin: 'https://team404.onrender.com/', 
+  origin: 'http://localhost:3000', 
   credentials: true,            
   optionSuccessStatus: 200
 };
 router.use(cors(corsOptions));
 
 const API_KEY = process.env.API_KEY || "913b6adfc01548c3bf2f5c39612eb959";
+console.log(API_KEY);
 
 router.get("/", async (req, res) => {
   try {
