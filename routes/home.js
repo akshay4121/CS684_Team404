@@ -20,25 +20,16 @@ app.use(session({
 
 app.use(flash());
 
-const corsOptions = {
-  origin: 'http://localhost:3000', 
-  credentials: true,            
-  optionSuccessStatus: 200
-};
-router.use(cors(corsOptions));
-
 const API_KEY = process.env.API_KEY;
 //render debug to see key in log
-console.log(API_KEY);
+//console.log(API_KEY);
 
 router.get("/", async (req, res) => {
   try {
     const category = "general";
     const uri = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`;
-    
     const response = await axios.get(uri);
     const articles = response.data.articles;
-    
     const articleList = articles.map(article => {
       return `
         <li>
@@ -59,44 +50,6 @@ router.get("/", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send("API call: Internal Server Error");
-  }
-});
-
-
-router.get("/view", async (req, res) => {
-  try {
-    const rows = await pool.query("SELECT * FROM Users");
-    const result = rows.map(row => row.toJSON());
-    res.render("subscribed", {
-      title: "Users",
-      result
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-router.get("/data", async (req, res) => {
-  try {
-    const rows = await pool.query("SELECT * FROM Users");
-    const result = rows.map(row => row.toJSON());
-    res.send(result);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("API call: Internal Server Error ");
-  }
-});
-
-router.post("/", async (req, res) => {
-  try {
-    const users = req.body;
-    const sql = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
-    const result = await pool.query(sql, [users.Username, users.Password]);
-    res.json(result);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Internal Server Error");
   }
 });
 
