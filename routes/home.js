@@ -22,7 +22,7 @@ const corsOptions = {
   credentials: true,            
   optionSuccessStatus: 200
 };
-router.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 const API_KEY = "913b6adfc01548c3bf2f5c39612eb959";
 const API_KEY1 = process.env.API_KEY || "913b6adfc01548c3bf2f5c39612eb959";
