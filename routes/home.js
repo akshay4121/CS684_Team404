@@ -30,7 +30,7 @@ console.log(API_KEY);
 router.get("/", async (req, res) => {
   try {
     const category = "general";
-    //const API_KEY = "913b6adfc01548c3bf2f5c39612eb959";
+    const API_KEY = "913b6adfc01548c3bf2f5c39612eb959";
     const uri = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`;
     
     const response = await axios.get(uri);
