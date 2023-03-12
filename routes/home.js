@@ -3,6 +3,8 @@ const router = express.Router();
 const pool = require("../db/db");
 const axios = require("axios");
 const cors = require('cors');
+require('dotenv').config()
+
 
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -25,7 +27,7 @@ const corsOptions = {
 };
 router.use(cors(corsOptions));
 
-const API_KEY = process.env.API_KEY || "913b6adfc01548c3bf2f5c39612eb959";
+const API_KEY = process.env.API_KEY;
 //render debug to see key in log
 //console.log(API_KEY);
 
