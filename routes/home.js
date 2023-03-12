@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../db/db");
 const axios = require("axios");
+const cors = require('cors');
 
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -16,10 +17,11 @@ app.use(session({
 app.use(flash());
 
 const corsOptions = {
-  origin: 'https://team404.onrender.com/', 
+  origin: 'http://localhost:3000', 
   credentials: true,            
   optionSuccessStatus: 200
 };
+router.use(cors(corsOptions));
 
 router.get("/", async (req, res) => {
   try {
