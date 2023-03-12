@@ -24,7 +24,7 @@ const corsOptions = {
 };
 router.use(cors(corsOptions));
 
-//const API_KEY = process.env.API_KEY || "913b6adfc01548c3bf2f5c39612eb959";
+const API_KEY = process.env.API_KEY || "913b6adfc01548c3bf2f5c39612eb959";
 //render debug to see key in log
 //console.log(API_KEY);
 
