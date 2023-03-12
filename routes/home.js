@@ -9,17 +9,6 @@ require('dotenv').config()
 const session = require('express-session');
 const flash = require('connect-flash');
 
-
-const app = express();
-
-app.use(session({
-  secret: 'secret',
-  resave: false,
-  saveUninitialized: false
-}));
-
-app.use(flash());
-
 const API_KEY = process.env.API_KEY;
 //render debug to see key in log
 //console.log(API_KEY);
