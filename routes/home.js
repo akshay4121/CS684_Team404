@@ -32,8 +32,6 @@ const API_KEY = process.env.API_KEY || "913b6adfc01548c3bf2f5c39612eb959";
 router.get("/", async (req, res) => {
   try {
     const category = "general";
-    //const API_KEY = "913b6adfc01548c3bf2f5c39612eb959";
-    //const API_KEY = process.env.API_KEY || "913b6adfc01548c3bf2f5c39612eb959";
     const uri = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`;
     
     const response = await axios.get(uri);
@@ -51,13 +49,16 @@ router.get("/", async (req, res) => {
     }).join('');
     
     res.render("home", {
-      title: "home",
+      title: "Home",
+      category: category,
       articleList: `<ul>${articleList}</ul>`
     });
   } catch (error) {
+    console.log(error);
     res.status(500).send("API call: Internal Server Error");
   }
 });
+
 
 router.get("/view", async (req, res) => {
   try {
