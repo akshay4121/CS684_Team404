@@ -9,8 +9,8 @@ require('dotenv').config()
 const app = express();
 
 
-
 var API_KEY = process.env.API_KEY;
+console.log(API_KEY)
 
 router.get("/", getArticles);
 
