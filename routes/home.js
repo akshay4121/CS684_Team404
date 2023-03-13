@@ -5,10 +5,9 @@ const axios = require("axios");
 require('dotenv').config()
 
 const API_KEY = process.env.API_KEY;
-const category = "general";  
 
 router.get("/", async (req, res) => {
-  
+  const category = "general";
   const uri = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`;
   
   try {
@@ -71,6 +70,4 @@ router.post("/", async (req, res) => {
   }
 });
 
-module.exports = router;
-module.exports.API_KEY = API_KEY;
-module.exports.category = category;
+module.exports= router;
