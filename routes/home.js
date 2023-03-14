@@ -35,39 +35,5 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/view", async (req, res) => {
-  try {
-    const rows = await pool.query("SELECT * FROM Users");
-    res.render("subscribed", {
-      title: "Users",
-      result: rows
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-router.get("/data", async (req, res) => {
-  try {
-    const rows = await pool.query("SELECT * FROM Users");
-    res.send(rows);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("API call: Internal Server Error");
-  }
-});
-
-router.post("/", async (req, res) => {
-  try {
-    const { username, password } = req.body;
-    const sql = "INSERT INTO Users (Username, Password) VALUES (?, ?)";
-    const result = await pool.query(sql, [username, password]);
-    res.json(result);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Internal Server Error");
-  }
-});
 
 module.exports= router;
