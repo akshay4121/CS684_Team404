@@ -27,6 +27,14 @@ app.use(session({
 }));
 app.use(flash());
 
+//middleware for checking login status
+app.use(function(req, res, next) {
+  if (!req.session.login) {
+    req.session.login = false;
+  }
+  next();
+});
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");

@@ -19,8 +19,8 @@ describe('signin router', () => {
     const res = await request(app)
       .post('/signin')
       .send({ emailOrUsername: 'user', password: '123' });
-    expect(res.status).toEqual(200);
-    expect(res.text).toContain('Welcome to your dashboard');
+    expect(res.status).toEqual(302);
+    expect(res.text).toContain('Found. Redirecting to /dashboard?loginSuccess=true');
   });
 
   // should fail to sign in and throw an error
