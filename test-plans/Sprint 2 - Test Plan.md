@@ -1,6 +1,6 @@
-## Test Plan for Team 404 Personal News Feed Application
-*Ahsan Hasnath, Cristofer Carcamo, Joshua Steinerman, Zal Patel, Akshay Patel*
-*CS-684: Quality Assurance*
+# Test Plan for Team 404 Personal News Feed Application
+## Team Members: Ahsan Hasnath, Cristofer Carcamo, Joshua Steinerman, Zal Patel, Akshay Patel*
+## Class: CS-684: Quality Assurance*
 
 ### Introduction
 The purpose of this test plan for Project 404 has been designed to ensure that the personal news feed application is fully functional, meets user requirements, and operates as expected. The project involves retrieving the most recent and fresh headlines from "https://newsapi.org/," allowing users to sign up and log in to their accounts, select categories of interest, and search for specific subjects.
