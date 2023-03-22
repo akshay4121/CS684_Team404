@@ -1,4 +1,5 @@
 # Test Plan for Team 404 Personal News Feed Application
+
 ## Team Members: Ahsan Hasnath, Cristofer Carcamo, Joshua Steinerman, Zal Patel, Akshay Patel*
 ## Class: CS-684: Quality Assurance*
 
@@ -148,29 +149,29 @@ The testing approach for the Team 404 Personal News Feed Application will consis
 ## Features to be Tested
 #### The following features will be tested:
 #### Landing Page
-- Verify that the landing page displays a list of articles from the NewsAPI "General" category when the user is not signed in
-- Verify that the number of articles displayed can be adjusted (may be configured by the developer)
-- Verify that there is a link or button to refresh the list of articles
-- Verify that when the user is signed in, a link or button is displayed to open the Settings page (may be displayed in a modal dialog)
+- Verify that the landing page displays a list of articles from the NewsAPI "General" category when the user is not signed in.
+- Verify that the number of articles displayed can be adjusted (may be configured by the developer).
+- Verify that there is a link or button to refresh the list of articles.
+- Verify that when the user is signed in, a link or button is displayed to open the Settings page (may be displayed in a modal dialog).
 
 #### Settings Page/Modal Dialog
-- Verify that the user can select one or more categories from the list (General, Business, Entertainment, Health, Science, Sports, Technology)
-- Verify that the form uses a button, link, or image to submit the user's preferences
-- Verify that there is a button, link, or image to cancel the changes
-- Verify that when the user clicks Ok or Cancel, the app displays the landing page
+- Verify that the user can select one or more categories from the list (General, Business, Entertainment, Health, Science, Sports, Technology).
+- Verify that the form uses a button, link, or image to submit the user's preferences.
+- Verify that there is a button, link, or image to cancel the changes.
+- Verify that when the user clicks Ok or Cancel, the app displays the landing page.
 
 #### Database Schema
 - Verify that the user table exists in the RDBMS and has the following columns:
-  - userid (integer) - primary key unique sequence number
-  - username (string) - user name from sign up
-  - password (string) - password from sign up
-  - general (boolean) - true if the user has chosen General
-  - business (boolean) - true if the user has chosen Business
-  - entertainment (boolean) - true if the user has chosen Entertainment
-  - health (boolean) - true if the user has chosen Health
-  - science (boolean) - true if the user has chosen Science
-  - sports (boolean) - true if the user has chosen Sports
-  - technology (boolean) - true if the user has chosen Technology
+  - userid (integer) - primary key unique sequence number.
+  - username (string) - user name from sign up.
+  - password (string) - password from sign up.
+  - general (boolean) - true if the user has chosen General.
+  - business (boolean) - true if the user has chosen Business.
+  - entertainment (boolean) - true if the user has chosen Entertainment.
+  - health (boolean) - true if the user has chosen Health.
+  - science (boolean) - true if the user has chosen Science.
+  - sports (boolean) - true if the user has chosen Sports.
+  - technology (boolean) - true if the user has chosen Technology.
 
 ## Approach
 #### Functional Testing Approach
@@ -195,14 +196,14 @@ The testing approach for the Team 404 Personal News Feed Application will consis
    
 ## Pass/Fail Criteria
 #### Landing Page
-- Pass: The landing page displays a list of articles from the NewsAPI "General" category when the user is not signed in, and the number of articles can be adjusted
-- Pass: There is a link or button to refresh the list of articles
-- Pass: When the user is signed in, a link or button is displayed to open the Settings page (may be displayed in a modal dialog)
-- Fail: The landing page does not display the list of articles from the NewsAPI "General" category when the user is not signed in
+- Pass: The landing page displays a list of articles from the NewsAPI "General" category when the user is not signed in, and the number of articles can be adjusted.
+- Pass: There is a link or button to refresh the list of articles.
+- Pass: When the user is signed in, a link or button is displayed to open the Settings page (may be displayed in a modal dialog).
+- Fail: The landing page does not display the list of articles from the NewsAPI "General" category when the user is not signed in.
 
 #### Settings Page/Modal Dialog
-- Pass: The user can select one or more categories from the list
-- Pass: The form uses a button, link, or image to submit
+- Pass: The user can select one or more categories from the list.
+- Pass: The form uses a button, link, or image to submit.
 
 ## Testing Tasks
 ### The following testing tasks will be conducted:
