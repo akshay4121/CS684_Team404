@@ -231,9 +231,9 @@ The testing approach for the Team 404 Personal News Feed Application will consis
 #### The following responsibilities will be assigned:
 - Back-end developers are responsible for developing the database and updating the schema. - Joshua Steinerman
 - The development team is responsible for creating the front-end UX - Cristofer Carcamo
--The development team is responsible for attaining New API key and configurations. - Akshay Patel and Cristofer Carcamo
+- The development team is responsible for attaining New API key and configurations. - Akshay Patel and Cristofer Carcamo
 - The Development team is responsible for creating Unit test cases - Zal Patel
-- The Development team is responsible for creating Unit Test scripts in Jest. - Akshay Patel, Cristofer Carcamo
+- The Development team is responsible for creating Unit Test scripts in Jest. - Akshay Patel, Joshua Steinerman,  Cristofer Carcamo
 - The testing team is responsible for Updating and executing API test suite. - Akshay Patel
 - The development team is responsible for fixing defects found during testing - Cristofer Carcamo
 - The testing team is responsible for creating test artifacts such as: 
@@ -246,11 +246,11 @@ The testing approach for the Team 404 Personal News Feed Application will consis
 ## Schedule
 #### The following schedule will be used:
 - Database Schema updates will begin on [3/06/2023] and end on [3/20/2023].
-- Development will begin on [3/06/2023] and end on [3/20/2023].
+- Development will begin on [3/06/2023] and end on [3/23/2023].
 - Unit testing suite is to be developed beginning [3/08/2023] and ending on [3/16/2023].
 - API Suite updates/development begins on [3/06/2023] and ends on [3/20/2023].
 - Test Artifacts development will begin on [3/06/2023] and end on [3/27/2023].
-- Testing will begin on [2/21/2023] and end on [3/27/2023].
+- Testing will begin on [2/22/2023] and end on [3/27/2023].
 - The testing team will provide the final test report to the stakeholders by  [3/26/2023].
 
 
