@@ -90,6 +90,43 @@
     margin-top: 10px;
   }
 
+  .modal {
+    display: flex;
+    position: relative;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+  }
+
+  .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+  }
+
+
+
 </style>
 <html>
 
@@ -98,6 +135,7 @@
     <link rel="stylesheet" href="../stylesheets/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <meta name="csrf-token" content="{{csrfToken}}">
   </head>
 
   <body>
@@ -108,13 +146,34 @@
       </header>
 
       <nav class="navbar">
+        <button class="nav-button" id="settings-btn" >Adjust your Settings</button>
+        <button class="nav-button" onclick="location.reload()">Refresh Page contents</button>
         <a href="/" class="nav-button" id="logout-btn">Log Out</a>
-        <a href="#" class="nav-button">Adjust your Settings</a>
+       <div class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Settings</h2>
+            <p>Select the categories you want to enable:</p>
+            <form id="category-form">
+              <label for="category-general"><input type="checkbox" id="category-general" name="General" {{#if user.General}}{{checkedGeneral}}{{/if}}>General</label>
+              <label for="category-business"><input type="checkbox" id="category-business" name="Business" {{#if user.Business}}{{checkedBusiness}}{{/if}}>Business</label>
+              <label for="category-entertainment"><input type="checkbox" id="category-entertainment" name="Entertainment" {{#if user.Entertainment}}{{checkedEntertainment}} {{/if}}>Entertainment</label>
+              <label for="category-health"><input type="checkbox" id="category-health" name="Health" {{#if user.Health}}{{checkedHealth}}{{/if}}>Health </label>
+              <label for="category-science"><input type="checkbox" id="category-science" name="Science" {{#if user.Science}}{{checkedScience}}{{/if}}>Science </label>
+              <label for="category-sports"><input type="checkbox" id="category-sports" name="Sports" {{#if user.Sports}}{{checkedSports}}{{/if}}>Sports </label>
+              <label for="category-technology"><input type="checkbox" id="category-technology" name="Technology" {{#if user.Technology}}{{checkedTechnology}} {{/if}}>Technology</label>
+              <div class="modal-buttons">
+                <button id="cancel-btn" type="button">Cancel</button>
+                <button id="submit-btn" type="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
       </nav>
 
       <main class="main">
         <section class="articles">
-          <h2>Displaying: "{{category}}" news</h2>
+          <h2>Displaying: "{{categories}}" news</h2>
           <div id="news"></div>
         </section>
       </main>
@@ -126,7 +185,8 @@
     <script>
 
       $(document).ready(function() {
-         fetch(`https://newsapi.org/v2/top-headlines?country=us&category={{category}}&apiKey={{API_KEY}}`)
+         //fetch(`https://newsapi.org/v2/top-headlines?country=us&category={{category}}&apiKey={{API_KEY}}`)
+         fetch(`https://newsapi.org/v2/top-headlines?country=us&categories={{categories}}&apiKey={{API_KEY}}`)
           .then(response => response.json())
           .then(data => {
             var newsData = data;
@@ -151,48 +211,113 @@
       });
     </script>
     <script>
-
-      const username = "{{username}}";
-      const usernameElement = document.getElementById('username');
-      usernameElement.textContent = username;
-
-
-    </script>
-    <script>
         const datetimeElement = document.getElementById('datetime');
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         const datetime = new Date().toLocaleDateString('en-US', options);
         datetimeElement.textContent = datetime;
     </script>
-    <script>
-      // Check if registrationSuccess query parameter exists
-      const urlParams = new URLSearchParams(window.location.search);
-      const logout = urlParams.get('logout');
-      
-      // If registrationSuccess is true, show the message
-      if (logout === 'true') {
-        const messageDiv = document.getElementById('logout-success-message');
-        messageDiv.innerHTML = '<p class="text-success">logged out.</p>';
-      }
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        var logoutButton = document.getElementById("logout-btn");
-        var loggedIn = sessionStorage.getItem("loggedIn");
+        // get the <span> element that closes the modal
+        const span = document.getElementsByClassName("close")[0];
 
-        if (!loggedIn) {
-          window.location.href = "/signin";
-        }
+        //logoutbutton
+        const logoutBtn = document.getElementById("logout-btn");
 
-        logoutButton.addEventListener("click", function() {
-          // Your logout code goes here
-          console.log("User has been logged out");
-          sessionStorage.removeItem("loggedIn");
-          window.location.href = "/signin";
+        logoutBtn.addEventListener("click", async () => {
+          const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+          const response = await fetch('/dashboard/logout', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-Token': csrfToken
+            }
+          });
+
+          if (response.ok) {
+            window.location.href = '/';
+          } else {
+            console.log('Error logging out');
+          }
         });
 
-        sessionStorage.setItem("loggedIn", true);
-      </script>
+
+
+
+        // when the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+
+        // when the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+    </script>
+    <script>
+        
+
+          // Add event listener to the settings button to show the modal
+          const settingsBtn = document.getElementById("settings-btn");
+          const modal = document.querySelector(".modal");
+          settingsBtn.addEventListener("click", () => {
+            modal.style.display = "block";
+          });
+
+          // Add event listener to the close button to hide the modal
+          const closeBtn = document.querySelector(".close");
+          closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+          });
+
+          // Add event listener to the cancel button to hide the modal
+          const cancelBtn = document.getElementById("cancel-btn");
+          cancelBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+          });
+
+          // Add event listener to the submit button to send the checkbox data to the backend
+          const submitBtn = document.getElementById("submit-btn");
+          const categoryForm = document.getElementById("category-form");
+
+          submitBtn.addEventListener("click", async (event) => {
+            event.preventDefault();
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+            const categoryData = {
+              general: categoryForm.querySelector('#category-general').checked,
+              business: categoryForm.querySelector('#category-business').checked,
+              entertainment: categoryForm.querySelector('#category-entertainment').checked,
+              health: categoryForm.querySelector('#category-health').checked,
+              science: categoryForm.querySelector('#category-science').checked,
+              sports: categoryForm.querySelector('#category-sports').checked,
+              technology: categoryForm.querySelector('#category-technology').checked
+            };
+            console.log(categoryData);
+            const url = new URL('/dashboard/update', window.location.origin);
+            const response = await fetch(url, {
+              method: 'post',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': csrfToken
+              },
+              body: JSON.stringify(categoryData)
+            });
+            if (response.ok) {
+              console.log('Data updated successfully');
+              location.reload();
+            } else {
+              console.log('Error updating data');
+            }
+            modal.style.display = 'none';
+          });
+
+
+
+    </script>
+
 
   </body>
 </html>
