@@ -239,7 +239,7 @@ The testing approach for the Team 404 Personal News Feed Application will consis
 - The testing team is responsible for creating test artifacts such as: 
 	- Test Plan - Ahsan Hasnath
 	- Test Cases - Ahsan Hasnath
-	- Test Reports - Ahsan Hasnath
+	- Test Reports - Ahsan Hasnath, Zal Patel, Akshay patel, Joshua Steinerman
 - The test team executes the test cases and runs ad-hoc test activities. - Ahsan Hasnath, Zal Patel, Akshay Patel.
 - The testing team is responsible for identifying defects and verifying they are fixed. - Ahsan Hasnath
 
