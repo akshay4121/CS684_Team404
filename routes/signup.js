@@ -106,10 +106,14 @@ router.post("/", async (req, res) => {
         //res.status(400).redirect("/signup?registrationSuccess=false"); //query string false, and displays error user already exits 
       } else {
         try {
-          await pool.execute(
-            "INSERT INTO Users (Username, Password, Email) VALUES (?, ?, ?)",
-            [trimmedUsername, trimmedPassword, trimmedEmail] //trims spaces at end of username and email 
+            //inserting into data base: Username, email, password, and default values for categories.
+          const [result] = await pool.execute(
+            "INSERT INTO Users (Username, Password, Email, General, Business, Entertainment, Health, Science, Sports, Technology) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            [trimmedUsername, trimmedPassword, trimmedEmail, 1, 0, 0, 0, 0, 0, 0]
           );
+          
+
+
           req.flash('success', 'Registration successful. Please log in.');
           res.status(200).render("signin", { messages: req.flash('success'), successMessage: "Registration successful. Please log in." });
           //res.status(200).redirect('/signin?registrationSuccess=true'); //query string true, redirects to login with success 
