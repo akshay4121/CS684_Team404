@@ -1,6 +1,7 @@
 const flash = require('connect-flash');
 const session = require('express-session');
 const axios = require("axios");
+const hbs = require('hbs')
 
 var express = require("express");
 var path = require("path");
@@ -34,6 +35,12 @@ app.use(function(req, res, next) {
   }
   next();
 });
+
+// Define the "json" helper
+hbs.registerHelper('json', (context) => {
+  return JSON.stringify(context);
+});
+
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

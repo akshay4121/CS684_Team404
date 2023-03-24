@@ -2,35 +2,36 @@
 <style>
   /* Add a black background color to the top navigation */
   /* Style the navigation bar */
-.navbar {
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
-  height: 60px;
-}
+  .navbar {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    height: 60px;
+   
+  }
 
-/* Style the links inside the navigation bar */
-.navbar .nav-button {
-  position: relative; /* change position to relative */
-  float: left;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 13px;
-  display: inline-block;
-  background-color: blue;
-  color: white;
-  border: none;
-  border: 2px solid blue;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 0;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: box-shadow 0.3s ease-in-out;
-}
+  /* Style the links inside the navigation bar */
+  .navbar .nav-button {
+    position: relative; 
+    float: left;
+    text-align: center;
+    padding: 7px 7px;
+    text-decoration: none;
+    font-size: 13px;
+    display: inline-block;
+    background-color: blue;
+    color: white;
+    border: none;
+    border: 2px solid blue;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 0;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: box-shadow 0.3s ease-in-out;
+  }
 
 
   .container {
@@ -70,6 +71,11 @@
     text-align: center;
   }
 
+  .articles h3 {
+    font-size: 18px;
+    text-align: center;
+  }
+
   .article {
     border: 2px solid #7e7a7a;
     padding: 20px;
@@ -92,13 +98,14 @@
 
   .modal {
     display: flex;
-    position: relative;
+    position: fixed;
     z-index: 1;
     left: 0;
     top: 0;
-    width: 50%;
+    width: 100%;
     height: 100%;
-    overflow: auto;
+    justify-content: center; /* horizontally center */
+    align-items: center; /* vertically center */
     background-color: rgba(0, 0, 0, 0.4);
   }
 
@@ -107,7 +114,12 @@
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 50%;
+    width: 60%; /* Change to a fixed value that's smaller than 100% */
+    max-width: 600px; /* Add a max-width to prevent it from becoming too wide on larger screens */
+  }
+
+  .modal-content h2, .modal-content p {
+    text-align: center;
   }
 
   .modal-buttons {
@@ -115,6 +127,7 @@
     justify-content: space-between;
     margin-top: 20px;
   }
+
   .close {
     position: absolute;
     top: 10px;
@@ -125,7 +138,29 @@
     cursor: pointer;
   }
 
+  .category-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
 
+  .category-buttons button {
+    margin-right: 10px;
+    background-color: #3ab975;
+    color: #333;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .category-buttons button.active {
+    background-color: blue;
+    color: white;
+    border-bottom: 2px solid blue;
+  }
+  
 
 </style>
 <html>
@@ -146,14 +181,14 @@
       </header>
 
       <nav class="navbar">
-        <button class="nav-button" id="settings-btn" >Adjust your Settings</button>
+        <button class="nav-button" id="settings-btn" >Adjust your Preferences</button>
         <button class="nav-button" onclick="location.reload()">Refresh Page contents</button>
         <a href="/" class="nav-button" id="logout-btn">Log Out</a>
        <div class="modal">
           <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Settings</h2>
-            <p>Select the categories you want to enable:</p>
+            <h2>Adjust News Preferences</h2>
+            <p>Select the categories you want to enable or disable:</p>
             <form id="category-form">
               <label for="category-general"><input type="checkbox" id="category-general" name="General" {{#if user.General}}{{checkedGeneral}}{{/if}}>General</label>
               <label for="category-business"><input type="checkbox" id="category-business" name="Business" {{#if user.Business}}{{checkedBusiness}}{{/if}}>Business</label>
@@ -173,7 +208,13 @@
 
       <main class="main">
         <section class="articles">
-          <h2>Displaying: "{{categories}}" news</h2>
+          <h2>News displayed based of your preferences:</h2>
+          <h3>click each tab to view news for that category</h3>
+          <div class="category-buttons">
+            {{#each categories}}
+            <button class="nav-button" onclick="loadNews('{{this}}')">{{this}}</button>
+            {{/each}}
+          </div>
           <div id="news"></div>
         </section>
       </main>
@@ -184,16 +225,48 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script>
 
+
       $(document).ready(function() {
-         //fetch(`https://newsapi.org/v2/top-headlines?country=us&category={{category}}&apiKey={{API_KEY}}`)
-         fetch(`https://newsapi.org/v2/top-headlines?country=us&categories={{categories}}&apiKey={{API_KEY}}`)
-          .then(response => response.json())
-          .then(data => {
-            var newsData = data;
-            var newsHtml = '';
-            $.each(newsData.articles, function(i, item) {
+      const categories = '{{categories}}'.split(',');
+      const promises = categories.map(category => {
+        const url = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey={{API_KEY}}`;
+        return fetch(url).then(response => response.json());
+      });
+      Promise.all(promises).then(datas => {
+        const newsData = datas.reduce((acc, data) => {
+          acc.articles.push(...data.articles);
+          return acc;
+        }, {articles: []});
+        let newsHtml = '';
+        $.each(newsData.articles, function(i, item) {
+          newsHtml += '<div class="article">';
+          // add image tag here
+          newsHtml += '<img src="' + item.urlToImage + '"/>'; 
+          //tile of article
+          newsHtml += '<h4>' + item.title + '</h4>';
+          //article description
+          newsHtml += '<p>' + item.description + '</p>';
+          //read more link
+          newsHtml += '<a href="' + item.url + '">Read more</a>';
+          newsHtml += '</div>';
+        });
+        $('#news').html(newsHtml);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+
+    </script>
+    <script>
+      function loadNews(category) {
+        const url = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey={{API_KEY}}`;
+        axios.get(url)
+          .then(response => {
+            let newsHtml = '';
+            $.each(response.data.articles, function(i, item) {
               newsHtml += '<div class="article">';
-                // add image tag here
+              // add image tag here
               newsHtml += '<img src="' + item.urlToImage + '"/>'; 
               //tile of article
               newsHtml += '<h4>' + item.title + '</h4>';
@@ -208,8 +281,10 @@
           .catch(error => {
             console.error('Error:', error);
           });
-      });
+      }
+
     </script>
+
     <script>
         const datetimeElement = document.getElementById('datetime');
         const options = { year: 'numeric', month: 'long', day: 'numeric' };

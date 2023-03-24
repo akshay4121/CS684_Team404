@@ -108,8 +108,8 @@ router.post("/", async (req, res) => {
         try {
             //inserting into data base: Username, email, password, and default values for categories.
           const [result] = await pool.execute(
-            "INSERT INTO Users (Username, Password, Email, General, Business, Entertainment, Health, Science, Sports, Technology) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            [trimmedUsername, trimmedPassword, trimmedEmail, 1, 0, 0, 0, 0, 0, 0]
+            "INSERT INTO Users (Username, Password, Email, General, Business, Entertainment, Health, Science, Sports, Technology,SavedSetting) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)",
+            [trimmedUsername, trimmedPassword, trimmedEmail, 1, 0, 0, 0, 0, 0, 0,0]
           );
           
 

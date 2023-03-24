@@ -78,6 +78,11 @@ router.get("/", isAuthenticated, async (req, res) => {
   if (user.Technology.readInt8(0) !== 0 && user.Technology.readInt8(0) !== 1) {
     user.Technology = 0;
   }
+  // check if field is 1 or 0, if not set it to 0, to fix users already in db
+  //if (user.SavedSetting.readInt8(0) !== 0 && user.SavedSetting.readInt8(0) !== 1) {
+  //  user.SavedSetting = 0;
+  //}
+ 
 
   
   const category = user.General.readInt8(0);
@@ -98,36 +103,50 @@ router.get("/", isAuthenticated, async (req, res) => {
       columnsWithValue1.push(key);
     }
   }
-  //console.log(columnsWithValue1);
+  const categories = req.session.categories || columnsWithValue1;
+  const tabs = [];
+  const articleLists = {};
 
-  //const uri = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`;
-  const categories = columnsWithValue1.join(',');
-  const uri = `https://newsapi.org/v2/top-headlines?country=us&categories=${categories}&apiKey=${API_KEY}`;
-  try {
-    const response = await axios.get(uri);
-    const data = response.data;
-    const articles = data.articles;
-    const articleList = articles.map(article => {
-      return `
-        <li>
-          <img src="${article.urlToImage}" alt="${article.title}" />
-          <h2>${article.title}</h2>
-          <p>${article.description}</p>
-          <a href="${article.url}" target="_blank">Read more</a>
-        </li>
-      `;
-    }).join('');
+  for (const category of categories) {
+    const checked = (user[category].readInt8(0) === 1) ? 'checked' : '';
+    const uri = `https://newsapi.org/v2/top-headlines?country=us&category=${category.toLowerCase()}&apiKey=${API_KEY}`;
 
-    // Update the values of the 'Business' and 'Health' fields in the database
-    const sql = `UPDATE Users SET General = ?, Business = ?, Entertainment = ?, Health = ?, Science = ?, Sports = ?, Technology = ? WHERE UsersID = ?`;
-    await pool.execute(sql, [user.General, user.Business, user.Entertainment, user.Health, user.Science, user.Sports, user.Technology, req.session.UsersID]);
+    try {
+      
+      const response = await axios.get(uri);
+      const data = response.data;
+      const articles = data.articles;
+      const articleList = articles.map(article => {
+        return `
+          <li>
+            <img src="${article.urlToImage}" alt="${article.title}" />
+            <h2>${article.title}</h2>
+            <p>${article.description}</p>
+            <a href="${article.url}" target="_blank">Read more</a>
+          </li>
+        `;
+      }).join('');
 
+      tabs.push({
+        category: category,
+        checked: checked
+      });
 
-    res.render("dashboard", {
+      articleLists[category] = `<ul>${articleList}</ul>`;
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Oops! Something went wrong.");
+    }
+  }
+
+  // Update the values of the fields in the database
+  const sql = `UPDATE Users SET General = ?, Business = ?, Entertainment = ?, Health = ?, Science = ?, Sports = ?, Technology = ?, SavedSetting = ? WHERE UsersID = ?`;
+  await pool.execute(sql, [user.General, user.Business, user.Entertainment, user.Health, user.Science, user.Sports, user.Technology, user.SavedSetting, req.session.UsersID]);
+
+  res.render("dashboard", {
       title: "Dashboard",
       category: category,
       categories: categories,
-      articleList: `<ul>${articleList}</ul>`,
       user : user,
       checkedGeneral : checkedGeneral ,
       checkedBusiness : checkedBusiness ,
@@ -136,14 +155,11 @@ router.get("/", isAuthenticated, async (req, res) => {
       checkedScience : checkedScience ,
       checkedSports : checkedSports ,
       checkedTechnology : checkedTechnology ,
+      SavedSetting : user.SavedSetting,
       username: req.session.username,
       API_KEY: API_KEY,
       pool : pool
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Oops! Something went wrong.");
-  }
+  });
 });
 
 
@@ -179,6 +195,19 @@ router.post("/update", isAuthenticated, async (req, res) => {
 
   res.redirect("/");
 });
+
+router.post("/updateSavedSetting", isAuthenticated, async (req, res) => {
+  const { savedSetting } = req.body;
+  await pool.execute("UPDATE Users SET SavedSetting = ? WHERE UsersID = ?", [savedSetting, req.session.UsersID]);
+  res.sendStatus(200);
+});
+
+router.get("/getSavedSetting", isAuthenticated, async (req, res) => {
+  const [[user]] = await pool.execute("SELECT SavedSetting FROM Users WHERE UsersID = ?", [req.session.UsersID]);
+  res.json({ savedSetting: user.SavedSetting.readInt8(0) });
+});
+
+
 
 
 
