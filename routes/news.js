@@ -4,7 +4,7 @@ const axios = require("axios");
 
 router.get('/', async (req, res) => {
   var category = "general"; //for landing page user not logged in
-  var API_KEY = "913b6adfc01548c3bf2f5c39612eb959";
+  var API_KEY = "7426a5acd29c4f50b22738d4f8c01f9d";
   var uri = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`;
   
   axios
