@@ -4,7 +4,7 @@ const pool = require("../db/db");
 const session = require('express-session');
 const flash = require('connect-flash');
 const cors = require('cors');
-const ejs = require('ejs');
+
 
 const corsOptions = {
   origin: 'http://localhost:3000',
@@ -50,10 +50,12 @@ router.post("/", async function (req, res) {
     req.session.emailOrUsername  = emailOrUsername ;
     req.session.login = true;
     req.session.save()
+    req.session.UsersID = user.UsersID;
     req.session.username = user.Username; // set the username to the user's username, needed for dash page 
     res.status(200);
+    //console.log('Login successful');
     res.redirect("/dashboard?loginSuccess=true");
-    //res.status(200).render("dashboard", { messages: req.flash('success'), successMessage: "successful log in!", username: user.Username });
+    //res.status(200).render("dashboard", { messages: req.flash('success'), successMessage: "successful log in!", username: user.Username, UsersId: user.UsersID });
   } else {
     req.flash("error", "Invalid email or password");
     console.log("invalid signin creds");

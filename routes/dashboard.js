@@ -4,12 +4,15 @@ const request = require('request');
 const cors = require('cors');
 const session = require("express-session");
 const axios = require("axios");
+const bodyParser = require('body-parser');
 const pool = require("../db/db");
+//const fetch = require("node-fetch");
+
 require('dotenv').config();
 
+router.use(bodyParser.json());
+
 const API_KEY = process.env.API_KEY;
-//console.log("Log 1")
-//console.log(API_KEY)
 if (!API_KEY) {
   console.error("API_KEY not found in .env file");
   process.exit(1);
@@ -19,6 +22,7 @@ const corsOptions = {
   origin: 'http://localhost:3000',
   credentials: true,
   optionSuccessStatus: 200
+  
 };
 
 router.use(cors(corsOptions));
@@ -31,8 +35,6 @@ const sessionOptions = {
 
 router.use(session(sessionOptions));
 
-const category = "General";
-
 const isAuthenticated = (req, res, next) => {
   if (req.session.login) {
     res.header("Cache-Control", "private, no-cache, no-store, must-revalidate");
@@ -44,10 +46,63 @@ const isAuthenticated = (req, res, next) => {
 };
 
 router.get("/", isAuthenticated, async (req, res) => {
-  //console.log("Log 2")
-  //console.log(API_KEY)
-  const uri = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`;
+  const [[user]] = await pool.execute("SELECT * FROM Users WHERE UsersID = ?", [req.session.UsersID]);
+
+  //const fieldsToCheck = ['General','Business', 'Entertainment', 'Health', 'Science', 'Sports', 'Technology'];
+
+  // check if General field is 1 or 0, if not set it to 1, to fix users already in db
+  if (user.General.readInt8(0) !== 0 && user.General.readInt8(0) !== 1) {
+   user.General = 1;
+  }
+  // check if field is 1 or 0, if not set it to 0, to fix users already in db
+  if (user.Business.readInt8(0) !== 0 && user.Business.readInt8(0) !== 1) {
+    user.Business = 0;
+  }
+  // check if field is 1 or 0, if not set it to 0, to fix users already in db
+  if (user.Entertainment.readInt8(0) !== 0 && user.Entertainment.readInt8(0) !== 1) {
+    user.Entertainment = 0;
+  }
+  // check if field is 1 or 0, if not set it to 0, to fix users already in db
+  if (user.Health.readInt8(0) !== 0 && user.Health.readInt8(0) !== 1) {
+    user.Health = 0;
+  }
+  // check if field is 1 or 0, if not set it to 0, to fix users already in db
+  if (user.Science.readInt8(0) !== 0 && user.Science.readInt8(0) !== 1) {
+    user.Science = 0;
+  }
+  // check if field is 1 or 0, if not set it to 0, to fix users already in db
+  if (user.Sports.readInt8(0) !== 0 && user.Sports.readInt8(0)  !== 1) {
+    user.Sports  = 0;
+  }
+  // check if field is 1 or 0, if not set it to 0, to fix users already in db
+  if (user.Technology.readInt8(0) !== 0 && user.Technology.readInt8(0) !== 1) {
+    user.Technology = 0;
+  }
+
   
+  const category = user.General.readInt8(0);
+  //const category = "General";
+  const checkedGeneral = (user.General.readInt8(0) === 1) ? 'checked' : '';
+  const checkedBusiness = (user.Business.readInt8(0) === 1) ? 'checked' : '';
+  const checkedEntertainment = (user.Entertainment.readInt8(0) === 1) ? 'checked' : '';
+  const checkedHealth = (user.Health.readInt8(0) === 1) ? 'checked' : '';
+  const checkedScience = (user.Science.readInt8(0) === 1) ? 'checked' : '';
+  const checkedSports = (user.Sports.readInt8(0) === 1) ? 'checked' : '';
+  const checkedTechnology = (user.Technology.readInt8(0) === 1) ? 'checked' : '';
+
+  const columnsToCheck = ["General", "Business", "Entertainment", "Health", "Science", "Sports", "Technology"];
+  const columnsWithValue1 = [];
+
+  for (const [key, value] of Object.entries(user)) {
+    if (columnsToCheck.includes(key) && value.readInt8(0) === 1) {
+      columnsWithValue1.push(key);
+    }
+  }
+  //console.log(columnsWithValue1);
+
+  //const uri = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`;
+  const categories = columnsWithValue1.join(',');
+  const uri = `https://newsapi.org/v2/top-headlines?country=us&categories=${categories}&apiKey=${API_KEY}`;
   try {
     const response = await axios.get(uri);
     const data = response.data;
@@ -62,18 +117,36 @@ router.get("/", isAuthenticated, async (req, res) => {
         </li>
       `;
     }).join('');
+
+    // Update the values of the 'Business' and 'Health' fields in the database
+    const sql = `UPDATE Users SET General = ?, Business = ?, Entertainment = ?, Health = ?, Science = ?, Sports = ?, Technology = ? WHERE UsersID = ?`;
+    await pool.execute(sql, [user.General, user.Business, user.Entertainment, user.Health, user.Science, user.Sports, user.Technology, req.session.UsersID]);
+
+
     res.render("dashboard", {
       title: "Dashboard",
       category: category,
+      categories: categories,
       articleList: `<ul>${articleList}</ul>`,
+      user : user,
+      checkedGeneral : checkedGeneral ,
+      checkedBusiness : checkedBusiness ,
+      checkedEntertainment : checkedEntertainment ,
+      checkedHealth : checkedHealth ,
+      checkedScience : checkedScience ,
+      checkedSports : checkedSports ,
+      checkedTechnology : checkedTechnology ,
       username: req.session.username,
-      API_KEY: API_KEY
+      API_KEY: API_KEY,
+      pool : pool
     });
   } catch (error) {
     console.error(error);
     res.status(500).send("Oops! Something went wrong.");
   }
 });
+
+
 
 
 router.get("/username", (req, res) => {
@@ -85,7 +158,7 @@ router.get("/username", (req, res) => {
   }
 });
 
-router.get("/", (req, res) => {
+router.post("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       console.error(err);
@@ -96,10 +169,17 @@ router.get("/", (req, res) => {
   });
 });
 
-router.use((req, res) => {
-  res.status(404).render("404", {
-    title: "404"
-  });
-}); 
+router.post("/update", isAuthenticated, async (req, res) => {
+  const { general, business, entertainment, health, science, sports, technology } = req.body;
+  const [[user]] = await pool.execute("SELECT * FROM Users WHERE UsersID = ?", [req.session.UsersID]);
+
+  // Update user preferences in database
+  const sql = `UPDATE Users SET General = ?, Business = ?, Entertainment = ?, Health = ?, Science = ?, Sports = ?, Technology = ? WHERE UsersID = ?`;
+  await pool.execute(sql, [general, business, entertainment, health, science, sports, technology, req.session.UsersID]);
+
+  res.redirect("/");
+});
+
+
 
 module.exports = router;
