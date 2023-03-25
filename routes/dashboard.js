@@ -90,9 +90,12 @@ router.get("/", isAuthenticated, async (req, res) => {
     user.SavedSetting = 0;
   }
 
+  //update table to default values for old users, in DB before categories was set upon signup
   const sql = `UPDATE Users SET General = ?, Business = ?, Entertainment = ?, Health = ?, Science = ?, Sports = ?, Technology = ?, SavedSetting = ? WHERE UsersID = ?`;
   await pool.execute(sql, [user.General, user.Business, user.Entertainment, user.Health, user.Science, user.Sports, user.Technology, user.SavedSetting, req.session.UsersID]);
  
+
+  //call latest updated data from Users table
   [[user]] = await pool.execute("SELECT * FROM Users WHERE UsersID = ?", [req.session.UsersID]);
 
   
