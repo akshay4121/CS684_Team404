@@ -51,40 +51,49 @@ router.get("/", isAuthenticated, async (req, res) => {
   //const fieldsToCheck = ['General','Business', 'Entertainment', 'Health', 'Science', 'Sports', 'Technology'];
 
   // check if General field is 1 or 0, if not set it to 1, to fix users already in db
-  if (user.General.readInt8(0) !== 0 && user.General.readInt8(0) !== 1) {
-   user.General = 1;
-  }
-  // check if field is 1 or 0, if not set it to 0, to fix users already in db
-  if (user.Business.readInt8(0) !== 0 && user.Business.readInt8(0) !== 1) {
-    user.Business = 0;
-  }
-  // check if field is 1 or 0, if not set it to 0, to fix users already in db
-  if (user.Entertainment.readInt8(0) !== 0 && user.Entertainment.readInt8(0) !== 1) {
-    user.Entertainment = 0;
-  }
-  // check if field is 1 or 0, if not set it to 0, to fix users already in db
-  if (user.Health.readInt8(0) !== 0 && user.Health.readInt8(0) !== 1) {
-    user.Health = 0;
-  }
-  // check if field is 1 or 0, if not set it to 0, to fix users already in db
-  if (user.Science.readInt8(0) !== 0 && user.Science.readInt8(0) !== 1) {
-    user.Science = 0;
-  }
-  // check if field is 1 or 0, if not set it to 0, to fix users already in db
-  if (user.Sports.readInt8(0) !== 0 && user.Sports.readInt8(0)  !== 1) {
-    user.Sports  = 0;
-  }
-  // check if field is 1 or 0, if not set it to 0, to fix users already in db
-  if (user.Technology.readInt8(0) !== 0 && user.Technology.readInt8(0) !== 1) {
-    user.Technology = 0;
-  }
-  // check if field is 1 or 0, if not set it to 0, to fix users already in db
-  //if (user.SavedSetting.readInt8(0) !== 0 && user.SavedSetting.readInt8(0) !== 1) {
-  //  user.SavedSetting = 0;
-  //}
+  // check if General field is NULL or not 1 or 0, if not set it to 1, to fix users already in db
+if (user.General === null ) {
+  user.General = 1;
+}
+
+// check if field is NULL or not 1 or 0, if not set it to 0, to fix users already in db
+if (user.Business === null ) {
+  user.Business = 0;
+}
+
+// check if field is NULL or not 1 or 0, if not set it to 0, to fix users already in db
+if (user.Entertainment === null ) {
+  user.Entertainment = 0;
+}
+
+// check if field is NULL or not 1 or 0, if not set it to 0, to fix users already in db
+if (user.Health === null ) {
+  user.Health = 0;
+}
+
+// check if field is NULL or not 1 or 0, if not set it to 0, to fix users already in db
+if (user.Science === null ) {
+  user.Science = 0;
+}
+
+// check if field is NULL or not 1 or 0, if not set it to 0, to fix users already in db
+if (user.Sports === null ) {
+  user.Sports = 0;
+}
+
+// check if field is NULL or not 1 or 0, if not set it to 0, to fix users already in db
+if (user.Technology === null ) {
+  user.Technology = 0;
+}
+
+if (user.SavedSetting === null ) {
+  user.SavedSetting = 0;
+}
+
+const sql = `UPDATE Users SET General = ?, Business = ?, Entertainment = ?, Health = ?, Science = ?, Sports = ?, Technology = ?, SavedSetting = ? WHERE UsersID = ?`;
+await pool.execute(sql, [user.General, user.Business, user.Entertainment, user.Health, user.Science, user.Sports, user.Technology, user.SavedSetting, req.session.UsersID]);
  
 
-  
   const category = user.General.readInt8(0);
   //const category = "General";
   const checkedGeneral = (user.General.readInt8(0) === 1) ? 'checked' : '';
@@ -138,10 +147,6 @@ router.get("/", isAuthenticated, async (req, res) => {
       res.status(500).send("Oops! Something went wrong.");
     }
   }
-
-  // Update the values of the fields in the database
-  const sql = `UPDATE Users SET General = ?, Business = ?, Entertainment = ?, Health = ?, Science = ?, Sports = ?, Technology = ?, SavedSetting = ? WHERE UsersID = ?`;
-  await pool.execute(sql, [user.General, user.Business, user.Entertainment, user.Health, user.Science, user.Sports, user.Technology, user.SavedSetting, req.session.UsersID]);
 
   res.render("dashboard", {
       title: "Dashboard",
