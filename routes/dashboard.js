@@ -46,53 +46,56 @@ const isAuthenticated = (req, res, next) => {
 };
 
 router.get("/", isAuthenticated, async (req, res) => {
-  const [[user]] = await pool.execute("SELECT * FROM Users WHERE UsersID = ?", [req.session.UsersID]);
+  let [[user]] = await pool.execute("SELECT * FROM Users WHERE UsersID = ?", [req.session.UsersID]);
 
   //const fieldsToCheck = ['General','Business', 'Entertainment', 'Health', 'Science', 'Sports', 'Technology'];
 
   // check if General field is 1 or 0, if not set it to 1, to fix users already in db
   // check if General field is NULL or not 1 or 0, if not set it to 1, to fix users already in db
-if (user.General === null ) {
-  user.General = 1;
-}
+  if (user.General === null ) {
+    user.General = 1;
+  }
 
-// check if field is NULL or not 1 or 0, if not set it to 0, to fix users already in db
-if (user.Business === null ) {
-  user.Business = 0;
-}
+  // check if field is NULL or not 1 or 0, if not set it to 0, to fix users already in db
+  if (user.Business === null ) {
+    user.Business = 0;
+  }
 
-// check if field is NULL or not 1 or 0, if not set it to 0, to fix users already in db
-if (user.Entertainment === null ) {
-  user.Entertainment = 0;
-}
+  // check if field is NULL or not 1 or 0, if not set it to 0, to fix users already in db
+  if (user.Entertainment === null ) {
+    user.Entertainment = 0;
+  }
 
-// check if field is NULL or not 1 or 0, if not set it to 0, to fix users already in db
-if (user.Health === null ) {
-  user.Health = 0;
-}
+  // check if field is NULL or not 1 or 0, if not set it to 0, to fix users already in db
+  if (user.Health === null ) {
+    user.Health = 0;
+  }
 
-// check if field is NULL or not 1 or 0, if not set it to 0, to fix users already in db
-if (user.Science === null ) {
-  user.Science = 0;
-}
+  // check if field is NULL or not 1 or 0, if not set it to 0, to fix users already in db
+  if (user.Science === null ) {
+    user.Science = 0;
+  }
 
-// check if field is NULL or not 1 or 0, if not set it to 0, to fix users already in db
-if (user.Sports === null ) {
-  user.Sports = 0;
-}
+  // check if field is NULL or not 1 or 0, if not set it to 0, to fix users already in db
+  if (user.Sports === null ) {
+    user.Sports = 0;
+  }
 
-// check if field is NULL or not 1 or 0, if not set it to 0, to fix users already in db
-if (user.Technology === null ) {
-  user.Technology = 0;
-}
+  // check if field is NULL or not 1 or 0, if not set it to 0, to fix users already in db
+  if (user.Technology === null ) {
+    user.Technology = 0;
+  }
 
-if (user.SavedSetting === null ) {
-  user.SavedSetting = 0;
-}
+  if (user.SavedSetting === null ) {
+    user.SavedSetting = 0;
+  }
 
-const sql = `UPDATE Users SET General = ?, Business = ?, Entertainment = ?, Health = ?, Science = ?, Sports = ?, Technology = ?, SavedSetting = ? WHERE UsersID = ?`;
-await pool.execute(sql, [user.General, user.Business, user.Entertainment, user.Health, user.Science, user.Sports, user.Technology, user.SavedSetting, req.session.UsersID]);
+  const sql = `UPDATE Users SET General = ?, Business = ?, Entertainment = ?, Health = ?, Science = ?, Sports = ?, Technology = ?, SavedSetting = ? WHERE UsersID = ?`;
+  await pool.execute(sql, [user.General, user.Business, user.Entertainment, user.Health, user.Science, user.Sports, user.Technology, user.SavedSetting, req.session.UsersID]);
  
+  [[user]] = await pool.execute("SELECT * FROM Users WHERE UsersID = ?", [req.session.UsersID]);
+
+  
 
   const category = user.General.readInt8(0);
   //const category = "General";
