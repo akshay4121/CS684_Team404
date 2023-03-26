@@ -5,15 +5,30 @@ const pool = require('../db/db');
 
 afterAll(async () => {
   await pool.end();
+  await new Promise(resolve => server.close(resolve));
 });
+
+function makeid(length) {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  let counter = 0;
+  while (counter < length) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    counter += 1;
+  }
+  return result;
+}
 
 describe('Signup API', () => {
   test('POST /signup with valid user data should create a new user', async () => {
+    var mock_uname=makeid(8);
+    console.log(`The Test username is ${mock_uname}`)
     const userData = {
-      username: 'JestUser4',//change for new user 
+      username: mock_uname,//change for new user 
       password: 'Testpass123',
       confirmPassword: 'Testpass123',
-      email: 'JestUser4@example.com'// change for new user
+      email: `${mock_uname}@example.com`// change for new user
     };
     const response = await request(app)
       .post('/signup')
