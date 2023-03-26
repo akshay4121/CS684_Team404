@@ -16,3 +16,11 @@ describe('Dashboard Check', () => {
   });
  
 });
+
+
+afterAll(done => {
+  server.close(() => {
+    console.log('app stopped');
+    done();
+  });
+});
