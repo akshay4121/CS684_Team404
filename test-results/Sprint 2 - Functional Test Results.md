@@ -23,10 +23,13 @@ Sprint 1 Overall Test Execution Results:
   Test Type             \# of     Executed   Passed   Failed   Executed % Pass % Fail %
                         Scripts                                                  
   --------------------- --------- ---------- -------- -------- ---------- ------ ------
-  Functional Testing -  7         7          6        1        100        86%    14%
+  Functional Testing -  7         7          6        1        100%       86%    14%
   Iteration 1                                                                    
 
-  Total:                7         7          6        1        100        86%    14%
+  Functional Testing -  7         7          1        0        100%       100%   0%
+  Iteration 2                                                                    
+
+  Total:                7         7          6        1        100%       93%    7%
   -------------------------------------------------------------------------------------
 
 Functional Testing: 
@@ -60,3 +63,30 @@ Iteration 1: 
   Test Case 3/25/2023   Ahsan       Pass         
   ID: 20                Hasnath                  
   -------------------------------------------------------------------------------
+
+Iteration 2: 
+
+  ----------------------------------------------------------------------------
+  Test Case ID:  Date Tested: Tester Name:    Pass/Fail:   Comments:
+  -------------- ------------ --------------- ------------ -------------------
+  Test Case ID:  3/25/2023    Ahsan Hasnath   Pass         
+  14                                                       
+
+  Test Case ID:  3/25/2023    Ahsan Hasnath   Pass         
+  15                                                       
+
+  Test Case ID:  3/25/2023    Ahsan Hasnath   Pass         
+  16                                                       
+
+  Test Case ID:  3/25/2023    Ahsan Hasnath   Pass         The defect was
+  17                                                       fixed.
+
+  Test Case ID:  3/25/2023    Ahsan Hasnath   Pass         
+  18                                                       
+
+  Test Case ID:  3/25/2023    Ahsan Hasnath   Pass         
+  19                                                       
+
+  Test Case ID:  3/25/2023    Ahsan Hasnath   Pass         
+  20                                                       
+  ----------------------------------------------------------------------------
