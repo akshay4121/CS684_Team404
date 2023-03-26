@@ -8,9 +8,9 @@ afterAll(async () => {
   await new Promise(resolve => server.close(resolve));
 });
 
-describe('Category Test', () => {
-  test('should display Sports as enabled on dashboard page for user with "Sports" enabled', async () => {
-    // Sign in as a user with Technology enabled
+describe('Update Test', () => {
+  test('Should log into a User and switch there catergories to only enable Sports', async () => {
+    // Sign in as a user with other catergories enabled
     const signInResponse = await request(app)
       .post('/signin')
       .send({ emailOrUsername: 'test12345678a@Gmail.com', password: 'Test12345678' });
