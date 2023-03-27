@@ -14,6 +14,8 @@ describe('Dashboard Check', () => {
     
     expect(response.text).toContain('general');
   });
+
+  
  
 });
 

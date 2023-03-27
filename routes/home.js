@@ -65,4 +65,8 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post('/homerefresh', (req, res) => {
+  res.redirect('/');
+});
+
 module.exports= router;

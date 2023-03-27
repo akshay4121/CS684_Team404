@@ -10,8 +10,8 @@ afterAll(async () => {
 });
 
 
-describe('Signout Test', () => {
-    test('When a user with a technology setting is signed out the dashboard should have the General setting enabled', async () => {
+describe('Reload button', () => {
+  test('clicking on the refresh button should reload the page', async () => {
     // Sign with a user with Technology enabled
     const signInResponse = await request(app)
       .post('/signin')
@@ -21,21 +21,32 @@ describe('Signout Test', () => {
     const dashboardResponse = await request(app)
       .get('/dashboard?loginSuccess=true')
       .set('Cookie', signInResponse.headers['set-cookie']);
-  
-  
-    const signOut = await request(app)
-      .get('/signout?loginSuccess=true')
-      .set('Cookie', signInResponse.headers['set-cookie']);
-
-      const response = await request(app)
-      .get('/dashboard?loginSuccess=true')
-      .set('Cookie', signInResponse.headers['set-cookie']);
-
     
-    expect(response.text).toContain('general');
+    // Mock the XMLHttpRequest object and its methods
+    const xhrMockObj = {
+      open: jest.fn(),
+      send: jest.fn(),
+      addEventListener: jest.fn()
+    };
+    window.XMLHttpRequest = jest.fn(() => xhrMockObj);
+
+    // Create a spy on the location object's reload method
+    const reloadSpy = jest.spyOn(window.location, 'reload');
+
+    // Find the refresh button element and simulate a click event
+    const refreshButton = document.getElementById('refresh-button');
+    refreshButton.dispatchEvent(new MouseEvent('click'));
+
+    // Assert that the XMLHttpRequest object was created with the correct arguments
+    expect(xhrMockObj.open).toHaveBeenCalledWith('POST', '/dashboard/dashrefresh');
+    expect(xhrMockObj.send).toHaveBeenCalled();
+
+    // Call the event listener for the load event and assert that the page was reloaded
+    const loadEvent = new Event('load');
+    xhrMockObj.addEventListener.mock.calls[0][1](loadEvent);
+    expect(reloadSpy).toHaveBeenCalled();
 
   });
-
 
 });
 

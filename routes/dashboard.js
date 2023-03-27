@@ -219,7 +219,9 @@ router.get("/getSavedSetting", isAuthenticated, async (req, res) => {
 });
 
 
-
+router.post('/dashrefresh', (req, res) => {
+  res.redirect('/dashboard?loginSuccess=true');
+});
 
 
 module.exports = router;

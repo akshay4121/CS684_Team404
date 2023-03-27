@@ -188,7 +188,7 @@
 
       <nav class="navbar">
         <button class="nav-button" id="settings-btn" >Adjust your Preferences</button>
-        <button class="nav-button" onclick="location.reload()">Refresh Page contents</button>
+        <button class="nav-button" id="refresh-button">Refresh Page contents</button>
         <a href="/" class="nav-button" id="logout-btn">Log Out</a>
        <div class="modal">
           <div class="modal-content">
@@ -230,6 +230,23 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+      // Get the refresh button element
+      const refreshButton = document.getElementById('refresh-button');
+
+      // Add a click event listener to the refresh button
+      refreshButton.addEventListener('click', function() {
+        // Make an AJAX request to the /dashrefresh endpoint
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/dashboard/dashrefresh');
+        xhr.send();
+
+        // Reload the page after the AJAX request is complete
+        xhr.addEventListener('load', function() {
+          location.reload();
+        });
+      });
+    </script>
     <script>
 
 

@@ -18,6 +18,9 @@ var newsRouter = require("./routes/news");
 
 var app = express();
 
+
+
+
 // set up session middleware and flash middleware
 app.use(session({
   secret: 'mySecretKey',
