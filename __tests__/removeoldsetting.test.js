@@ -66,18 +66,16 @@ describe('Update Test', () => {
     expect(sportsCheckbox.checked).toBe(true);
     expect(generalCheckbox).toBeTruthy();
     expect(generalCheckbox.checked).toBe(false);
-   /* expect(businessCheckbox.checked).toBe(false);
+    expect(businessCheckbox).toBeTruthy();
+    expect(businessCheckbox.checked).toBe(false);
+    expect(entertainmentCheckbox).toBeTruthy();
     expect(entertainmentCheckbox.checked).toBe(false);
+    expect(healthCheckbox).toBeTruthy();
     expect(healthCheckbox.checked).toBe(false);
+    expect(scienceCheckbox).toBeTruthy();
     expect(scienceCheckbox.checked).toBe(false);
+    expect(technologyCheckbox).toBeTruthy();
     expect(technologyCheckbox.checked).toBe(false);
-    expect(dashboardResponse.text).notContains("const categories = 'General'");
-    expect(dashboardResponse.text).toContain("const categories = 'Sports'");
-    expect(dashboardResponse.text).not.toContain('technology');
-    expect(dashboardResponse.text).not.toContain('science');
-    expect(dashboardResponse.text).not.toContain('health');
-    expect(dashboardResponse.text).not.toContain('entertainment');
-    expect(dashboardResponse.text).not.toContain('Business');*/
   });
 });
 
