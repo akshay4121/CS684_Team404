@@ -374,9 +374,19 @@
 
           // event listener to the cancel button to hide the modal
           const cancelBtn = document.getElementById("cancel-btn");
-          cancelBtn.addEventListener("click", () => {
-            modal.style.display = "none";
+          
+          cancelBtn.addEventListener('click', function() {
+            // Make an AJAX request to the /dashrefresh endpoint
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/dashboard/dashrefresh');
+            xhr.send();
+
+            // Reload the page after the AJAX request is complete
+            xhr.addEventListener('load', function() {
+              location.reload();
+            });
           });
+
 
           // event listener to the submit button to send the checkbox data to the backend
           const submitBtn = document.getElementById("submit-btn");
