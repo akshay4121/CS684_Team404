@@ -1,4 +1,5 @@
-  <details> <summary> Unit Test Cases S2</summary>
+  ## Test Case
+  <details><summary> Unit Test Cases S2</summary>
   <p>
     
     
@@ -14,7 +15,20 @@
 | 8 | User changes the category and only that category should display. | Run the project and sign into a user change category and display particular news of category. | After selecting the new category user should see the news articles that selected. | Valid URL for setting pages| Joshua | Zal | Pass | https://github.com/CC862/CS684_Team404/blob/8b61aa665f0a8ad1e1e0a2c86c00a62f1b81b466/public/Images/setting_test.png |
 | 9 |  Sign out should return the default General category on news articles to be displayed| Run the project and sign in with a user that has a preference category that does not include general. And then sign out from that user. | News from the general category should be displayed. | Valid URL for setting pages| Joshua | Zal | Pass | https://github.com/CC862/CS684_Team404/blob/8b61aa665f0a8ad1e1e0a2c86c00a62f1b81b466/public/Images/signout_test.png | 
 | 10 | User must signup with valid username and password. | Fillup the details for signup and next page will be login page. | Successfully signup and landing to login page. | https://newsapi.org/ and valid URL| Cristofer | Zal | Pass | https://github.com/CC862/CS684_Team404/blob/8b61aa665f0a8ad1e1e0a2c86c00a62f1b81b466/public/Images/signup_test.png |
-
-
+| 11 | If no category is selected no functionality should be occuring for "ok or cancel" | Not selecting any category and click on "ok or cancel" button/link.. | With no selection user is not enabled with "Ok /Cancel" buttons | Valid Url for setting pages| Cristofer | Zal | Pass |  |
+  </p> 
+  </details>
+  
+  
+<details><summary> Unit Test Cases S3</summary>
+  <p>
+    
+| Test Case ID# | Test case description | Test steps | Test Data | Expected result | Prerequisites | Executed by | Pass/Fail |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 12 | Checking the login and homepage module.  | Enter the valid username and valid password  | Username:                  Password: | User will directed signed in page   |  Valid url and browser |   |  |
+| 13 | Signup page and sign in page module.  | Enter the username and correct form of password.  | Username:                  Password:   | New user is registered and should be able to login with new credentials  | Valid url and browser  |   |  |
+| 14 | Setting and database integration  |  Select the few category from setting |  Check business,technology & sports category |  Database will reflect the changes in user preferences   | Login credentials |    |  |
+| 15 | Setting and home page integration  | Select the user prefrence category from setting | Check technology & sports category  | Home page will reflect the changes based on user preferences   | Login credentials  |   |  |
+| 16 | Pagination with home and other categories in descending order with most recent first  | Select the user prefrence category ,paginate through home page with user selected category.   | Select the user prefrence category from setting modal  | Paginate on home page in descending order with most recent news  | Login credential  |   |  |
   </p> 
   </details>
