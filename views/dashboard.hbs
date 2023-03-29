@@ -248,66 +248,64 @@
       });
     </script>
     <script>
-
-
-      $(document).ready(function() {
-      const categories = '{{categories}}'.split(',');
-      const promises = categories.map(category => {
-        const url = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey={{API_KEY}}`;
-        return fetch(url).then(response => response.json());
-      });
-      Promise.all(promises).then(datas => {
-        const newsData = datas.reduce((acc, data) => {
-          acc.articles.push(...data.articles);
-          return acc;
-        }, {articles: []});
-        let newsHtml = '';
-        $.each(newsData.articles, function(i, item) {
-          newsHtml += '<div class="article">';
-          // add image tag here
-          newsHtml += '<img src="' + item.urlToImage + '"/>'; 
-          //tile of article
-          newsHtml += '<h4>' + item.title + '</h4>';
-          //article description
-          newsHtml += '<p>' + item.description + '</p>';
-          //read more link
-          newsHtml += '<a href="' + item.url + '">Read more</a>';
-          newsHtml += '</div>';
-        });
-        $('#news').html(newsHtml);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+        $(document).ready(function() {
+  const categories = '{{categories}}'.split(',');
+  const promises = categories.map(category => {
+    const url = `http://localhost:8080/news/${{username}}?category=${category.toLowerCase()}`;
+    return fetch(url).then(response => response.json());
+  });
+  Promise.all(promises).then(datas => {
+    const newsData = datas.reduce((acc, data) => {
+      acc.articles.push(...data.articles);
+      return acc;
+    }, {articles: []});
+    console.log('newsData:', newsData);
+    let newsHtml = '';
+    $.each(newsData.articles, function(i, item) {
+      newsHtml += '<div class="article">';
+      // add image tag here
+      newsHtml += '<img src="' + item.urlToImage + '"/>'; 
+      //tile of article
+      newsHtml += '<h4>' + item.title + '</h4>';
+      //article description
+      newsHtml += '<p>' + item.description + '</p>';
+      //read more link
+      newsHtml += '<a href="' + item.url + '">Read more</a>';
+      newsHtml += '</div>';
     });
+    $('#news').html(newsHtml);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+});
+
+function loadNews(category) {
+  const url = `http://localhost:8080/news/${{username}}?category=${category.toLowerCase()}`;
+  axios.get(url)
+    .then(response => {
+      let newsHtml = '';
+      $.each(response.data.articles, function(i, item) {
+        newsHtml += '<div class="article">';
+        // add image tag here
+        newsHtml += '<img src="' + item.urlToImage + '"/>'; 
+        //tile of article
+        newsHtml += '<h4>' + item.title + '</h4>';
+        //article description
+        newsHtml += '<p>' + item.description + '</p>';
+        //read more link
+        newsHtml += '<a href="' + item.url + '">Read more</a>';
+        newsHtml += '</div>';
+      });
+      $('#news').html(newsHtml);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
 
     </script>
-    <script>
-      function loadNews(category) {
-        const url = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey={{API_KEY}}`;
-        axios.get(url)
-          .then(response => {
-            let newsHtml = '';
-            $.each(response.data.articles, function(i, item) {
-              newsHtml += '<div class="article">';
-              // add image tag here
-              newsHtml += '<img src="' + item.urlToImage + '"/>'; 
-              //tile of article
-              newsHtml += '<h4>' + item.title + '</h4>';
-              //article description
-              newsHtml += '<p>' + item.description + '</p>';
-              //read more link
-              newsHtml += '<a href="' + item.url + '">Read more</a>';
-              newsHtml += '</div>';
-            });
-            $('#news').html(newsHtml);
-          })
-          .catch(error => {
-            console.error('Error:', error);
-          });
-      }
 
-    </script>
 
     <script>
         const datetimeElement = document.getElementById('datetime');

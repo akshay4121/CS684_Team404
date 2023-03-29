@@ -11,7 +11,6 @@
   flex-wrap: wrap;
   height: 60px;
 }
-
 /* Style the links inside the navigation bar */
 .navbar .nav-button {
   position: relative; /* change position to relative */
@@ -31,15 +30,12 @@
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: box-shadow 0.3s ease-in-out;
 }
-
-
   .container {
     display: grid;
     grid-template-rows: auto 1fr; /* set header and main to auto and 1fr respectively */
     grid-template-columns: 1fr; /* set one column for both header and main */
     height: 100vh; /* set height to 100vh for full page height */
   }
-
   .header {
     padding: 20px;
     text-align: center;
@@ -47,7 +43,6 @@
     color: white;
     font-size: 30px;
   }
-
   .title {
     font-size: 36px;
     margin: 0;
@@ -56,60 +51,53 @@
     background-color:#741a10;
     border-bottom: none; /* remove border from bottom of title */
   }
-
   .main {
     padding: 20px;
   }
-
   .articles {
     margin-top: 35px;
   }
-
   .articles h2 {
     font-size: 32px;
     text-align: center;
   }
-
   .article {
     border: 2px solid #7e7a7a;
     padding: 20px;
     margin-bottom: 20px;
   }
-
   /*adjusting image display of article */
   .article img {
     max-width: 150%;
     height: 400px
   }
-
   .article h4 {
     margin: 0;
   }
-
   .article p {
     margin-top: 10px;
   }
   
 </style>
+<!DOCTYPE html>
 <html>
-
   <head>
     <meta charset="UTF-8">
+    <title>News Homepage</title>
     <link rel="stylesheet" href="../stylesheets/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   </head>
-
   <body>
     <div class="container">
       <header class="header">
-        <h1 class="title">News Homepage: TEAM 404!</h1>
+        <h1 class="title">Welcome to Team404 Landing page!</h1>
         <p>Today is: <span id="datetime"></span></p>
       </header>
 
       <nav class="navbar">
-        <a href="/signin" class="nav-button">Already a member? Log In</a>
-        <button class="nav-button" id="refresh-button">Refresh Page contents</button>
-        <a href="/signup" class="nav-button">Register for our site!</a>
+        <a href="/signin" class="nav-button">Log In</a>
+        <button class="nav-button" id="refresh-button">Refresh</button>
+        <a href="/signup" class="nav-button">Sign Up</a>
       </nav>
 
       <main class="main">
@@ -119,11 +107,20 @@
 
         <section class="articles">
           <h2>Top Headlines</h2>
-          <div id="news"></div>
+          <div id="news">
+            {{#each articles}}
+            <div class="article">
+              <img src="{{this.urlToImage}}"/>
+              <h4>{{this.title}}</h4>
+              <p>{{this.description}}</p>
+              <a href="{{this.url}}">Read more</a>
+            </div>
+            {{/each}}
+          </div>
         </section>
       </main>
     </div>
-      
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -144,33 +141,6 @@
         });
       });
     </script>
-    <script>
-
-      $(document).ready(function() {
-         fetch(`https://newsapi.org/v2/top-headlines?country=us&category={{category}}&apiKey={{API_KEY}}`)
-          .then(response => response.json())
-          .then(data => {
-            var newsData = data;
-            var newsHtml = '';
-            $.each(newsData.articles, function(i, item) {
-              newsHtml += '<div class="article">';
-                // add image tag here
-              newsHtml += '<img src="' + item.urlToImage + '"/>'; 
-              //tile of article
-              newsHtml += '<h4>' + item.title + '</h4>';
-              //article description
-              newsHtml += '<p>' + item.description + '</p>';
-              //read more link
-              newsHtml += '<a href="' + item.url + '">Read more</a>';
-              newsHtml += '</div>';
-            });
-            $('#news').html(newsHtml);
-          })
-          .catch(error => {
-            console.error('Error:', error);
-          });
-      });
-    </script>
 
     <script>
         const datetimeElement = document.getElementById('datetime');
@@ -180,3 +150,4 @@
     </script>
   </body>
 </html>
+
