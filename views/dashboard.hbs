@@ -215,12 +215,17 @@
 
       <main class="main">
         <section class="articles">
-          <h2>News displayed based of your preferences:</h2>
+          <h2>"Home" tab displayed based of your preferences</h2>
           <h3>click each tab to view news for that category</h3>
           <div class="category-buttons">
-            {{#each categories}}
-            <button class="nav-button" onclick="loadNews('{{this}}')">{{this}}</button>
-            {{/each}}
+            <button class="category-button active" id="category-home-btn">Home</button>
+            <button class="category-button " id="category-general-btn">General</button>
+            <button class="category-button" id="category-business-btn">Business</button>
+            <button class="category-button" id="category-entertainment-btn">Entertainment</button>
+            <button class="category-button" id="category-health-btn">Health</button>
+            <button class="category-button" id="category-science-btn">Science</button>
+            <button class="category-button" id="category-sports-btn">Sports</button>
+            <button class="category-button" id="category-technology-btn">Technology</button>
           </div>
           <div id="news"></div>
         </section>
@@ -248,61 +253,134 @@
       });
     </script>
     <script>
-        $(document).ready(function() {
-  const categories = '{{categories}}'.split(',');
-  const promises = categories.map(category => {
-    const url = `http://localhost:8080/news/${{username}}?category=${category.toLowerCase()}`;
-    return fetch(url).then(response => response.json());
-  });
-  Promise.all(promises).then(datas => {
-    const newsData = datas.reduce((acc, data) => {
-      acc.articles.push(...data.articles);
-      return acc;
-    }, {articles: []});
-    console.log('newsData:', newsData);
-    let newsHtml = '';
-    $.each(newsData.articles, function(i, item) {
-      newsHtml += '<div class="article">';
-      // add image tag here
-      newsHtml += '<img src="' + item.urlToImage + '"/>'; 
-      //tile of article
-      newsHtml += '<h4>' + item.title + '</h4>';
-      //article description
-      newsHtml += '<p>' + item.description + '</p>';
-      //read more link
-      newsHtml += '<a href="' + item.url + '">Read more</a>';
-      newsHtml += '</div>';
-    });
-    $('#news').html(newsHtml);
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
-});
 
-function loadNews(category) {
-  const url = `http://localhost:8080/news/${{username}}?category=${category.toLowerCase()}`;
-  axios.get(url)
-    .then(response => {
-      let newsHtml = '';
-      $.each(response.data.articles, function(i, item) {
-        newsHtml += '<div class="article">';
-        // add image tag here
-        newsHtml += '<img src="' + item.urlToImage + '"/>'; 
-        //tile of article
-        newsHtml += '<h4>' + item.title + '</h4>';
-        //article description
-        newsHtml += '<p>' + item.description + '</p>';
-        //read more link
-        newsHtml += '<a href="' + item.url + '">Read more</a>';
-        newsHtml += '</div>';
+      let categories = "{{categories}}".split(",");
+      console.log("categories:", categories);
+
+      const homeBtn = document.getElementById('category-home-btn');
+      homeBtn.addEventListener('click', () => {
+        for (const category of categories) {
+          const categoryLower = category.toLowerCase();
+          loadNews(categoryLower);
+        }
+        setActiveCategoryButton(homeBtn);
       });
-      $('#news').html(newsHtml);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-}
+
+
+
+
+
+      function setActiveCategoryButton(button) {
+        const buttons = document.querySelectorAll('.category-button');
+        for (const btn of buttons) {
+          if (btn === button) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        }
+      }
+
+
+      const categoryGeneralBtn = document.getElementById('category-general-btn');
+      categoryGeneralBtn.addEventListener('click', () => {
+        loadNews('general');
+        setActiveCategoryButton(categoryGeneralBtn);
+      });
+
+      const categoryBusinessBtn = document.getElementById('category-business-btn');
+      categoryBusinessBtn.addEventListener('click', () => {
+        loadNews('business');
+        setActiveCategoryButton(categoryBusinessBtn);
+      });
+
+      const categoryEntertainmentBtn = document.getElementById('category-entertainment-btn');
+      categoryEntertainmentBtn.addEventListener('click', () => {
+        loadNews('entertainment');
+        setActiveCategoryButton(categoryEntertainmentBtn);
+      });
+
+      const categoryHealthBtn = document.getElementById('category-health-btn');
+      categoryHealthBtn.addEventListener('click', () => {
+        loadNews('health');
+        setActiveCategoryButton(categoryHealthBtn);
+      });
+
+      const categoryScienceBtn = document.getElementById('category-science-btn');
+      categoryScienceBtn.addEventListener('click', () => {
+        loadNews('science');
+        setActiveCategoryButton(categoryScienceBtn);
+      });
+
+      const categorySportsBtn = document.getElementById('category-sports-btn');
+      categorySportsBtn.addEventListener('click', () => {
+        loadNews('sports');
+        setActiveCategoryButton(categorySportsBtn);
+      });
+
+      const categoryTechnologyBtn = document.getElementById('category-technology-btn');
+      categoryTechnologyBtn.addEventListener('click', () => {
+        loadNews('technology');
+        setActiveCategoryButton(categoryTechnologyBtn);
+      });
+
+        $(document).ready(function() {
+        const categories = '{{categories}}'.split(',');
+        const promises = categories.map(category => {
+          const url = `http://localhost:8080/news/${{username}}?category=${category.toLowerCase()}`;
+          return fetch(url).then(response => response.json());
+        });
+        Promise.all(promises).then(datas => {
+          const newsData = datas.reduce((acc, data) => {
+            acc.articles.push(...data.articles);
+            return acc;
+          }, {articles: []});
+          console.log('newsData:', newsData);
+          let newsHtml = '';
+          $.each(newsData.articles, function(i, item) {
+            newsHtml += '<div class="article">';
+            // add image tag here
+            newsHtml += '<img src="' + item.urlToImage + '"/>'; 
+            //tile of article
+            newsHtml += '<h4>' + item.title + '</h4>';
+            //article description
+            newsHtml += '<p>' + item.description + '</p>';
+            //read more link
+            newsHtml += '<a href="' + item.url + '">Read more</a>';
+            newsHtml += '</div>';
+          });
+          $('#news').html(newsHtml);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      });
+
+      function loadNews(category) {
+        const button = document.getElementById(`category-${category}-btn`);
+         setActiveCategoryButton(button);
+        const url = `http://localhost:8080/news/${{username}}?category=${category.toLowerCase()}`;
+        axios.get(url)
+          .then(response => {
+            let newsHtml = '';
+            $.each(response.data.articles, function(i, item) {
+              newsHtml += '<div class="article">';
+              // add image tag here
+              newsHtml += '<img src="' + item.urlToImage + '"/>'; 
+              //tile of article
+              newsHtml += '<h4>' + item.title + '</h4>';
+              //article description
+              newsHtml += '<p>' + item.description + '</p>';
+              //read more link
+              newsHtml += '<a href="' + item.url + '">Read more</a>';
+              newsHtml += '</div>';
+            });
+            $('#news').html(newsHtml);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      }
 
     </script>
 
