@@ -6,6 +6,7 @@ const session = require("express-session");
 const axios = require("axios");
 const bodyParser = require('body-parser');
 const pool = require("../db/db");
+const newsRouter = require("./news");
 //const fetch = require("node-fetch");
 
 require('dotenv').config();
@@ -123,11 +124,12 @@ router.get("/", isAuthenticated, async (req, res) => {
   const articleLists = {};
 
   for (const category of categories) {
+    //console.log(category);
     const checked = (user[category].readInt8(0) === 1) ? 'checked' : '';
-    const uri = `https://newsapi.org/v2/top-headlines?country=us&category=${category.toLowerCase()}&apiKey=${API_KEY}`;
-
+    const username = req.session.username;
+    const uri = `http://localhost:8080/news/${username}?category=${category.toLowerCase()}`;
+  
     try {
-      
       const response = await axios.get(uri);
       const data = response.data;
       const articles = data.articles;
@@ -141,19 +143,19 @@ router.get("/", isAuthenticated, async (req, res) => {
           </li>
         `;
       }).join('');
-
+  
       tabs.push({
         category: category,
         checked: checked
       });
-
+  
       articleLists[category] = `<ul>${articleList}</ul>`;
     } catch (error) {
       console.error(error);
       res.status(500).send("Oops! Something went wrong.");
     }
   }
-
+  
   res.render("dashboard", {
       title: "Dashboard",
       category: category,
@@ -171,9 +173,7 @@ router.get("/", isAuthenticated, async (req, res) => {
       API_KEY: API_KEY,
       pool : pool
   });
-});
-
-
+});  
 
 
 router.get("/username", (req, res) => {

@@ -1,12 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const pool = require("../db/db");
-const axios = require("axios");
 const flash = require('connect-flash');
 const session = require("express-session");
 const cors = require('cors');
-require('dotenv').config()
-
+require('dotenv').config();
+const axios = require("axios");
 
 const corsOptions = {
   origin: 'http://localhost:3000',
@@ -26,44 +24,28 @@ router.use(session(sessionOptions));
 
 router.use(flash());
 
-const API_KEY = process.env.API_KEY;
-//console.log(API_KEY);
-
 router.get("/", async (req, res) => {
-  const category = "general";
-  const uri = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`;
+  let category = "general";
 
-  // Prevent caching of the page
-  res.setHeader("Cache-Control", "private, no-cache, no-store, must-revalidate");
-  res.setHeader("Expires", "-1");
-  res.setHeader("Pragma", "no-cache");
-  
   try {
-    const response = await axios.get(uri);
-    const data = response.data;
-    const articles = data.articles;
-    const articleList = articles.map(article => {
-      return `
-        <li>
-          <img src="${article.urlToImage}" alt="${article.title}" />
-          <h2>${article.title}</h2>
-          <p>${article.description}</p>
-          <a href="${article.url}" target="_blank">Read more</a>
-        </li>
-      `;
-    }).join('');
+    // Make a request to the `/news` endpoint using axios library, passing the `category` variable as a parameter
+    const response = await axios.get(`http://localhost:8080/news`);
+
+    const articles = response.data.articles;
     res.render("home", {
       title: "Home",
       category: category,
-      articleList: `<ul>${articleList}</ul>`,
-      API_KEY: API_KEY,
-      isLoggedIn: req.session.login
-  
+      articles: articles,
+      API_KEY: process.env.API_KEY,
+      isLoggedIn: false
     });
   } catch (error) {
+    console.error(error);
     res.send(error);
   }
 });
+
+
 
 router.post('/homerefresh', (req, res) => {
   res.redirect('/');
