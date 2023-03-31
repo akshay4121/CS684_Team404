@@ -310,16 +310,18 @@ The testing approach for the Team 404 Personal News Feed Application will consis
 
 ## Responsibilities:
 - Back-end developers are responsible for developing/updating the database. 
-- The development team is responsible for creating the front-end UX.
-- The development team will resolve any bugs or issues identified by the QA team.
-- The Development team is responsible for creating Unit Test scripts in Jest for unit and integration testing. 
-- The testing team is responsible for Updating and executing API test suite.
+- The development team is responsible for creating the front-end UX. - Cristofer Carcamo 
+- The development team will resolve any bugs or issues identified by the QA team. - Ahsan Hasnath
+- The Development team is responsible for running Jest for unit testing to test code changes. - Akshay Patel, Joshua Steinerman
+- The develoment team is responsible for creating integration tests in API test suite. - Akshay Patel
+- The testing team is responsible for Updating and executing Integration and API test suite. - Akshay Patel
 - The testing team is responsible for creating test artifacts such as: 
 	- Test Plan - Ahsan Hasnath
-	- Test Cases - 
-	- Test Reports - 
-- The test team is responsible for executing the test cases and running ad-hoc test activities. 
-- The testing team is responsible for identifying defects and verifying they are fixed. 
+	- Test Cases - Ahsan Hasnath
+        - Manual Integration Test cases - Ahsan Hasnath
+	- Test Reports - Ahsan Hasnath
+- The test team is responsible for executing the test cases and running ad-hoc test activities. - Zal Patel
+- The testing team is responsible for identifying defects and verifying they are fixed. - Zal Patel
 
 ## Schedule:
 - Development will begin on [3/28/2023] and end on [4/10/2023].
