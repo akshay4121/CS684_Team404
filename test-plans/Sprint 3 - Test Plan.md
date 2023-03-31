@@ -309,7 +309,7 @@ The testing approach for the Team 404 Personal News Feed Application will consis
 - Verify integration between the landing page and settings page.
 
 ## Responsibilities:
-- Back-end developers are responsible for developing/updating the database. 
+- Back-end developers are responsible for developing/updating the database. - Joshua Steinerman
 - The development team is responsible for creating the front-end UX. - Cristofer Carcamo 
 - The development team will resolve any bugs or issues identified by the QA team. - Ahsan Hasnath
 - The Development team is responsible for running Jest for unit testing to test code changes. - Akshay Patel, Joshua Steinerman
