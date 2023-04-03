@@ -41,11 +41,8 @@ router.get("/:category", async (req, res) => {
     axios
       .get(uri)
       .then(function (response) {
-        var data = response.data;
-      // uncomment below code if response content type to plain text is needed
-      // res.set('Content-Type', 'text/plain'); 
-      // res.send(response.data);
-      console.log(response.data);
+      var data = response.data;
+      
       res.status(200).json({ data });
       })
       .catch(function (error) {

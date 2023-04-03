@@ -3,6 +3,7 @@ const session = require('express-session');
 const axios = require("axios");
 const hbs = require('hbs')
 
+
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
@@ -16,6 +17,7 @@ var logoutRouter = require("./routes/signout");
 var loginRouter = require("./routes/signin");
 var newsRouter = require("./routes/news");
 var category = require("./routes/category");
+//var testernews = require("./routes/newsutils");
 
 var app = express();
 
@@ -64,6 +66,7 @@ app.use("/signout", logoutRouter);
 app.use("/signin", loginRouter);
 app.use("/news", newsRouter);
 app.use("/category",category);
+//app.use("/newsutils",testernews);
 
 //var listener = app.listen(8080, function () {
 //  console.log("Listening on port " + listener.address().port);

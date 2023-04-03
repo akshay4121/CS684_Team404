@@ -119,20 +119,39 @@ router.get("/", isAuthenticated, async (req, res) => {
       columnsWithValue1.push(key);
     }
   }
-  const categories = req.session.categories || columnsWithValue1;
+  let currentCategory = "Home";
+  let categories = req.session.categories || columnsWithValue1;
+  if(req.query.category && req.query.category != "Home") {
+    categories = [req.query.category];
+    currentCategory = req.query.category
+  }
+  
+  //console.log("creent: " + currentCategory);
   const tabs = [];
   const articleLists = {};
+  const allArticles = [];
+
+  const page = req.query.page ? parseInt(req.query.page) : 1;
+  let totalResults = 0;
+  let count = 0;
+  const pageSize = 5;
 
   for (const category of categories) {
-    //console.log(category);
     const checked = (user[category].readInt8(0) === 1) ? 'checked' : '';
     const username = req.session.username;
     const uri = `http://localhost:8080/news/${username}?category=${category.toLowerCase()}`;
   
     try {
+      //console.log("dashboard: " + category);
       const response = await axios.get(uri);
       const data = response.data;
-      const articles = data.articles;
+      //console.log('data:', data);
+      totalResults += data.news.totalResults;
+      //console.log('totalResults from data:', totalResults);
+      
+      const articles = data.news.articles;
+      //console.log("articles from dashboard", articles.length);
+
       const articleList = articles.map(article => {
         return `
           <li>
@@ -149,32 +168,89 @@ router.get("/", isAuthenticated, async (req, res) => {
         checked: checked
       });
   
-      articleLists[category] = `<ul>${articleList}</ul>`;
+      articleLists[category] = {
+        articleList: `<ul>${articleList}</ul>`,
+        totalResults: data.news.totalResults
+      };
+      allArticles.push(...articles); // add articles to allArticles
     } catch (error) {
       console.error(error);
-      res.status(500).send("Oops! Something went wrong.");
+      res.locals.error = true;
     }
   }
   
-  res.render("dashboard", {
+  const startIndex = (page - 1) * pageSize;
+  const endIndex = Math.min(startIndex + pageSize, totalResults || 0);
+  const articles = allArticles.slice(startIndex, endIndex);
+  
+
+  // Calculate pagination links
+  const numPages = Math.ceil(totalResults / pageSize);
+
+    // Generate an array of page numbers for the pagination links
+    let pages = Array.from({ length: numPages }, (_, i) => ({
+      page: i + 1,
+      isActive: i + 1 === page,
+      category: currentCategory
+    }));
+
+    // console.log("num pages",numPages);
+    // console.log('startIndex:', startIndex);
+    // console.log('endIndex:', endIndex);
+    // console.log('articles:', articles.length);
+    // console.log('articleLists',articleLists);
+    
+  // Calculate pagination links
+  const hasPrevPage = page > 1;
+  const hasNextPage = page < numPages;
+  const prevPage = page > 1 ? page - 1 : null;
+  const nextPage = page < numPages ? page + 1 : null;
+  const firstPage = 1;
+  const lastPage = numPages;
+  const catButtons = ['Home','General', 'Business', 'Entertainment', 'Health', 'Science', 'Sports', 'Technology'];
+  const CategoryBtns = catButtons.map((str, index) => ({ value: str, isActive: str==currentCategory }));
+
+  if (res.locals.error) {
+    res.status(500).send("Oops! Something went wrong.");
+  } else {
+    res.render("dashboard", {
       title: "Dashboard",
       category: category,
       categories: categories,
-      user : user,
-      checkedGeneral : checkedGeneral ,
-      checkedBusiness : checkedBusiness ,
-      checkedEntertainment : checkedEntertainment ,
-      checkedHealth : checkedHealth ,
-      checkedScience : checkedScience ,
-      checkedSports : checkedSports ,
-      checkedTechnology : checkedTechnology ,
-      SavedSetting : user.SavedSetting,
+      user: user,
+      checkedGeneral: checkedGeneral,
+      checkedBusiness: checkedBusiness,
+      checkedEntertainment: checkedEntertainment,
+      checkedHealth: checkedHealth,
+      checkedScience: checkedScience,
+      checkedSports: checkedSports,
+      checkedTechnology: checkedTechnology,
+      SavedSetting: user.SavedSetting,
       username: req.session.username,
       API_KEY: API_KEY,
-      pool : pool
-  });
+      pool: pool,
+      articles: articles,
+      pages,
+      hasPrevPage,
+      hasNextPage: hasNextPage,
+      currentpage: page,
+      prevPage,
+      nextPage: nextPage,
+      firstPage,
+      lastPage,
+      totalResults: allArticles.length, 
+      numPages,
+      CategoryBtns,
+      curCategory: currentCategory
+    });
+  }
+  
 });  
 
+//const catButtons = ['General', 'Business', 'Entertainment', 'Health', 'Science', 'Sports', 'Technology'];
+router.get('/catButtons', (req, res) => {
+  res.json(catButtons);
+});
 
 router.get("/username", (req, res) => {
   if (req.session.login) {
