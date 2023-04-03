@@ -5,6 +5,7 @@ const session = require("express-session");
 const cors = require('cors');
 require('dotenv').config();
 const axios = require("axios");
+const moment = require('moment');
 
 const corsOptions = {
   origin: 'http://localhost:3000',
@@ -69,7 +70,7 @@ router.get("/", async (req, res) => {
       title: "Home",
       category: category,
       articles: pageArticles,
-      API_KEY: process.env.API_KEY,
+      API_KEY : process.env.API_KEY,
       isLoggedIn: false,
       pages,
       hasPrevPage,

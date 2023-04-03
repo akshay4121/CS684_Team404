@@ -310,6 +310,7 @@
               <img src="{{this.urlToImage}}"/>
               <h4>{{this.title}}</h4>
               <p>{{this.description}}</p>
+              <p>Published Date: {{this.publishedAt}}</p>
               <a href="{{this.url}}">Read more</a>
             </div>
             {{/each}}
@@ -380,6 +381,7 @@
           location.reload();
         });
       });
+
     </script>
     <script>
         const datetimeElement = document.getElementById('datetime');
