@@ -137,14 +137,14 @@
     cursor: pointer;
   }
 
-  .category-buttons {
+  #category-buttons {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
   }
 
-  .category-buttons button {
+  #category-buttons button {
     margin-right: 10px;
     background-color: #3ab975;
     color: #333;
@@ -154,7 +154,7 @@
     cursor: pointer;
   }
 
-  .category-buttons button.active {
+  #category-buttons button.active {
     background-color: blue;
     color: white;
     border-bottom: 2px solid blue;
@@ -167,6 +167,38 @@
     text-align: center;
     margin-bottom: 10px;
   }
+  /*pagination*/
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .page-item {
+    margin: 0 10px;
+  }
+
+  .page-link {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    color: #333;
+    text-decoration: none;
+  }
+
+  .page-link:hover {
+    background-color: #f2f2f2;
+  }
+
+  .page-item.active .page-link {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
+
+  .page-button {
+    margin-right: 10px;
+  }
 
 </style>
 <html>
@@ -177,6 +209,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <meta name="csrf-token" content="{{csrfToken}}">
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
   </head>
 
   <body>
@@ -217,17 +251,111 @@
         <section class="articles">
           <h2>"Home" tab displayed based of your preferences</h2>
           <h3>click each tab to view news for that category</h3>
-          <div class="category-buttons">
-            <button class="category-button active" id="category-home-btn">Home</button>
-            <button class="category-button " id="category-general-btn">General</button>
-            <button class="category-button" id="category-business-btn">Business</button>
-            <button class="category-button" id="category-entertainment-btn">Entertainment</button>
-            <button class="category-button" id="category-health-btn">Health</button>
-            <button class="category-button" id="category-science-btn">Science</button>
-            <button class="category-button" id="category-sports-btn">Sports</button>
-            <button class="category-button" id="category-technology-btn">Technology</button>
+          <div id="category-buttons">
+            {{#each CategoryBtns}}            
+              {{#if isActive}}            
+                <a class="btn btn-primary page-button" href="?page=1&category={{value}}" role="button">{{value}}</a>
+              {{else}}
+                <a class="btn btn-secondary page-button page-inactive-button" href="?page=1&category={{value}}" role="button">{{value}}</a>              
+              {{/if}}
+            {{/each}}
           </div>
-          <div id="news"></div>
+
+          <nav class="pagination-nav" aria-label="Page navigation">
+            <ul class="pagination">
+              <li class="page-item {{#unless hasPrevPage}}disabled{{/unless}}">
+                <a class="page-link" href="?page=1&category={{curCategory}}" aria-label="First">
+                  <span aria-hidden="true">First Page</span>
+                  <span class="sr-only">First</span>
+                </a>
+              </li>
+
+              {{#if hasPrevPage}}
+              <li class="page-item">
+                <a class="page-link" href="?page={{prevPage}}&category={{curCategory}}" aria-label="Previous">
+                  <span aria-hidden="true">Previous</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              {{/if}}
+
+              {{#each pages}}
+              <li class="page-item {{#if isActive}}active{{/if}}">
+                <a class="page-link" href="?page={{page}}&category={{category}}">{{page}}</a>
+              </li>
+              {{/each}}
+
+              {{#if hasNextPage}}
+              <li class="page-item">
+                <a class="page-link" href="?page={{nextPage}}&category={{curCategory}}" aria-label="Next">
+                  <span aria-hidden="true">Next</span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+              {{/if}}
+
+              <li class="page-item {{#unless hasNextPage}}disabled{{/unless}}">
+                <a class="page-link" href="?page={{lastPage}}&category={{curCategory}}" aria-label="Last">
+                  <span aria-hidden="true">Last Page</span>
+                  <span class="sr-only">Last</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+
+          <div id="news">
+            {{#each articles}}
+            <div class="article">
+              <img src="{{this.urlToImage}}"/>
+              <h4>{{this.title}}</h4>
+              <p>{{this.description}}</p>
+              <a href="{{this.url}}">Read more</a>
+            </div>
+            {{/each}}
+          </div>
+
+          <nav class="pagination-nav" aria-label="Page navigation">
+            <ul class="pagination">
+              <li class="page-item {{#unless hasPrevPage}}disabled{{/unless}}">
+                <a class="page-link" href="?page=1&category={{curCategory}}" aria-label="First">
+                  <span aria-hidden="true">First Page</span>
+                  <span class="sr-only">First</span>
+                </a>
+              </li>
+
+              {{#if hasPrevPage}}
+              <li class="page-item">
+                <a class="page-link" href="?page={{prevPage}}&category={{curCategory}}" aria-label="Previous">
+                  <span aria-hidden="true">Previous</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              {{/if}}
+
+              {{#each pages}}
+              <li class="page-item {{#if isActive}}active{{/if}}">
+                <a class="page-link" href="?page={{page}}&category={{category}}">{{page}}</a>
+              </li>
+              {{/each}}
+
+              {{#if hasNextPage}}
+              <li class="page-item">
+                <a class="page-link" href="?page={{nextPage}}&category={{curCategory}}" aria-label="Next">
+                  <span aria-hidden="true">Next</span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+              {{/if}}
+
+              <li class="page-item {{#unless hasNextPage}}disabled{{/unless}}">
+                <a class="page-link" href="?page={{lastPage}}&category={{curCategory}}" aria-label="Last">
+                  <span aria-hidden="true">Last Page</span>
+                  <span class="sr-only">Last</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </section>
       </main>
     </div>
@@ -235,6 +363,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
     <script>
       // Get the refresh button element
       const refreshButton = document.getElementById('refresh-button');
@@ -252,139 +381,6 @@
         });
       });
     </script>
-    <script>
-
-      let categories = "{{categories}}".split(",");
-      console.log("categories:", categories);
-
-      const homeBtn = document.getElementById('category-home-btn');
-      homeBtn.addEventListener('click', () => {
-        for (const category of categories) {
-          const categoryLower = category.toLowerCase();
-          loadNews(categoryLower);
-        }
-        setActiveCategoryButton(homeBtn);
-      });
-
-
-
-
-
-      function setActiveCategoryButton(button) {
-        const buttons = document.querySelectorAll('.category-button');
-        for (const btn of buttons) {
-          if (btn === button) {
-            btn.classList.add('active');
-          } else {
-            btn.classList.remove('active');
-          }
-        }
-      }
-
-
-      const categoryGeneralBtn = document.getElementById('category-general-btn');
-      categoryGeneralBtn.addEventListener('click', () => {
-        loadNews('general');
-        setActiveCategoryButton(categoryGeneralBtn);
-      });
-
-      const categoryBusinessBtn = document.getElementById('category-business-btn');
-      categoryBusinessBtn.addEventListener('click', () => {
-        loadNews('business');
-        setActiveCategoryButton(categoryBusinessBtn);
-      });
-
-      const categoryEntertainmentBtn = document.getElementById('category-entertainment-btn');
-      categoryEntertainmentBtn.addEventListener('click', () => {
-        loadNews('entertainment');
-        setActiveCategoryButton(categoryEntertainmentBtn);
-      });
-
-      const categoryHealthBtn = document.getElementById('category-health-btn');
-      categoryHealthBtn.addEventListener('click', () => {
-        loadNews('health');
-        setActiveCategoryButton(categoryHealthBtn);
-      });
-
-      const categoryScienceBtn = document.getElementById('category-science-btn');
-      categoryScienceBtn.addEventListener('click', () => {
-        loadNews('science');
-        setActiveCategoryButton(categoryScienceBtn);
-      });
-
-      const categorySportsBtn = document.getElementById('category-sports-btn');
-      categorySportsBtn.addEventListener('click', () => {
-        loadNews('sports');
-        setActiveCategoryButton(categorySportsBtn);
-      });
-
-      const categoryTechnologyBtn = document.getElementById('category-technology-btn');
-      categoryTechnologyBtn.addEventListener('click', () => {
-        loadNews('technology');
-        setActiveCategoryButton(categoryTechnologyBtn);
-      });
-
-        $(document).ready(function() {
-        const categories = '{{categories}}'.split(',');
-        const promises = categories.map(category => {
-          const url = `http://localhost:8080/news/${{username}}?category=${category.toLowerCase()}`;
-          return fetch(url).then(response => response.json());
-        });
-        Promise.all(promises).then(datas => {
-          const newsData = datas.reduce((acc, data) => {
-            acc.articles.push(...data.articles);
-            return acc;
-          }, {articles: []});
-          console.log('newsData:', newsData);
-          let newsHtml = '';
-          $.each(newsData.articles, function(i, item) {
-            newsHtml += '<div class="article">';
-            // add image tag here
-            newsHtml += '<img src="' + item.urlToImage + '"/>'; 
-            //tile of article
-            newsHtml += '<h4>' + item.title + '</h4>';
-            //article description
-            newsHtml += '<p>' + item.description + '</p>';
-            //read more link
-            newsHtml += '<a href="' + item.url + '">Read more</a>';
-            newsHtml += '</div>';
-          });
-          $('#news').html(newsHtml);
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-      });
-
-      function loadNews(category) {
-        const button = document.getElementById(`category-${category}-btn`);
-         setActiveCategoryButton(button);
-        const url = `http://localhost:8080/news/${{username}}?category=${category.toLowerCase()}`;
-        axios.get(url)
-          .then(response => {
-            let newsHtml = '';
-            $.each(response.data.articles, function(i, item) {
-              newsHtml += '<div class="article">';
-              // add image tag here
-              newsHtml += '<img src="' + item.urlToImage + '"/>'; 
-              //tile of article
-              newsHtml += '<h4>' + item.title + '</h4>';
-              //article description
-              newsHtml += '<p>' + item.description + '</p>';
-              //read more link
-              newsHtml += '<a href="' + item.url + '">Read more</a>';
-              newsHtml += '</div>';
-            });
-            $('#news').html(newsHtml);
-          })
-          .catch(error => {
-            console.error('Error:', error);
-          });
-      }
-
-    </script>
-
-
     <script>
         const datetimeElement = document.getElementById('datetime');
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -480,7 +476,7 @@
               sports: categoryForm.querySelector('#category-sports').checked,
               technology: categoryForm.querySelector('#category-technology').checked
             };
-            console.log(categoryData);
+            //console.log(categoryData);
 
             // Check if at least one category is checked
              const checkedCategories = Object.values(categoryData).filter(Boolean);
@@ -509,12 +505,6 @@
             }
             modal.style.display = 'none';
           });
-
-        //to create the flash message element
-        //const flashMessage = document.createElement('div');
-       // flashMessage.classList.add('flash-message');
-        //modal.appendChild(flashMessage);
-
     </script>
 
 

@@ -69,13 +69,42 @@
   /*adjusting image display of article */
   .article img {
     max-width: 150%;
-    height: 400px
+    height: 350px
   }
   .article h4 {
     margin: 0;
   }
   .article p {
     margin-top: 10px;
+  }
+
+  /*pagination*/
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .page-item {
+    margin: 0 10px;
+  }
+
+  .page-link {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    color: #333;
+    text-decoration: none;
+  }
+
+  .page-link:hover {
+    background-color: #f2f2f2;
+  }
+
+  .page-item.active .page-link {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
   }
   
 </style>
@@ -90,7 +119,7 @@
   <body>
     <div class="container">
       <header class="header">
-        <h1 class="title">Welcome to Team404 Landing page!</h1>
+        <h1 class="title">Welcome to Team404 home page!</h1>
         <p>Today is: <span id="datetime"></span></p>
       </header>
 
@@ -107,6 +136,49 @@
 
         <section class="articles">
           <h2>Top Headlines</h2>
+          <nav class="pagination-nav" aria-label="Page navigation">
+          <ul class="pagination">
+            <li class="page-item {{#unless hasPrevPage}}disabled{{/unless}}">
+              <a class="page-link" href="?page=1" aria-label="First">
+                 <span aria-hidden="true">First Page</span>
+                <span class="sr-only">First</span>
+               </a>
+            </li>
+
+            {{#if hasPrevPage}}
+            <li class="page-item">
+              <a class="page-link" href="?page={{prevPage}}" aria-label="Previous">
+                <span aria-hidden="true">Previous</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            {{/if}}
+
+            {{#each pages}}
+            <li class="page-item {{#if isActive}}active{{/if}}">
+              <a class="page-link" href="?page={{page}}">{{page}}</a>
+            </li>
+            {{/each}}
+
+            {{#if hasNextPage}}
+            <li class="page-item">
+              <a class="page-link" href="?page={{nextPage}}" aria-label="Next">
+                <span aria-hidden="true">Next</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+            {{/if}}
+
+            <li class="page-item {{#unless hasNextPage}}disabled{{/unless}}">
+              <a class="page-link" href="?page={{lastPage}}" aria-label="Last">
+                <span aria-hidden="true">Last Page</span>
+                <span class="sr-only">Last</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+
           <div id="news">
             {{#each articles}}
             <div class="article">
@@ -118,6 +190,48 @@
             {{/each}}
           </div>
         </section>
+        <nav class="pagination-nav" aria-label="Page navigation">
+          <ul class="pagination">
+            <li class="page-item {{#unless hasPrevPage}}disabled{{/unless}}">
+              <a class="page-link" href="?page=1" aria-label="First">
+                 <span aria-hidden="true">First Page</span>
+                <span class="sr-only">First</span>
+               </a>
+            </li>
+
+            {{#if hasPrevPage}}
+            <li class="page-item">
+              <a class="page-link" href="?page={{prevPage}}" aria-label="Previous">
+                <span aria-hidden="true">Previous</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            {{/if}}
+
+            {{#each pages}}
+            <li class="page-item {{#if isActive}}active{{/if}}">
+              <a class="page-link" href="?page={{page}}">{{page}}</a>
+            </li>
+            {{/each}}
+
+            {{#if hasNextPage}}
+            <li class="page-item">
+              <a class="page-link" href="?page={{nextPage}}" aria-label="Next">
+                <span aria-hidden="true">Next</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+            {{/if}}
+
+            <li class="page-item {{#unless hasNextPage}}disabled{{/unless}}">
+              <a class="page-link" href="?page={{lastPage}}" aria-label="Last">
+                <span aria-hidden="true">Last Page</span>
+                <span class="sr-only">Last</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
       </main>
     </div>
 
