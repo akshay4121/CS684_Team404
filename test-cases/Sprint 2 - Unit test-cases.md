@@ -20,7 +20,7 @@
   </details>
   
   
-<details><summary> Unit Test Cases S3</summary>
+<details><summary> Intergration Test Cases Manually Executed S3</summary>
   <p>
     
 | Test Case ID# | Test case description | Test steps | Test Data | Expected result | Prerequisites | Executed by | Pass/Fail |
