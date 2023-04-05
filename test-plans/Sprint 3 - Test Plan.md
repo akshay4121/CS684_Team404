@@ -309,16 +309,20 @@ The testing approach for the Team 404 Personal News Feed Application will consis
 - Verify integration between the landing page and settings page.
 
 ## Responsibilities:
-- Back-end developers are responsible for developing/updating the database. - Joshua Steinerman
-- The development team is responsible for creating the front-end UX. - Cristofer Carcamo 
-- The development team will resolve any bugs or issues identified by the QA team. - Cristofer Carcamo, Ahsan Hasnath
-- The Development team is responsible for running Jest for unit testing to test code changes. - Akshay Patel, Joshua Steinerman
-- The develoment team is responsible for creating integration tests in API test suite. - Akshay Patel
-- The testing team is responsible for Updating and executing Integration and API test suite. - Akshay Patel
+- Back-end developers are responsible for developing/updating the database. - Joshua Steinerman                                     - Complete
+- The development team is responsible for creating the front-end UX. - Cristofer Carcamo                                            - Complete
+- The development team will resolve any bugs or issues identified by the QA team. - Cristofer Carcamo, Ahsan Hasnath                - In Progress
+- The Development team is responsible for running Jest for unit testing to test code changes. - Akshay Patel, Joshua Steinerman     - In progress
+- The develoment team is responsible for creating integration tests in API test suite. - Akshay Patel                               - In progress
+- The testing team is responsible for Updating and executing Integration and API test suite. - Akshay Patel                         - In progress
 - The testing team is responsible for creating test artifacts such as: 
-	- Test Plan - Ahsan Hasnath
+	- Test Plan - Ahsan Hasnath                                                                                                     - Complete
 	- Test Cases - Ahsan Hasnath
-        - Manual Integration Test cases - Ahsan Hasnath
+        - Manual Integration Test cases - Ahsan Hasnath                                                                             - In progress
+            - Front to back-end integration                                                                                         - In Progress
+            - Pagination - Home page
+            - Pagination - Dynamic catagories 
+            - Article sorting by Date and Time
 	- Test Reports - Ahsan Hasnath
 - The test team is responsible for executing the test cases and running ad-hoc test activities. - Zal Patel
 - The testing team is responsible for identifying defects and verifying they are fixed. - Zal Patel
