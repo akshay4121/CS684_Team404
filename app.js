@@ -1,5 +1,8 @@
 const flash = require('connect-flash');
 const session = require('express-session');
+const axios = require("axios");
+const hbs = require('hbs')
+
 
 var express = require("express");
 var path = require("path");
@@ -7,18 +10,19 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 var home = require("./routes/home");
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-var patientRouter = require("./routes/patient");
-var contactsRouter = require("./routes/contacts");
-var userLogin = require("./routes/userLogin");
-var viewLogin = require("./routes/viewLogin");
+var data = require("./routes/404");
 var dashboardRouter = require("./routes/dashboard");
-var registerRouter = require("./routes/register");
-var logoutRouter = require("./routes/logout");
-var loginRouter = require("./routes/login");
+var registerRouter = require("./routes/signup");
+var logoutRouter = require("./routes/signout");
+var loginRouter = require("./routes/signin");
+var newsRouter = require("./routes/news");
+var category = require("./routes/category");
+//var testernews = require("./routes/newsutils");
 
 var app = express();
+
+
+
 
 // set up session middleware and flash middleware
 app.use(session({
@@ -29,6 +33,20 @@ app.use(session({
   cookie: { secure: false }
 }));
 app.use(flash());
+
+//middleware for checking login status
+app.use(function(req, res, next) {
+  if (!req.session.login) {
+    req.session.login = false;
+  }
+  next();
+});
+
+// Define the "json" helper
+hbs.registerHelper('json', (context) => {
+  return JSON.stringify(context);
+});
+
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -41,15 +59,25 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", home);
-app.use("/index", indexRouter);
-app.use("/users", usersRouter);
-app.use("/patient", patientRouter);
-app.use("/contacts", contactsRouter);
+app.use("/data", data);
 app.use("/dashboard", dashboardRouter);
-app.use("/register", registerRouter);
-app.use("/logout", logoutRouter);
-app.use("/login", loginRouter);
+app.use("/signup", registerRouter);
+app.use("/signout", logoutRouter);
+app.use("/signin", loginRouter);
+app.use("/news", newsRouter);
+app.use("/category",category);
+//app.use("/newsutils",testernews);
 
-var listener = app.listen(8080, function () {
-  console.log("Listening on port " + listener.address().port);
+//var listener = app.listen(8080, function () {
+//  console.log("Listening on port " + listener.address().port);
+//});
+
+//console.log statement in a setTimeout function with a delay of 0 to ensure it runs asynchronously
+//console.log statement in a setTimeout function with a delay of 0 to ensure it runs asynchronously
+var server = app.listen(8080, function () {
+  setTimeout(function () {
+    console.log("Listening on port " + server.address().port);
+  }, 0);
 });
+
+module.exports = { app, server };

@@ -3,13 +3,19 @@
   <head>
     <meta charset="UTF-8">
     <title>Register</title>
+    <link rel="stylesheets" href="/public/stylesheets/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   </head>
   <body>
 
     <div class="container">
       <h1>Register for our site!</h1>
-      <form action="./register" method="post">
+      {{#if messages.error}}
+        <div class="alert alert-danger" role="alert">
+          {{messages.error}}
+        </div>
+      {{/if}}
+      <form action="./signup" method="post">
         <div class="form-group">
           <label for="username">Username:</label>
           <input type="text" class="form-control" id="username" name="username" required>
@@ -36,7 +42,7 @@
     
     <div class="footer">
       <p class="lead">
-        <a class="btn btn-primary btn-sm" href="/login" role="button">Already a member? Login</a>
+        <a class="btn btn-primary btn-sm" href="/signin" role="button">Already a member? Login</a>
       </p>
       <p class="lead">
         <a class="btn btn-primary btn-sm" href="/" role="button">Back to home</a>

@@ -1,0 +1,342 @@
+{
+	"info": {
+		"_postman_id": "fbb1d167-87f1-42e6-a9d1-ba0e1568f512",
+		"name": "News API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24196040"
+	},
+	"item": [
+		{
+			"name": "News category(everything)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "913b6adfc01548c3bf2f5c39612eb959",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://newsapi.org/v2/everything?sortBy=popularity &q=Apple &from=2023-02-15",
+					"protocol": "https",
+					"host": [
+						"newsapi",
+						"org"
+					],
+					"path": [
+						"v2",
+						"everything"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "popularity "
+						},
+						{
+							"key": "q",
+							"value": "Apple "
+						},
+						{
+							"key": "from",
+							"value": "2023-02-15"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "News category(Top Headlines)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "913b6adfc01548c3bf2f5c39612eb959",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://newsapi.org/v2/top-headlines?country=in",
+					"protocol": "https",
+					"host": [
+						"newsapi",
+						"org"
+					],
+					"path": [
+						"v2",
+						"top-headlines"
+					],
+					"query": [
+						{
+							"key": "country",
+							"value": "in"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "News_business",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "913b6adfc01548c3bf2f5c39612eb959",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://newsapi.org/v2/top-headlines?category=Business",
+					"protocol": "https",
+					"host": [
+						"newsapi",
+						"org"
+					],
+					"path": [
+						"v2",
+						"top-headlines"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "Business"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "News_general",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "913b6adfc01548c3bf2f5c39612eb959",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://newsapi.org/v2/top-headlines?category=General",
+					"protocol": "https",
+					"host": [
+						"newsapi",
+						"org"
+					],
+					"path": [
+						"v2",
+						"top-headlines"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "General"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "News_entertainment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "913b6adfc01548c3bf2f5c39612eb959",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://newsapi.org/v2/top-headlines?category=entertainment",
+					"protocol": "https",
+					"host": [
+						"newsapi",
+						"org"
+					],
+					"path": [
+						"v2",
+						"top-headlines"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "entertainment"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "News_Health",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "913b6adfc01548c3bf2f5c39612eb959",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://newsapi.org/v2/top-headlines?category=Health",
+					"protocol": "https",
+					"host": [
+						"newsapi",
+						"org"
+					],
+					"path": [
+						"v2",
+						"top-headlines"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "Health"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "News_Science",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "913b6adfc01548c3bf2f5c39612eb959",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://newsapi.org/v2/top-headlines?category=Science",
+					"protocol": "https",
+					"host": [
+						"newsapi",
+						"org"
+					],
+					"path": [
+						"v2",
+						"top-headlines"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "Science"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "News_Sports",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "913b6adfc01548c3bf2f5c39612eb959",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://newsapi.org/v2/top-headlines?category=Science",
+					"protocol": "https",
+					"host": [
+						"newsapi",
+						"org"
+					],
+					"path": [
+						"v2",
+						"top-headlines"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "Science"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "News_Technology",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "913b6adfc01548c3bf2f5c39612eb959",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://newsapi.org/v2/top-headlines?category=Technology",
+					"protocol": "https",
+					"host": [
+						"newsapi",
+						"org"
+					],
+					"path": [
+						"v2",
+						"top-headlines"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "Technology"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

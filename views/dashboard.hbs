@@ -1,37 +1,514 @@
-
 <!DOCTYPE html>
+<style>
+  /* Style the navigation bar */
+  .navbar {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    height: 60px;
+   
+  }
+
+  /* Style the links inside the navigation bar */
+  .navbar .nav-button {
+    position: relative; 
+    float: left;
+    text-align: center;
+    padding: 7px 7px;
+    text-decoration: none;
+    font-size: 13px;
+    display: inline-block;
+    background-color: blue;
+    color: white;
+    border: none;
+    border: 2px solid blue;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 0;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+
+  .container {
+    display: grid;
+    grid-template-rows: auto 1fr; /* set header and main to auto and 1fr respectively */
+    grid-template-columns: 1fr; /* set one column for both header and main */
+    height: 100vh; /* set height to 100vh for full page height */
+  }
+
+  .header {
+    padding: 20px;
+    text-align: center;
+    background: #023406;
+    color: white;
+    font-size: 30px;
+  }
+
+  .title {
+    font-size: 36px;
+    margin: 0;
+    padding: 10px; /* add padding to title */
+    border: 2px solid#023406; /* add border to title */
+    background-color:#023406;
+    border-bottom: none; /* remove border from bottom of title */
+  }
+
+  .main {
+    padding: 20px;
+  }
+
+  .articles {
+    margin-top: 35px;
+  }
+
+  .articles h2 {
+    font-size: 32px;
+    text-align: center;
+  }
+
+  .articles h3 {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .article {
+    border: 2px solid #7e7a7a;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  /*adjusting image display of article */
+  .article img {
+    max-width: 150%;
+    height: 400px
+  }
+
+  .article h4 {
+    margin: 0;
+  }
+
+  .article p {
+    margin-top: 10px;
+  }
+
+  .modal {
+    display: flex;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center; /* horizontally center */
+    align-items: center; /* vertically center */
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%; /* value that's smaller than 100% */
+    max-width: 600px; /* max-width to prevent it from becoming too wide on larger screens */
+  }
+
+  .modal-content h2, .modal-content p {
+    text-align: center;
+  }
+
+  .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+  }
+
+  #category-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  #category-buttons button {
+    margin-right: 10px;
+    background-color: #3ab975;
+    color: #333;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  #category-buttons button.active {
+    background-color: blue;
+    color: white;
+    border-bottom: 2px solid blue;
+  }
+  
+  #modal-flash {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  /*pagination*/
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .page-item {
+    margin: 0 10px;
+  }
+
+  .page-link {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    color: #333;
+    text-decoration: none;
+  }
+
+  .page-link:hover {
+    background-color: #f2f2f2;
+  }
+
+  .page-item.active .page-link {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
+
+  .page-button {
+    margin-right: 10px;
+  }
+
+</style>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Dashboard</title>
-  <div class="full-width text-center">
 
-      <img src="../Images/404meme2.png" alt="404 Meme" />
-    <p class="lead"><strong>Team 404</strong> </p>
-  <div>   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <meta name="csrf-token" content="{{csrfToken}}">
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+  </head>
 
-  <div class="container">
-    <h1>Welcome to the Dashboard</h1>
-    <p>Here's where you can manage your account:</p>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1 class="title">Welcome to your Dashboard, {{username}}!</h1>
+        <p>Today is: <span id="datetime"></span></p>
+      </header>
 
-    <ul>
-      <li><a href="#">Edit Profile</a></li>
-      <li><a href="#">Change Password</a></li>
-      <li><a href="#">Manage Subscriptions</a></li>
-      <li><a href="#">View Order History</a></li>
-    </ul>
-  <div class="footer">
-      <p class="lead">
-        <a class="btn btn-primary btn-sm" href="/logout" role="button">Log out </a>
-      </p>
-  </div>
+      <nav class="navbar">
+        <button class="nav-button" id="settings-btn" >Adjust your Preferences</button>
+        <button class="nav-button" id="refresh-button">Refresh Page contents</button>
+        <a href="/" class="nav-button" id="logout-btn">Log Out</a>
+       <div class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Adjust News Preferences</h2>
+            <p>Select the categories you want to enable or disable:</p>
+            <p id="modal-flash" style="color: red; display: none;"></p>
+            <form id="category-form">
+              <label for="category-general"><input type="checkbox" id="category-general" name="General" {{#if user.General}}{{checkedGeneral}}{{/if}}>General</label>
+              <label for="category-business"><input type="checkbox" id="category-business" name="Business" {{#if user.Business}}{{checkedBusiness}}{{/if}}>Business</label>
+              <label for="category-entertainment"><input type="checkbox" id="category-entertainment" name="Entertainment" {{#if user.Entertainment}}{{checkedEntertainment}} {{/if}}>Entertainment</label>
+              <label for="category-health"><input type="checkbox" id="category-health" name="Health" {{#if user.Health}}{{checkedHealth}}{{/if}}>Health </label>
+              <label for="category-science"><input type="checkbox" id="category-science" name="Science" {{#if user.Science}}{{checkedScience}}{{/if}}>Science </label>
+              <label for="category-sports"><input type="checkbox" id="category-sports" name="Sports" {{#if user.Sports}}{{checkedSports}}{{/if}}>Sports </label>
+              <label for="category-technology"><input type="checkbox" id="category-technology" name="Technology" {{#if user.Technology}}{{checkedTechnology}} {{/if}}>Technology</label>
+              <div class="modal-buttons">
+                <button id="cancel-btn" type="button">Cancel</button>
+                <button id="submit-btn" type="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </nav>
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+      <main class="main">
+        <section class="articles">
+          <h2>"Home" tab displayed based of your preferences</h2>
+          <h3>click each tab to view news for that category</h3>
+          <div id="category-buttons">
+            {{#each CategoryBtns}}            
+              {{#if isActive}}            
+                <a class="btn btn-primary page-button" href="?page=1&category={{value}}" role="button">{{value}}</a>
+              {{else}}
+                <a class="btn btn-secondary page-button page-inactive-button" href="?page=1&category={{value}}" role="button">{{value}}</a>              
+              {{/if}}
+            {{/each}}
+          </div>
 
-</body>
+          <nav class="pagination-nav" aria-label="Page navigation">
+            <ul class="pagination">
+              <li class="page-item {{#unless hasPrevPage}}disabled{{/unless}}">
+                <a class="page-link" href="?page=1&category={{curCategory}}" aria-label="First">
+                  <span aria-hidden="true">First Page</span>
+                  <span class="sr-only">First</span>
+                </a>
+              </li>
+
+              {{#if hasPrevPage}}
+              <li class="page-item">
+                <a class="page-link" href="?page={{prevPage}}&category={{curCategory}}" aria-label="Previous">
+                  <span aria-hidden="true">Previous</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              {{/if}}
+
+              {{#each pages}}
+              <li class="page-item {{#if isActive}}active{{/if}}">
+                <a class="page-link" href="?page={{page}}&category={{category}}">{{page}}</a>
+              </li>
+              {{/each}}
+
+              {{#if hasNextPage}}
+              <li class="page-item">
+                <a class="page-link" href="?page={{nextPage}}&category={{curCategory}}" aria-label="Next">
+                  <span aria-hidden="true">Next</span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+              {{/if}}
+
+              <li class="page-item {{#unless hasNextPage}}disabled{{/unless}}">
+                <a class="page-link" href="?page={{lastPage}}&category={{curCategory}}" aria-label="Last">
+                  <span aria-hidden="true">Last Page</span>
+                  <span class="sr-only">Last</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+
+          <div id="news">
+            {{#each articles}}
+            <div class="article">
+              <img src="{{this.urlToImage}}"/>
+              <h4>{{this.title}}</h4>
+              <p>{{this.description}}</p>
+              <p>Published Date: {{this.publishedAt}}</p>
+              <a href="{{this.url}}">Read more</a>
+            </div>
+            {{/each}}
+          </div>
+
+          <nav class="pagination-nav" aria-label="Page navigation">
+            <ul class="pagination">
+              <li class="page-item {{#unless hasPrevPage}}disabled{{/unless}}">
+                <a class="page-link" href="?page=1&category={{curCategory}}" aria-label="First">
+                  <span aria-hidden="true">First Page</span>
+                  <span class="sr-only">First</span>
+                </a>
+              </li>
+
+              {{#if hasPrevPage}}
+              <li class="page-item">
+                <a class="page-link" href="?page={{prevPage}}&category={{curCategory}}" aria-label="Previous">
+                  <span aria-hidden="true">Previous</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              {{/if}}
+
+              {{#each pages}}
+              <li class="page-item {{#if isActive}}active{{/if}}">
+                <a class="page-link" href="?page={{page}}&category={{category}}">{{page}}</a>
+              </li>
+              {{/each}}
+
+              {{#if hasNextPage}}
+              <li class="page-item">
+                <a class="page-link" href="?page={{nextPage}}&category={{curCategory}}" aria-label="Next">
+                  <span aria-hidden="true">Next</span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+              {{/if}}
+
+              <li class="page-item {{#unless hasNextPage}}disabled{{/unless}}">
+                <a class="page-link" href="?page={{lastPage}}&category={{curCategory}}" aria-label="Last">
+                  <span aria-hidden="true">Last Page</span>
+                  <span class="sr-only">Last</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </section>
+      </main>
+    </div>
+      
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+      // Get the refresh button element
+      const refreshButton = document.getElementById('refresh-button');
+
+      // Add a click event listener to the refresh button
+      refreshButton.addEventListener('click', function() {
+        // Make an AJAX request to the /dashrefresh endpoint
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/dashboard/dashrefresh');
+        xhr.send();
+
+        // Reload the page after the AJAX request is complete
+        xhr.addEventListener('load', function() {
+          location.reload();
+        });
+      });
+
+    </script>
+    <script>
+        const datetimeElement = document.getElementById('datetime');
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const datetime = new Date().toLocaleDateString('en-US', options);
+        datetimeElement.textContent = datetime;
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        // get the <span> element that closes the modal
+        const span = document.getElementsByClassName("close")[0];
+
+        //logoutbutton
+        const logoutBtn = document.getElementById("logout-btn");
+
+        logoutBtn.addEventListener("click", async () => {
+          const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+          const response = await fetch('/dashboard/logout', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-Token': csrfToken
+            }
+          });
+
+          if (response.ok) {
+            window.location.href = '/';
+          } else {
+            console.log('Error logging out');
+          }
+        });
+
+
+
+
+        // when the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+
+        // when the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+    </script>
+    <script>
+        
+
+          // event listener to the settings button to show the modal
+          const settingsBtn = document.getElementById("settings-btn");
+          const modal = document.querySelector(".modal");
+          settingsBtn.addEventListener("click", () => {
+            modal.style.display = "block";
+          });
+
+          // event listener to the close button to hide the modal
+          const closeBtn = document.querySelector(".close");
+          closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+          });
+
+          // event listener to the cancel button to hide the modal
+          const cancelBtn = document.getElementById("cancel-btn");
+          
+          cancelBtn.addEventListener('click', function() {
+            // Make an AJAX request to the /dashrefresh endpoint
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/dashboard/dashrefresh');
+            xhr.send();
+
+            // Reload the page after the AJAX request is complete
+            xhr.addEventListener('load', function() {
+              location.reload();
+            });
+          });
+
+
+          // event listener to the submit button to send the checkbox data to the backend
+          const submitBtn = document.getElementById("submit-btn");
+          const categoryForm = document.getElementById("category-form");
+
+          submitBtn.addEventListener("click", async (event) => {
+            event.preventDefault();
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+            const categoryData = {
+              general: categoryForm.querySelector('#category-general').checked,
+              business: categoryForm.querySelector('#category-business').checked,
+              entertainment: categoryForm.querySelector('#category-entertainment').checked,
+              health: categoryForm.querySelector('#category-health').checked,
+              science: categoryForm.querySelector('#category-science').checked,
+              sports: categoryForm.querySelector('#category-sports').checked,
+              technology: categoryForm.querySelector('#category-technology').checked
+            };
+            //console.log(categoryData);
+
+            // Check if at least one category is checked
+             const checkedCategories = Object.values(categoryData).filter(Boolean);
+            if (checkedCategories.length === 0) {
+              const flashElement = document.querySelector('#modal-flash');
+              flashElement.textContent = 'Please select at least one category.';
+              flashElement.style.display = 'block';
+              return;
+            }
+            
+
+            const url = new URL('/dashboard/update', window.location.origin);
+            const response = await fetch(url, {
+              method: 'post',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-Token': csrfToken
+              },
+              body: JSON.stringify(categoryData)
+            });
+            if (response.ok) {
+              console.log('Data updated successfully');
+              location.reload();
+            } else {
+              console.log('Error updating data');
+            }
+            modal.style.display = 'none';
+          });
+    </script>
+
+
+  </body>
 </html>
