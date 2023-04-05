@@ -1,6 +1,6 @@
   ## Test Case
  
-<details><summary> Intergration Test Cases Manually Executed S3</summary>
+<summary> Intergration Test Cases Manually Executed S3</summary>
   <p>
     
 | Test Case ID# | Test case description | Test steps | Test Data | Expected result | Prerequisites | Executed by | Pass/Fail |
@@ -12,4 +12,4 @@
 | 16 | Pagination with home and other categories in descending order with most recent first  | Select the user prefrence category ,paginate through home page with user selected category.   | Select the user prefrence category from setting modal  | Paginate on home page in descending order with most recent news  | Login credential  | Joshua  | Pass  |
 | 17 | Pagination should interface properly with User prefrence catergories  | Select the user prefrence category and then paginate through the website.   | After pagianting through website check on the current user prefrences  | The change in page should not affect the caterogy prefrence orignally selected by the user. | Login credential  | Joshua  | Pass  |
   </p> 
-  </details>
+
