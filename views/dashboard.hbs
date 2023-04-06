@@ -426,16 +426,25 @@
 
 
         // when the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-          modal.style.display = "none";
-        }
-
-        // when the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-          if (event.target == modal) {
+        span.addEventListener('click', function() {
             modal.style.display = "none";
-          }
-        }
+          });
+
+        span.addEventListener('click', function() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/dashboard/dashrefresh');
+        xhr.send();
+
+        xhr.addEventListener('load', function() {
+          location.reload();
+        });
+
+        modal.style.display = "none";
+      });
+
+
+        
+
     </script>
     <script>
         
