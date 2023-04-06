@@ -51,6 +51,12 @@ router.get("/", async (req, res) => {
     // Calculate the number of pages
     const numPages = Math.ceil(articles.length / PAGE_SIZE);
 
+    // Format the publishedAt property of each article
+    for (let i = 0; i < articles.length; i++) {
+      const article = articles[i];
+      article.publishedAt = moment(article.publishedAt).format('MMMM Do YYYY, h:mm:ss a');
+    }
+     
     // Generate an array of page numbers for the pagination links
     const pages = Array.from({ length: numPages }, (_, i) => ({
       page: i + 1,
