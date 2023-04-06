@@ -152,38 +152,54 @@ router.get("/", isAuthenticated, async (req, res) => {
       
       const articles = data.news.articles;
       //console.log("articles from dashboard", articles.length);
+      const articlesWithCategory = articles.map(article => ({...article, category2: category}));
 
-      const articleList = articles.map(article => {
-        return `
-          <li>
-            <img src="${article.urlToImage}" alt="${article.title}" />
-            <h2>${article.title}</h2>
-            <p>${article.description}</p>
-            <a href="${article.url}" target="_blank">Read more</a>
-          </li>
-        `;
-      }).join('');
+      // const articleList = articles.map(article => {
+      //   return `
+      //     <li>
+      //       <img src="${article.urlToImage}" alt="${article.title}" />
+      //       <h2>${article.title}</h2>
+      //       <p>${article.description}</p>
+      //       <a href="${article.url}" target="_blank">Read more</a>
+      //     </li>
+      //   `;
+      // }).join('');
   
       tabs.push({
         category: category,
         checked: checked
       });
   
-      articleLists[category] = {
-        articleList: `<ul>${articleList}</ul>`,
-        totalResults: data.news.totalResults
-      };
-      allArticles.push(...articles); // add articles to allArticles
+      // articleLists[category] = {
+      //   articleList: `<ul>${articleList}</ul>`,
+      //   totalResults: data.news.totalResults
+      // };
+      allArticles.push(...articlesWithCategory); // add articles to allArticles
+
+      //console.log('articles', articles);
     } catch (error) {
       console.error(error);
       res.locals.error = true;
     }
   }
+
+ //sorting by date and time
+  allArticles.sort(function(a, b) {
+    return Date.parse(b.publishedAt) - Date.parse(a.publishedAt);
+  });
   
+  // Format the publishedAt property of each article
+  for (let i = 0; i < allArticles.length; i++) {
+    const article = allArticles[i];
+    article.publishedAt = moment(article.publishedAt).format('MMMM Do YYYY, h:mm:ss a');
+  }
+ 
+  
+
   const startIndex = (page - 1) * pageSize;
   const endIndex = Math.min(startIndex + pageSize, totalResults || 0);
   const articles = allArticles.slice(startIndex, endIndex);
-  
+  //console.log(articles);
 
   // Calculate pagination links
   const numPages = Math.ceil(totalResults / pageSize);
@@ -210,6 +226,7 @@ router.get("/", isAuthenticated, async (req, res) => {
   const lastPage = numPages;
   const catButtons = ['Home','General', 'Business', 'Entertainment', 'Health', 'Science', 'Sports', 'Technology'];
   const CategoryBtns = catButtons.map((str, index) => ({ value: str, isActive: str==currentCategory }));
+
 
   if (res.locals.error) {
     res.status(500).send("Oops! Something went wrong.");

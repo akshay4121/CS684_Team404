@@ -42,7 +42,6 @@ router.get("/:category", async (req, res) => {
       const data = response.data.articles;
       const limitedArticles = data.slice(0, 250).sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
       const articles = limitedArticles.map(article => {
-        article.publishedAt = moment(article.publishedAt).format('MMMM Do YYYY, h:mm:ss a');
         return article;
       });
       res.status(200).json({
