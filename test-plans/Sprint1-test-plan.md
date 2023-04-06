@@ -14,6 +14,7 @@ Overall, this test plan aims to ensure that Project 404 is a reliable and effici
 <details><summary>Sprint 1</summary>
  <p>
    
+
 | Test Items | Feature to be tested | Approach | Testing task  | Responsbility | Schedule |  Pass/Fail Criteria |
 | --- | --- | ---  | --- | --- | --- | --- |
 | Login page | Functionality for the login email and password. | Manual testing | Email and password must be entered in the login form. | Zal, Akshay, Ahsan | 1-2 mar'23 | Pass - if user already have an existing account, username/email and password for their account details should be matched with existing user account <br> Fail - if the credentials don't match with the database. </br> |
@@ -21,6 +22,7 @@ Overall, this test plan aims to ensure that Project 404 is a reliable and effici
 | Link between signup page and login page | Link between sign up page and login page after filling out the sign up details | Manual testing | After registering, it should go to the sign-in page and allow users to log in using their new login information. | Zal, Akshay, Ahsan | 1-2 mar'23 | Pass - if user is navigated to the login page after successfully signing in <br>Fail - if the user is not navigated to the login page after successfully signing in </br> |
 | API response | API response | Manual testing using the Postman application. | Validating the response received using postman | Akshay | 2-3 mar'23 | Pass - if the API response returns with status code "200 OK" <br> Fail - if the API response returns with any other status code </br>|
 | Database | Database | Check by examining | Putting in a user name and password, then searching the database for that entry  | Cristofer, Joshua | 2-3 mar'23  | Pass - if after successfully registering a user, if database has an entry for the same user with its details <br> Fail - if the entry for the user doesn't exist in the database </br> |
+
 </p>
 </details>
 
