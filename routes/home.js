@@ -31,37 +31,53 @@ const PAGE_SIZE = 5;
 
 router.get("/", async (req, res) => {
   // Get the current page from the query parameters, or default to page 1
-  const currentPage = req.query.page ? parseInt(req.query.page) : 1;
+  const currentPage = parseInt(req.query.page) || 1;
 
-  let category = "general";
+  let category = req.query.category === "Home" ? "General" : req.query.category || "General";
+  let currentCategory = req.query.category && req.query.category !== "Home" ? req.query.category : "Home";
+  
+  const allArticles = [];
+  let totalResults = 0;
 
   try {
     // Make a request to the `/news` endpoint using axios library, passing the `category` variable as a parameter
-    const response = await axios.get(`http://localhost:8080/news`);
+    const response = await axios.get(`http://localhost:8080/news?category=${category}`);
 
-    const articles = response.data.articles;
+    let articles = response.data.articles;
+    const articlesWithCategory = articles.map(article => ({...article, category2: category}));
+    
+    allArticles.push(...articlesWithCategory);
+    totalResults += articles.length;
 
     // Calculate the start and end indexes for the current page
     const startIndex = (currentPage - 1) * PAGE_SIZE;
-    const endIndex = startIndex + PAGE_SIZE;
-
-    // Get the articles for the current page
-    const pageArticles = articles.slice(startIndex, endIndex);
+    const endIndex = Math.min(startIndex + PAGE_SIZE, totalResults);
 
     // Calculate the number of pages
-    const numPages = Math.ceil(articles.length / PAGE_SIZE);
+    const numPages = Math.ceil(totalResults / PAGE_SIZE);
 
+    //sorting by date and time
+    allArticles.sort(function(a, b) {
+      return Date.parse(b.publishedAt) - Date.parse(a.publishedAt);
+    });
+    
     // Format the publishedAt property of each article
-    for (let i = 0; i < articles.length; i++) {
-      const article = articles[i];
+    for (let i = 0; i < allArticles.length; i++) {
+      const article = allArticles[i];
       article.publishedAt = moment(article.publishedAt).format('MMMM Do YYYY, h:mm:ss a');
     }
-     
+
     // Generate an array of page numbers for the pagination links
-    const pages = Array.from({ length: numPages }, (_, i) => ({
-      page: i + 1,
-      isActive: i + 1 === currentPage
-    }));
+    let pages = [];
+      if (numPages > 0) {
+        pages = Array.from({ length: numPages }, (_, i) => ({
+          page: i + 1,
+          isActive: i + 1 === currentPage,
+          category: currentCategory
+      }));
+    }
+
+    articles = allArticles.slice(startIndex, endIndex);
 
     // Determine if there is a previous page and a next page
     const hasPrevPage = currentPage > 1;
@@ -71,11 +87,13 @@ router.get("/", async (req, res) => {
     const firstPage = 1; // Set the first page number
     const lastPage = numPages; // Set the last page number
 
-
+    const catButtons = ['Home', 'Business', 'Entertainment', 'Health', 'Science', 'Sports', 'Technology'];
+    const CategoryBtns = catButtons.map((str, index) => ({ value: str, isActive: str === currentCategory || (str === 'Home' && !currentCategory), url: `/?category=${str}` }));
+   
     res.render("home", {
       title: "Home",
       category: category,
-      articles: pageArticles,
+      articles: articles,
       API_KEY : process.env.API_KEY,
       isLoggedIn: false,
       pages,
@@ -85,13 +103,16 @@ router.get("/", async (req, res) => {
       prevPage, 
       nextPage, 
       firstPage,
-      lastPage
+      lastPage,
+      CategoryBtns,
+      currentCategory
     });
   } catch (error) {
     console.error(error);
     res.send(error);
   }
 });
+
 
 
 router.post('/homerefresh', (req, res) => {

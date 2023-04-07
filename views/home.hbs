@@ -58,7 +58,7 @@
     margin-top: 35px;
   }
   .articles h2 {
-    font-size: 32px;
+    font-size: 24px;
     text-align: center;
   }
   .article {
@@ -106,6 +106,43 @@
     color: white;
     border-color: #007bff;
   }
+
+  #category-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  #category-buttons button {
+    margin-right: 10px;
+    background-color: #3ab975;
+    color: #333;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  #category-buttons button.active {
+    background-color: blue;
+    color: white;
+    border-bottom: 2px solid blue;
+  }
+  .note {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+  }
+   .category, .published-date {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .page-button {
+    margin-right: 10px;
+  }
+ 
   
 </style>
 <!DOCTYPE html>
@@ -137,19 +174,30 @@
         {{/if}}
 
         <section class="articles">
-          <h2>Top Headlines</h2>
-          <nav class="pagination-nav" aria-label="Page navigation">
+          <h2>Click a Category to view news, or sign up to  have a custom display of news by your prefrence!</h2>
+          <p class="note" >Note: Home tab displays "General" news</p>
+          <div id="category-buttons">
+            {{#each CategoryBtns}}            
+              {{#if isActive}}            
+                <a class="btn btn-primary page-button" href="?page=1&category={{value}}" role="button">{{value}}</a>
+              {{else}}
+                <a class="btn btn-secondary page-button page-inactive-button" href="?page=1&category={{value}}" role="button">{{value}}</a>              
+              {{/if}}
+            {{/each}}
+          </div>
+          
+         <nav class="pagination-nav" aria-label="Page navigation">
           <ul class="pagination">
             <li class="page-item {{#unless hasPrevPage}}disabled{{/unless}}">
-              <a class="page-link" href="?page=1" aria-label="First">
-                 <span aria-hidden="true">First Page</span>
+              <a class="page-link" href="?page=1{{#if currentCategory}}&category={{currentCategory}}{{/if}}" aria-label="First">
+                <span aria-hidden="true">First Page</span>
                 <span class="sr-only">First</span>
-               </a>
+              </a>
             </li>
 
             {{#if hasPrevPage}}
             <li class="page-item">
-              <a class="page-link" href="?page={{prevPage}}" aria-label="Previous">
+              <a class="page-link" href="?page={{prevPage}}{{#if currentCategory}}&category={{currentCategory}}{{/if}}" aria-label="Previous">
                 <span aria-hidden="true">Previous</span>
                 <span class="sr-only">Previous</span>
               </a>
@@ -158,13 +206,13 @@
 
             {{#each pages}}
             <li class="page-item {{#if isActive}}active{{/if}}">
-              <a class="page-link" href="?page={{page}}">{{page}}</a>
+              <a class="page-link" href="?page={{page}}{{#if currentCategory}}&category={{currentCategory}}{{/if}}">{{page}}</a>
             </li>
             {{/each}}
 
             {{#if hasNextPage}}
             <li class="page-item">
-              <a class="page-link" href="?page={{nextPage}}" aria-label="Next">
+              <a class="page-link" href="?page={{nextPage}}{{#if currentCategory}}&category={{currentCategory}}{{/if}}" aria-label="Next">
                 <span aria-hidden="true">Next</span>
                 <span class="sr-only">Next</span>
               </a>
@@ -172,13 +220,14 @@
             {{/if}}
 
             <li class="page-item {{#unless hasNextPage}}disabled{{/unless}}">
-              <a class="page-link" href="?page={{lastPage}}" aria-label="Last">
+              <a class="page-link" href="?page={{lastPage}}{{#if currentCategory}}&category={{currentCategory}}{{/if}}" aria-label="Last">
                 <span aria-hidden="true">Last Page</span>
                 <span class="sr-only">Last</span>
               </a>
             </li>
           </ul>
         </nav>
+
 
 
           <div id="news">
@@ -187,54 +236,14 @@
               <img src="{{this.urlToImage}}"/>
               <h4>{{this.title}}</h4>
               <p>{{this.description}}</p>
-              <p>Published Date: {{this.publishedAt}}</p>
+              <p class="category">Category: {{category2}}</p>
+              <p class ="published-date">Published Date: {{this.publishedAt}}</p>
               <a href="{{this.url}}">Read more</a>
             </div>
             {{/each}}
           </div>
         </section>
-        <nav class="pagination-nav" aria-label="Page navigation">
-          <ul class="pagination">
-            <li class="page-item {{#unless hasPrevPage}}disabled{{/unless}}">
-              <a class="page-link" href="?page=1" aria-label="First">
-                 <span aria-hidden="true">First Page</span>
-                <span class="sr-only">First</span>
-               </a>
-            </li>
-
-            {{#if hasPrevPage}}
-            <li class="page-item">
-              <a class="page-link" href="?page={{prevPage}}" aria-label="Previous">
-                <span aria-hidden="true">Previous</span>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-            {{/if}}
-
-            {{#each pages}}
-            <li class="page-item {{#if isActive}}active{{/if}}">
-              <a class="page-link" href="?page={{page}}">{{page}}</a>
-            </li>
-            {{/each}}
-
-            {{#if hasNextPage}}
-            <li class="page-item">
-              <a class="page-link" href="?page={{nextPage}}" aria-label="Next">
-                <span aria-hidden="true">Next</span>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>
-            {{/if}}
-
-            <li class="page-item {{#unless hasNextPage}}disabled{{/unless}}">
-              <a class="page-link" href="?page={{lastPage}}" aria-label="Last">
-                <span aria-hidden="true">Last Page</span>
-                <span class="sr-only">Last</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-
+        
       </main>
     </div>
 
