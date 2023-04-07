@@ -243,6 +243,49 @@
             {{/each}}
           </div>
         </section>
+
+        <nav class="pagination-nav" aria-label="Page navigation">
+          <ul class="pagination">
+            <li class="page-item {{#unless hasPrevPage}}disabled{{/unless}}">
+              <a class="page-link" href="?page=1{{#if currentCategory}}&category={{currentCategory}}{{/if}}" aria-label="First">
+                <span aria-hidden="true">First Page</span>
+                <span class="sr-only">First</span>
+              </a>
+            </li>
+
+            {{#if hasPrevPage}}
+            <li class="page-item">
+              <a class="page-link" href="?page={{prevPage}}{{#if currentCategory}}&category={{currentCategory}}{{/if}}" aria-label="Previous">
+                <span aria-hidden="true">Previous</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            {{/if}}
+
+            {{#each pages}}
+            <li class="page-item {{#if isActive}}active{{/if}}">
+              <a class="page-link" href="?page={{page}}{{#if currentCategory}}&category={{currentCategory}}{{/if}}">{{page}}</a>
+            </li>
+            {{/each}}
+
+            {{#if hasNextPage}}
+            <li class="page-item">
+              <a class="page-link" href="?page={{nextPage}}{{#if currentCategory}}&category={{currentCategory}}{{/if}}" aria-label="Next">
+                <span aria-hidden="true">Next</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+            {{/if}}
+
+            <li class="page-item {{#unless hasNextPage}}disabled{{/unless}}">
+              <a class="page-link" href="?page={{lastPage}}{{#if currentCategory}}&category={{currentCategory}}{{/if}}" aria-label="Last">
+                <span aria-hidden="true">Last Page</span>
+                <span class="sr-only">Last</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
         
       </main>
     </div>
