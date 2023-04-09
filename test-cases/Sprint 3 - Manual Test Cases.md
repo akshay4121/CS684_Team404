@@ -419,3 +419,93 @@ Precondition:
 |   | pagination for each    | respective to their    |      |       |
 |   | tab.                   | logic.                 |      |       |
 +---+------------------------+------------------------+------+-------+
+
+
+ -----------------------------------------------------------------------
+  Test Case ID: 26
+  -----------------------------------------------------------------------
+  System: 404 App
+
+  Test Case Name: Catergory preferences  intergration with pagination.
+
+  Subsystem: Landing page - Pagination
+
+  Sprint number: 3
+
+  Execution Date: 4/09/2023
+
+  Test Method: Manual - Integration Testing
+
+  Executed By: Joshua Steinerman
+  -----------------------------------------------------------------------
+
+ Description:
+
+The User Preferences  should not change when pagaination occurs. 
+
+Precondition:
+
+·        The system is running.
+
+·        Landing page is available.
+
+·        User has an existing account and can utilize the account to log
+in.
+
+ 
+
++---+------------------------+------------------------+------+-------+
+| S | Action                 | Expected Result        | P    | Co    |
+| t |                        |                        | ass/ | mment |
+| e |                        |                        | Fail |       |
+| p |                        |                        |      |       |
++===+========================+========================+======+=======+
+| 1 | Access the landing     | The user is now        | Pass |       |
+|   | page as a signed-in    | viewing the landing    |      |       |
+|   | user.                  | page as a signed-in    |      |       |
+|   |                        | user.                  |      |       |
++---+------------------------+------------------------+------+-------+
+| 2 | Verify the following   | All mentioned          | Pass |       |
+|   | tabs/categories are    | tabs/categories are    |      |       |
+|   | available for          | available for          |      |       |
+|   | selection within the   | selection.             |      |       |
+|   | landing page:          |                        |      |       |
+|   |                        |                        |      |       |
+|   | -   Home               |                        |      |       |
+|   |                        |                        |      |       |
+|   | -   General            |                        |      |       |
+|   |                        |                        |      |       |
+|   | -   Business           |                        |      |       |
+|   |                        |                        |      |       |
+|   | -   Entertainment      |                        |      |       |
+|   |                        |                        |      |       |
+|   | -   Health             |                        |      |       |
+|   |                        |                        |      |       |
+|   | -   Science            |                        |      |       |
+|   |                        |                        |      |       |
+|   | -   Sports             |                        |      |       |
+|   |                        |                        |      |       |
+|   | -   Technology         |                        |      |       |
++---+------------------------+------------------------+------+-------+
+| 3 | Select one of the      | That categorys is saved| Pass |       |
+|   | catergories.           | as a selected catergory       |       |
++---+------------------------+------------------------+------+-------+
+| 4 | Verify that each tab   | Pagination is          | Pass |       |
+|   | provides pagination    | available with First   |      |       |
+|   | within the top and     | page, Next, Last Page, |      |       |
+|   | bottom sections of the | along with numbers     |      |       |
+|   | tab listings.          | buttons to navigate    |      |       |
+|   |                        | through the article    |      |       |
+|   |                        | listings.              |      |       |
++---+------------------------+------------------------+------+-------+
+| 5 | Verify the user is     | All tab paginations    | Pass |       |
+|   | able to click and use  | are functional         |      |       |
+|   | the pagination for     | respective to their    |      |       |
+|   | each tab.              | logic.                 |      |       |
++---+------------------------+------------------------+------+-------+
+| 6 | Verify the previously  | All previously selected| Pass |       |
+|   | selected catergory is  | catergories are still  |      |       |
+|   | still selected.        | selected.              |      |       |
++---+------------------------+------------------------+------+-------+
+
+
