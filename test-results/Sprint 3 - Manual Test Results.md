@@ -42,13 +42,13 @@ Iteration 2: 
   ---------------------------------------------------------------------------
   Test Case ID:     Date Tested:   Tester Name:    Pass/Fail:   Comments:
   ----------------- -------------- --------------- ------------ -------------
-  Test Case ID: 21                                              
+  Test Case ID: 21    4/09/2023      Zal Patel      Pass                             
 
-  Test Case ID: 22                                              
+  Test Case ID: 22    4/09/2023      Zal Patel      Pass                               
 
-  Test Case ID: 23                                              
+  Test Case ID: 23    4/09/2023      Zal Patel      Pass                              
 
-  Test Case ID: 24                                              
+  Test Case ID: 24    4/09/2023      Zal Patel      Pass                               
 
-  Test Case ID: 25                                              
+  Test Case ID: 25    4/09/2023      Zal Patel      Pass
   ---------------------------------------------------------------------------
