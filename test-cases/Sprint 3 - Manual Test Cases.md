@@ -432,7 +432,7 @@ Precondition:
 
   Sprint number: 3
 
-  Execution Date: 4/09/2023
+  Execution Date: 4/05/2023
 
   Test Method: Manual - Integration Testing
 
@@ -507,5 +507,92 @@ in.
 |   | selected catergory is  | catergories are still  |      |       |
 |   | still selected.        | selected.              |      |       |
 +---+------------------------+------------------------+------+-------+
+
+
+ -----------------------------------------------------------------------
+  Test Case ID: 27
+  -----------------------------------------------------------------------
+  System: 404 App
+
+  Test Case Name: Category preferences  integration with quantity of available pages.
+
+  Subsystem: Landing page - Pagination
+
+  Sprint number: 3
+
+  Execution Date: 4/05/2023
+
+  Test Method: Manual - Integration Testing
+
+  Executed By: Joshua Steinerman
+  -----------------------------------------------------------------------
+
+ Description:
+
+The  amount of available pages should increase when more category preferences are added. 
+Precondition:
+
+·        The system is running.
+
+·        Landing page is available.
+
+·        User has an existing account and can utilize the account to log
+in.
+
+ 
+
++---+------------------------+------------------------+------+-------+
+| S | Action                 | Expected Result        | P    | Co    |
+| t |                        |                        | ass/ | mment |
+| e |                        |                        | Fail |       |
+| p |                        |                        |      |       |
++===+========================+========================+======+=======+
+| 1 | Access the landing     | The user is now        | Pass |       |
+|   | page as a signed-in    | viewing the landing    |      |       |
+|   | user.                  | page as a signed-in    |      |       |
+|   |                        | user.                  |      |       |
++---+------------------------+------------------------+------+-------+
+| 2 | Verify the following   | All mentioned          | Pass |       |
+|   | tabs/categories are    | tabs/categories are    |      |       |
+|   | available for          | available for          |      |       |
+|   | selection within the   | selection.             |      |       |
+|   | landing page:          |                        |      |       |
+|   |                        |                        |      |       |
+|   | -   Home               |                        |      |       |
+|   |                        |                        |      |       |
+|   | -   General            |                        |      |       |
+|   |                        |                        |      |       |
+|   | -   Business           |                        |      |       |
+|   |                        |                        |      |       |
+|   | -   Entertainment      |                        |      |       |
+|   |                        |                        |      |       |
+|   | -   Health             |                        |      |       |
+|   |                        |                        |      |       |
+|   | -   Science            |                        |      |       |
+|   |                        |                        |      |       |
+|   | -   Sports             |                        |      |       |
+|   |                        |                        |      |       |
+|   | -   Technology         |                        |      |       |
++---+------------------------+------------------------+------+-------+
+| 3 | Verify that each tab   | Pagination is          | Pass |       |
+|   | provides pagination    | available with First   |      |       |
+|   | within the top and     | page, Next, Last Page, |      |       |
+|   | bottom sections of the | along with numbers     |      |       |
+|   | tab listings.          | buttons to navigate    |      |       |
+|   |                        | through the article    |      |       |
+|   |                        | listings.              |      |       |
++---+------------------------+------------------------+------+-------+
+| 4 | Count the amount of    | The amount of avaiable | Pass |       |
+|   | pages avaliable,       | pages should increase. |      |       |
+|   | Then add an additional |                        |      |       |
+|   | Catergory Prefrence.   |                        |      |       |
++---+------------------------+------------------------+------+-------+
+| 5 | Count the amount of    | The amount of avaliable| Pass |       |
+|   | pages and then, remove | pages should decrease. |      |       |
+|   | a catergory prefrence. |                        |      |       |
++---+------------------------+------------------------+------+-------+
+
+
+
 
 
