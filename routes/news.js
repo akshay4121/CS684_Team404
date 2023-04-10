@@ -24,6 +24,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+/*
 router.get("/:username", async (req, res) => {
   const username = req.params.username;
   let categories = req.session.categories || [];
@@ -44,7 +45,40 @@ router.get("/:username", async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
   }
+});*/
+
+router.get("/:username", async (req, res) => {
+  const username = req.params.username;
+  let categories = req.session.categories || [];
+  if(req.query.category) {
+    categories = [req.query.category];
+  }
+  const page = req.query.page ? parseInt(req.query.page) : 1;
+  const pageSize = 5;
+  let totalResults = 0;
+
+  try {
+    const result = await pool.query("SELECT Username FROM Users WHERE Username = ?", [username]);
+    if (result && result[0].length === 0) {
+      // User not found
+      throw { status: 401, message: "User not found" };
+    }
+
+    const news = await getNewsUser(username, categories, page, pageSize);
+    //totalResults = news.totalResults;
+    //console.log('calling from news api which is call from getNewsUser function');
+    //console.log('categories', categories);
+    res.status(200).json({ news });
+  } catch (error) {
+    console.error(error);
+    if (error.status && error.message) {
+      res.status(error.status).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
 });
+
 
 
 module.exports = router;
