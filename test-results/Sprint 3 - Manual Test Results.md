@@ -72,7 +72,7 @@ Iteration 2: 
   
   ---------------------------------------------------------------------------
   
-   Iteration 5: 
+   Intergration Testing: 
 
   ---------------------------------------------------------------------------
   Test Case ID:     Date Tested:   Tester Name:    Pass/Fail:   Comments:
