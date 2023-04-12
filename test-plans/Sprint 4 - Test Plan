@@ -339,8 +339,6 @@ The testing approach for the Team 404 Personal News Feed Application will consis
 —----------------------------------------------------------------------------------------------------------------------------
 ## Sprint 4 (Apr 10 - Apr 24)
 
-# Test Plan Sprint 4
-
 ## Test Items:
 - Landing page search box
 - Search endpoint (GET /search/{search terms})
