@@ -382,17 +382,19 @@ The testing approach for the Team 404 Personal News Feed Application will consis
 - Document and report all test results.
 
 ## Responsibilities:
-- Back-end developers are responsible for developing/updating the database. - Joshua Steinerman                                     
-- The development team is responsible for creating the front-end UX.                                                            
-- The Development team is responsible for running Jest for unit testing to test code changes.                                  
-- The testing team is responsible for Updating and executing Integration and API test suite.                        
+- Back-end developers are responsible for developing/updating the database.             - Joshua Steinerman                                     
+- The development team is responsible for creating the front-end UX.                - Cristofer Carcamo  
+- Test team is responsible of retriving new API end point.                                - Akshay Patel   
+- The Testing team is responsible for updating the unit test suit.                      - Joshua Steinerman                                                    
+- The Development team is responsible for running Jest for unit testing to test code changes.   - Cristofer Carcamo                                
+- The testing team is responsible for Updating and executing Integration and API test suite.    - Akshay Patel                       
 - The testing team is responsible for creating test artifacts such as: 
-	- Test Plan - Ahsan Hasnath                                                                          - Complete                                          
-	- Test Cases -                                                                                                    
-	- Test Results -                                                               
-- The test team is responsible for executing the test cases and running ad-hoc test activities. 
-- The test team is responsible for executing all test cases to conduct System and regression testing. 
-    - System tests must cover the following in positive and negative scenerio. 
+	- Test Plan  - Ahsan Hasnath                                                                          - Complete                                          
+	- Test Cases                                                                                - Zal Patel                                              
+	- Test Results - Ahsan hasnath, Akshay Patel, Zal Patel                                                                 
+- The test team is responsible for executing the test cases and running ad-hoc test activities.     - Ahsan Hasnath, Joshua Steinerman
+- The test team is responsible for executing all test cases to conduct System and regression testing.   - Akshay Patel, Zal Patel, Joshua Steinerman
+    - System tests must cover the following in positive and negative scenerio.                           - Ahsan Hasnath
         - Test sign up
         - Test sign in
         - Test set preferences
@@ -400,8 +402,8 @@ The testing approach for the Team 404 Personal News Feed Application will consis
         - Test show category articles
         - Test searching
         - Test advanced searching
-- The testing team is responsible for identifying defects and verifying they are fixed.                              
-- The development team will resolve any bugs or issues identified by the QA team.
+- The testing team is responsible for identifying defects and verifying they are fixed.         - Everyone except Christofer Carcamo                        
+- The development team will resolve any bugs or issues identified by the QA team.               - Cristofer Carcamo 
 
 ## Schedule:
 - Development will begin on [4/11/2023] and end on [4/16/2023].
