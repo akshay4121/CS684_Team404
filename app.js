@@ -17,6 +17,8 @@ var logoutRouter = require("./routes/signout");
 var loginRouter = require("./routes/signin");
 var newsRouter = require("./routes/news");
 var category = require("./routes/category");
+var search = require("./routes/search");
+
 //var testernews = require("./routes/newsutils");
 
 var app = express();
@@ -66,6 +68,8 @@ app.use("/signout", logoutRouter);
 app.use("/signin", loginRouter);
 app.use("/news", newsRouter);
 app.use("/category",category);
+app.use("/search",search);
+
 //app.use("/newsutils",testernews);
 
 //var listener = app.listen(8080, function () {
