@@ -13,7 +13,7 @@ describe('Category Test', () => {
     // Sign in as a user with Technology enabled
     const signInResponse = await request(app)
       .post('/signin')
-      .send({ emailOrUsername: 'user', password: '123' });
+      .send({ emailOrUsername: 'user2', password: '123' });
 
     // Change the category to "Sports"
     const updateResponse = await request(app)

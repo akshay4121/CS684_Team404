@@ -6,8 +6,8 @@ afterAll(async () => {
   await pool.end();
 });
 
-describe('Dashboard Check', () => {
-  test('Checks if plain dashboard has general in it.', async () => {
+describe('Home Check', () => {
+  test('Checks if plain home page has general in it.', async () => {
     
     const response = await request(app)
       .get('/')

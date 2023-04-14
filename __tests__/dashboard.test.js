@@ -15,7 +15,7 @@ describe('Category Test', () => {
         // Sign in as a user with Technology enabled
         const signInResponse = await request(app)
           .post('/signin')
-          .send({ emailOrUsername: 'jay123456@gmail.com', password: '123456Jay' });
+          .send({ emailOrUsername: 'user3', password: '123' });
       
         // Make a GET request to the dashboard page
         const dashboardResponse = await request(app)
