@@ -1,16 +1,16 @@
 
-| Test Name               | Date       | Tester | Result | Photo               |
-|-------------------------|------------|----------|---------|----------------------|
-| Dashboard.test.js |            |           |           |Dashboard.test.js |
-| Setting.test.js        |            |           |           |Setting.test.js      |
-| Changecat.test.js  |            |           |           |Changecat.test.js |
-| Signout.test.js        |            |           |           |Signout.test.js        |
-| Updatesetting.test.js |            |           |           |Updatesetting.test.js |
-| General.test.js       |            |           |           |General.test.js       |
-| App.test.js              |            |           |           |App.test.js               |
-| Home_refreshbtn.test.js |            |           |           |Home_refreshbtn.test.js |
-| Signup.test.js           |            |           |           |Signup.test.js           |
-| Signin.test.js             |            |           |           |Signin.test.js             |
-| Removeold.setting.test.js |            |           |           |Removeold.setting.test.js |
-| Dash_refreshbtn.test.js  |            |           |           |Dash_refreshbtn.test.js  |
-| Total test pass/fail   | 2023-04-14 | Cris | 11 pass 1 fail |                       |
+| Test Name                 | Date       | Tester        | Result       |                    
+|---------------------------|------------|---------------|--------------|
+| Dashboard.test.js         | 2023-04-14 |      Cris     |  Pass        |
+| Setting.test.js           | 2023-04-14 |      Cris     |  Pass        |
+| Changecat.test.js         | 2023-04-14 |      Cris     |  Pass        |
+| Signout.test.js           | 2023-04-14 |      Cris     |  Pass        |
+| Updatesetting.test.js     | 2023-04-14 |      Cris     |  Pass        |
+| General.test.js           | 2023-04-14 |      Cris     |  Fail        |
+| App.test.js               | 2023-04-14 |      Cris     |  Pass        |
+| Home_refreshbtn.test.js   | 2023-04-14 |      Cris     |  Pass        |
+| Signup.test.js            | 2023-04-14 |      Cris     |  Pass        |
+| Signin.test.js            | 2023-04-14 |      Cris     |  Pass        |
+| Removeold.setting.test.js | 2023-04-14 |      Cris     |  Pass        |
+| Dash_refreshbtn.test.js   | 2023-04-14 |      Cris     |  Pass        |
+| Total test pass/fail      | 2023-04-14 |      Cris     | 11pass/1 fail|           
