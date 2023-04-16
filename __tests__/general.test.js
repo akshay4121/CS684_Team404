@@ -8,16 +8,16 @@ afterAll(async () => {
 
 describe('Home Check', () => {
   test('Checks if plain home page has general in it.', async () => {
-    
+  
     const response = await request(app)
       .get('/')
+     
     
-    expect(response.text).toContain('general');
+    expect(response.text).toContain('General');
   });
 
-  
- 
 });
+
 
 
 afterAll(done => {
