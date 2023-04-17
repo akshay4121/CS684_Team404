@@ -29,4 +29,21 @@
 | Signin.test.js            | 2023-04-15 |      Akshay     |  Pass        |
 | Removeold.setting.test.js | 2023-04-15 |      Akshay     |  Pass        |
 | Dash_refreshbtn.test.js   | 2023-04-15 |      Akshay     |  Pass        |
-| Total test pass/fail      | 2023-04-15 |      Akshay     | 11pass/1 fail|       
+| Total test pass/fail      | 2023-04-15 |      Akshay     | 11pass/1 fail|     
+
+Joshua
+| Test Name                 | Date       | Tester        | Result       |                    
+|---------------------------|------------|---------------|--------------|
+| Dashboard.test.js         | 2023-04-16 |      Joshua     |  Pass        |
+| Setting.test.js           | 2023-04-16 |      Joshua     |  Pass        |
+| Changecat.test.js         | 2023-04-16 |      Joshua     |  Pass        |
+| Signout.test.js           | 2023-04-16 |      Joshua     |  Pass        |
+| Updatesetting.test.js     | 2023-04-16 |      Joshua     |  Pass        |
+| General.test.js           | 2023-04-16 |      Joshua     |  Pass        |
+| App.test.js               | 2023-04-16 |      Joshua     |  Pass        |
+| Home_refreshbtn.test.js   | 2023-04-16 |      Joshua     |  Pass        |
+| Signup.test.js            | 2023-04-16 |      Joshua     |  Pass        |
+| Signin.test.js            | 2023-04-16 |      Joshua     |  Pass        |
+| Removeold.setting.test.js | 2023-04-16 |      Joshua     |  Pass        |
+| Dash_refreshbtn.test.js   | 2023-04-16 |      Joshua     |  Pass        |
+| Total test pass/fail      | 2023-04-16 |      Joshua     | 12pass      | 
