@@ -143,7 +143,190 @@
     margin-right: 10px;
   }
  
-  
+    #search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #search-form input[type="text"] {
+    margin-right: 10px;
+  }
+
+
+  #search-results-button {
+    display: none;
+  }
+
+  #search-modal {
+    display: none; /* Hide modal by default */
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    background-color: rgba(0,0,0,0.4);
+    
+  }
+
+
+  #search-modal .modal-content h2 {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  #search-modal .modal-content .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  #search-results{
+    width: 100%;
+  }
+
+  #search-modal .modal-content{
+    width: 95%;
+    height: 90%;
+    max-width: 2000px;
+    max-height: 1000px;
+    background-color: #fff;
+    padding: 20px;
+    margin: 50px auto;
+    overflow-y: scroll;
+  }
+
+  #search-modal .modal-content .close:hover,
+  #search-modal .modal-content .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  #search-results .article {
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.2);
+  }
+
+  #search-results .article h4 {
+    margin-top: 0;
+    font-size: 1.6rem;
+  }
+
+  #search-results .article img {
+    width: 100%;
+    height: auto;
+  }
+
+  #search-results .article p {
+    font-size: 1.4rem;
+    margin: 10px 0;
+  }
+
+  #search-results .article a {
+    display: inline-block;
+    font-size: 1.4rem;
+    color: #1a0dab;
+    text-decoration: none;
+    margin-top: 10px;
+  }
+
+  #search-results .article a:hover {
+    text-decoration: underline;
+  }
+
+  #exit-btn,
+  #exit-btn-2  {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #f70707;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .containerbtn {
+    text-align: center;
+    margin-top: 5px;
+    border-color: black;
+  }
+
+  #advanced-search-btn {
+    padding: 5px 10px;
+    border: 2px solid green;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  #search-modal .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+
+  #search-modal .pagination button {
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    padding: 10px;
+    margin: 0 10px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
+  #search-modal .pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  #search-modal #page-number {
+    margin: 0 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #007bff;
+  }
+  /**/
+  #modal-flash {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .modal {
+    display: flex;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center; /* horizontally center */
+    align-items: center; /* vertically center */
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%; /* value that's smaller than 100% */
+    max-width: 600px; /* max-width to prevent it from becoming too wide on larger screens */
+  }
+
 </style>
 <!DOCTYPE html>
 <html>
@@ -176,6 +359,95 @@
         <section class="articles">
           <h2>Click a Category to view news, or sign up to  have a custom display of news by your preference!</h2>
           <p class="note" >Note: Home tab displays "General" news</p>
+           <form id="search-form">
+            <input type="text" name="search" placeholder="Search...">
+            <button type="submit">Search</button>
+           
+          </form>
+        <div class="containerbtn">
+          <button id="advanced-search-btn">Advanced Search</button>
+        </div>
+
+          <div id="search-modal" class="modal">
+            <div class="modal-content">
+              <button id="exit-btn">Exit Search Results</button>
+              <h2>Search Results</h2>
+              <div id="search-results"></div>
+              <div class="pagination">
+                <button id="previous-page" disabled>Previous</button>
+                <span id="page-number">Page 1</span>
+                <button id="next-page">Next</button>
+              </div>
+              <button id="exit-btn-2">Exit Search Results</button>
+            </div>
+          </div>
+
+          <div id="advance-search-modal" class="modal">
+            <div class="modal-content">
+              <span class="ASclose">&times;</span>
+              <h2>Advance Search</h2>
+              <form id="advance-search-form">
+                <label for="search-input">Search Query:</label>
+                <input type="text" id="search-input" name="search" class="search-input" required>
+                <br>
+                 <input type="text" id="search-input-1" name="search" class="search-input">
+                <label for="operator-1">Operator 1:</label>
+                <select id="operator-1" class="operator-input">
+                  <option value=""></option>
+                  <option value="AND">AND</option>
+                  <option value="OR">OR</option>
+                  <option value="NOT">NOT</option>
+                </select>
+                
+                <br>
+                <input type="text" id="search-input-2" name="search" class="search-input">
+                <label for="operator-2">Operator 2:</label>
+                <select id="operator-2" class="operator-input">
+                  <option value=""></option>
+                  <option value="AND">AND</option>
+                  <option value="OR">OR</option>
+                  <option value="NOT">NOT</option>
+                </select>
+                
+                <br>
+                <input type="text" id="search-input-3" name="search" class="search-input">
+                <label for="operator-3">Operator 3:</label>
+                <select id="operator-3" class="operator-input">
+                  <option value=""></option>
+                  <option value="AND">AND</option>
+                  <option value="OR">OR</option>
+                  <option value="NOT">NOT</option>
+                </select>
+                
+                <br>
+                <input type="text" id="search-input-4" name="search" class="search-input">
+                <label for="operator-4">Operator 4:</label>
+                <select id="operator-4" class="operator-input">
+                  <option value=""></option>
+                  <option value="AND">AND</option>
+                  <option value="OR">OR</option>
+                  <option value="NOT">NOT</option>
+                </select>
+                
+                <br>
+                <input type="text" id="search-input-5" name="search" class="search-input">
+                <label for="operator-5">Operator 5:</label>
+                <select id="operator-5" class="operator-input">
+                  <option value=""></option>
+                  <option value="AND">AND</option>
+                  <option value="OR">OR</option>
+                  <option value="NOT">NOT</option>
+                </select>
+                
+                <br>
+                <button type="button" id="AScancel-btn">Cancel</button>
+                <button type="submit" id="advance-search-submit">Search</button>
+              </form>
+            </div>
+          </div>
+
+
+
           <div id="category-buttons">
             {{#each CategoryBtns}}            
               {{#if isActive}}            
@@ -293,6 +565,265 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script>
+     const advanceSearchModal = document.getElementById('advance-search-modal');
+    const advanceSearchBtn = document.getElementById('advanced-search-btn');
+    const advanceSearchForm = document.getElementById('advance-search-form');
+
+
+    const operatorInputs = document.querySelectorAll('.operator-input');
+    const searchInputs = document.querySelectorAll('.search-input');
+
+    const clearForm = () => {
+      const form = document.getElementById('advance-search-form');
+      form.reset();
+    }
+
+    const closeModal = () => {
+      const modal = document.getElementById('advance-search-modal');
+      modal.style.display = 'none';
+      clearForm();
+    }
+
+    // Close modal when x is clicked
+    const AScloseBtn = document.querySelector('.ASclose');
+    AScloseBtn.addEventListener('click', closeModal);
+
+    // Close modal when cancel button is clicked
+    const AScancelBtn = document.querySelector('#AScancel-btn');
+    AScancelBtn.addEventListener('click', closeModal);
+
+
+
+    // Check if search input is required based on operator value
+    const checkRequired = (index) => {
+      if (operatorInputs[index].value !== '') {
+        searchInputs[index + 1].setAttribute('required', '');
+      } else {
+        searchInputs[index + 1].removeAttribute('required');
+      }
+    }
+
+    // Add event listener to operator inputs
+    operatorInputs.forEach((input, index) => {
+      input.addEventListener('change', () => {
+        checkRequired(index);
+      });
+    });
+
+
+    advanceSearchBtn.addEventListener('click', () => {
+      advanceSearchModal.style.display = 'block';
+      
+    });
+
+    window.addEventListener('click', (event) => {
+      if (event.target === advanceSearchModal) {
+        advanceSearchModal.style.display = 'none';
+      }
+    });
+
+    advanceSearchForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const searchInput = document.getElementById('search-input').value;
+      const operator1 = document.getElementById('operator-1').value;
+      const searchInput1 = document.getElementById('search-input-1').value;
+      const operator2 = document.getElementById('operator-2').value;
+      const searchInput2 = document.getElementById('search-input-2').value;
+      const operator3 = document.getElementById('operator-3').value;
+      const searchInput3 = document.getElementById('search-input-3').value;
+      const operator4 = document.getElementById('operator-4').value;
+      const searchInput4 = document.getElementById('search-input-4').value;
+      const operator5 = document.getElementById('operator-5').value;
+      const searchInput5 = document.getElementById('search-input-5').value;
+
+      const searchQuery = `${searchInput},${operator1},${searchInput1},${operator2},${searchInput2},${operator3},${searchInput3},${operator4},${searchInput4},${operator5},${searchInput5}`;
+
+      const url = `/search/advance/${searchQuery}`;
+
+      try {
+        const response = await fetch(url);
+
+        // Check if the response status is 404
+        if (response.status === 404) {
+          clearForm();
+          alert('Sorry, no articles found.');
+          return;
+        }
+        
+        const data = await response.json();
+
+        
+        // Save the search results for pagination
+        searchResults = data.articles;
+
+        // Display the first page of search results in the modal
+        currentPage = 1;
+        displaySearchResults(currentPage);
+        updatePaginationButtons();
+
+        // Show the search modal
+        const searchModal = document.getElementById('search-modal');
+        searchModal.style.display = 'block';
+
+        // Hide the advance search modal
+        const advanceSearchModal = document.getElementById('advance-search-modal');
+        advanceSearchModal.style.display = 'none';
+        //clearForm();
+      } catch (error) {
+        console.error(error);
+      }
+    });
+
+
+
+
+    </script>
+    <script>
+      const resultsPerPage = 10; // Change this to adjust the number of articles per page
+      let currentPage = 1;
+      let searchResults = [];
+
+      function displaySearchResults(pageNumber) {
+        const startIndex = (pageNumber - 1) * resultsPerPage;
+        const endIndex = startIndex + resultsPerPage;
+        const currentPageResults = searchResults.slice(startIndex, endIndex);
+
+        // Display the current page of search results in the modal
+        const searchResultsContainer = document.getElementById('search-results');
+        searchResultsContainer.innerHTML = '';
+
+      if (currentPageResults.length === 0) {
+        const noResultsMessage = document.createElement('p');
+        noResultsMessage.textContent = 'Sorry, no articles found.';
+        searchResultsContainer.appendChild(noResultsMessage);
+        return;
+      }
+
+      function createArticleElement(article) {
+      const articleElement = document.createElement('div');
+      articleElement.classList.add('article');
+      articleElement.innerHTML = `
+          <img src="${article.urlToImage}" />
+          <h4>${article.title}</h4>
+          <p>${article.description}</p>
+          <p class="published-date">Published Date: ${article.publishedAt}</p>
+          <a href="${article.url}">Read more</a>
+        `;
+        return articleElement;
+      }
+
+        currentPageResults.forEach((article) => {
+          const articleElement = createArticleElement(article);
+          searchResultsContainer.appendChild(articleElement);
+        });
+
+        // Update the page number displayed in the pagination buttons
+        const pageNumberElement = document.getElementById('page-number');
+        pageNumberElement.textContent = `Page ${currentPage}`;
+      }
+
+      function updatePaginationButtons() {
+        const previousPageButton = document.getElementById('previous-page');
+        const nextPageButton = document.getElementById('next-page');
+
+        if (currentPage === 1) {
+          previousPageButton.disabled = true;
+        } else {
+          previousPageButton.disabled = false;
+        }
+
+        if (currentPage === Math.ceil(searchResults.length / resultsPerPage)) {
+          nextPageButton.disabled = true;
+        } else {
+          nextPageButton.disabled = false;
+        }
+      }
+
+      // Event listeners for the pagination buttons
+      const previousPageButton = document.getElementById('previous-page');
+      previousPageButton.addEventListener('click', () => {
+        currentPage--;
+        displaySearchResults(currentPage);
+        updatePaginationButtons();
+      });
+
+      const nextPageButton = document.getElementById('next-page');
+      nextPageButton.addEventListener('click', () => {
+        currentPage++;
+        displaySearchResults(currentPage);
+        updatePaginationButtons();
+      });
+
+      const searchForm = document.getElementById('search-form');
+
+   searchForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const searchTerm = event.target.elements.search.value;
+
+  // Make a GET request to the /search endpoint with the search term as a query parameter
+  const response = await fetch(`/search/${searchTerm}`);
+
+  // Check if the response status is 404
+  if (response.status === 404) {
+    alert('Sorry, no articles found.');
+    searchForm.reset();
+    location.reload();
+    const searchResultsContainer = document.getElementById('search-results');
+    searchResultsContainer.innerHTML = '';
+    return;
+  }
+
+
+  // Get the JSON data from the response
+  const data = await response.json();
+
+  // Save the search results for pagination
+  searchResults = data.articles;
+
+  // Display the first page of search results in the modal
+  currentPage = 1;
+  displaySearchResults(currentPage);
+  updatePaginationButtons();
+
+  // Show the search modal
+  const searchModal = document.getElementById('search-modal');
+  searchModal.style.display = 'block';
+
+   searchForm.reset();
+});
+
+
+      const searchModal = document.getElementById('search-modal');
+      const searchResultsDiv = document.getElementById('search-results');
+      const exitBtn = document.getElementById('exit-btn');
+
+      exitBtn.addEventListener('click', () => {
+        searchResultsDiv.innerHTML = '';
+        const searchForm = document.getElementById('search-form');
+        searchForm.reset();
+        searchModal.style.display = 'none';
+        location.reload();
+      });
+
+      
+      
+      const exitBtn2 = document.getElementById('exit-btn-2');
+
+      exitBtn2.addEventListener('click', () => {
+        searchResultsDiv.innerHTML = '';
+        const searchForm = document.getElementById('search-form');
+        searchForm.reset();
+        searchModal.style.display = 'none';
+        location.reload();
+      });
+
+
+
+    </script>
+
     <script>
       // Get the refresh button element
       const refreshButton = document.getElementById('refresh-button');
