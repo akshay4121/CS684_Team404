@@ -47,3 +47,22 @@ Joshua
 | Removeold.setting.test.js | 2023-04-16 |      Joshua     |  Pass        |
 | Dash_refreshbtn.test.js   | 2023-04-16 |      Joshua     |  Pass        |
 | Total test pass/fail      | 2023-04-16 |      Joshua     | 12pass      | 
+
+
+
+Joshua
+| Test Name                 | Date       | Tester        | Result       |                    
+|---------------------------|------------|---------------|--------------|
+| Dashboard.test.js         | 2023-04-17 |      Zal     |  Pass        |
+| Setting.test.js           | 2023-04-17 |      ZAl     |  Pass        |
+| Changecat.test.js         | 2023-04-17 |      Zal     |  Pass        |
+| Signout.test.js           | 2023-04-17 |      Zal     |  Pass        |
+| Updatesetting.test.js     | 2023-04-17 |      Zal     |  Pass        |
+| General.test.js           | 2023-04-17 |      Zal     |  Pass        |
+| App.test.js               | 2023-04-17 |      Zal     |  Pass        |
+| Home_refreshbtn.test.js   | 2023-04-17 |      Zal     |  Pass        |
+| Signup.test.js            | 2023-04-17 |      Zal     |  Pass        |
+| Signin.test.js            | 2023-04-17 |      Zal     |  Pass        |
+| Removeold.setting.test.js | 2023-04-17 |      Zal     |  Pass        |
+| Dash_refreshbtn.test.js   | 2023-04-17 |      Zal     |  Pass        |
+| Total test pass/fail      | 2023-04-17 |      Zal     | 12pass      | 
