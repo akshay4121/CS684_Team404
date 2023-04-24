@@ -31,7 +31,7 @@
 | Dash_refreshbtn.test.js   | 2023-04-15 |      Akshay     |  Pass        |
 | Total test pass/fail      | 2023-04-15 |      Akshay     | 11pass/1 fail|     
 
-Joshua
+
 | Test Name                 | Date       | Tester        | Result       |                    
 |---------------------------|------------|---------------|--------------|
 | Dashboard.test.js         | 2023-04-16 |      Joshua     |  Pass        |
@@ -49,8 +49,6 @@ Joshua
 | Total test pass/fail      | 2023-04-16 |      Joshua     | 12pass      | 
 
 
-
-Joshua
 | Test Name                 | Date       | Tester        | Result       |                    
 |---------------------------|------------|---------------|--------------|
 | Dashboard.test.js         | 2023-04-17 |      Zal     |  Pass        |
